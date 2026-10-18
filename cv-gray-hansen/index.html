@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="blanche">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280, initial-scale=0.35, user-scalable=yes">
+  <script>
+    (function () {
+      function adjustDesktopViewport() {
+        var targetWidth = 1280;
+        var screenW = window.screen.width || window.innerWidth;
+        var scale = screenW < targetWidth ? (screenW / targetWidth) : 1.0;
+        var meta = document.querySelector('meta[name="viewport"]');
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.name = 'viewport';
+          document.head.appendChild(meta);
+        }
+        meta.content = 'width=' + targetWidth + ', initial-scale=' + scale.toFixed(4) + ', minimum-scale=' + (scale * 0.4).toFixed(4) + ', maximum-scale=4.0, user-scalable=yes';
+      }
+      adjustDesktopViewport();
+      window.addEventListener('resize', adjustDesktopViewport);
+      window.addEventListener('orientationchange', adjustDesktopViewport);
+    })();
+  </script>
+  <title>Gray Hansen Limantoro, S.Kom. (林福勝) &mdash; Maison de Création &amp; Haute Recherche</title>
+  <meta name="description"
+    content="Curriculum Vitae & Portfolio d'Excellence of Gray Hansen Limantoro, S.Kom. (林福勝). Graphic Designer, Photographer, Researcher, Blogger, Writer, and Educator.">
+  <meta name="author" content="Gray Hansen Limantoro">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg"
+    href="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/475445163_18259454560279361_301243607268293540_n.jpg">
+
+  <!-- Preconnect & Google Fonts: Cormorant Garamond, Cinzel, Plus Jakarta Sans, Noto Serif JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif+JP:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =======================================================
+       TOP UTILITY BAR (LVMH Style Pre-Header)
+       ======================================================= -->
+  <aside class="top-utility-bar" aria-label="Utility navigation">
+    <div class="wrap top-utility-inner">
+      <div class="utility-left">
+        <div class="utility-motto">
+          <span class="utility-motto-dot"></span>
+          <span>Maison de Création &bull; Fondée en 2018 &bull; Balikpapan &bull; Nusantara</span>
+        </div>
+      </div>
+
+      <div class="utility-right">
+        <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+          rel="noopener noreferrer" class="utility-link" title="Terdaftar Resmi di EKRAF Kemenparekraf RI">
+          <span>EKRAF Kemenparekraf RI</span> &nearr;
+        </a>
+        <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank" rel="noopener noreferrer"
+          class="utility-link" title="Profil Riset Google Scholar">
+          <span>Google Scholar</span> &nearr;
+        </a>
+        <a href="https://iamabuabu.wordpress.com" target="_blank" rel="noopener noreferrer" class="utility-link"
+          title="Blog iamabuabu">
+          <span>iamabuabu.wordpress.com</span> &nearr;
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =======================================================
+       PRIMARY LUXURY NAVIGATION (LVMH Architectural Bar)
+       ======================================================= -->
+  <header class="main-header" id="mainHeader">
+    <div class="wrap nav-container">
+
+      <!-- LEFT: MENU DRAWER TRIGGER & QUICK JUMP -->
+      <div class="nav-left-actions">
+        <button class="menu-trigger-btn" id="menuOpenBtn" aria-label="Buka Menu Navigasi Eksklusif">
+          <div class="menu-burger-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span>Menu</span>
+        </button>
+
+        <nav class="header-quick-links" aria-label="Quick Navigation">
+          <a href="#maisons" class="header-nav-link">Maisons</a>
+          <a href="#portfolio" class="header-nav-link">Portofolio</a>
+          <a href="#experience" class="header-nav-link">Parcours</a>
+          <a href="#research" class="header-nav-link">Recherche</a>
+        </nav>
+      </div>
+
+      <!-- CENTER: PRESTIGE MAISON MONOGRAM & BRAND -->
+      <div class="nav-center-brand">
+        <a href="#home" class="maison-logo-link">
+          <span class="maison-title-main">Gray Hansen Limantoro</span>
+          <span class="maison-subtitle">
+            <span class="jp-kanji">林福勝</span> &bull; S.Kom. &bull; <span class="kanji-crest">Curriculum Vitae</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- RIGHT: DOSSIER PDF, THEME & CONTACT -->
+      <div class="nav-right-actions">
+        <!-- BOUTON THÈME MINIMALISTE (LIGHT / DARK MODE) -->
+        <div class="theme-mini-switch" role="group" aria-label="Pilihan Mode Tampilan: Light atau Dark">
+          <button type="button" class="theme-mini-btn active" data-theme-set="blanche" id="themeBtnLight"
+            title="Mode Terang (Maison Blanche)" aria-pressed="true">
+            <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="theme-mini-text">Light</span>
+          </button>
+          <button type="button" class="theme-mini-btn" data-theme-set="noir" id="themeBtnDark"
+            title="Mode Gelap (Atelier Noir)" aria-pressed="false">
+            <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-mini-text">Dark</span>
+          </button>
+        </div>
+
+        <button class="btn btn-secondary btn-sm" id="printCvBtn" title="Simpan sebagai berkas PDF resmi">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <path d="M6 14h12v8H6z" />
+          </svg>
+          <span>PDF Dossier</span>
+        </button>
+
+        <a href="#contact" class="btn btn-primary btn-sm">
+          <span>Concierge &nearr;</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =======================================================
+       FULLSCREEN EDITORIAL MENU DRAWER (LVMH Style)
+       ======================================================= -->
+  <div class="menu-drawer" id="menuDrawer" role="dialog" aria-modal="true" aria-label="Menu Navigasi Lengkap">
+    <div class="menu-drawer-header">
+      <div class="wrap menu-drawer-top">
+        <div class="font-display" style="font-size: 0.82rem; letter-spacing: 0.24em; color: var(--gold-500);">
+          Sommaire &bull; Architecture du Portfolio
+        </div>
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Tutup Menu">
+          <span>Fermer</span>
+          <span>&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="wrap menu-drawer-body">
+      <ul class="menu-nav-list" id="drawerNavList">
+        <li class="menu-nav-item"><a href="#home"><span class="menu-nav-num">01</span><span>La Maison
+              (Accueil)</span></a></li>
+        <li class="menu-nav-item"><a href="#photosessions"><span class="menu-nav-num">02</span><span>PhotoSessions &amp;
+              Portraits d'Honneur</span></a></li>
+        <li class="menu-nav-item"><a href="#maisons"><span class="menu-nav-num">03</span><span>Les Domaines
+              d'Excellence</span></a></li>
+        <li class="menu-nav-item"><a href="#portfolio"><span class="menu-nav-num">04</span><span>La Galerie (Design
+              &amp; Ouvrages)</span></a></li>
+        <li class="menu-nav-item"><a href="#achievements"><span class="menu-nav-num">05</span><span>Palmarès &amp;
+              Distinctions</span></a></li>
+        <li class="menu-nav-item"><a href="#experience"><span class="menu-nav-num">06</span><span>Parcours &amp;
+              Savoir-Faire</span></a></li>
+        <li class="menu-nav-item"><a href="#education"><span class="menu-nav-num">07</span><span>Académie &amp;
+              Certifications</span></a></li>
+        <li class="menu-nav-item"><a href="#research"><span class="menu-nav-num">08</span><span>Bibliothèque
+              Scientifique</span></a></li>
+        <li class="menu-nav-item"><a href="#media"><span class="menu-nav-num">09</span><span>Revue de Presse &amp;
+              Médias</span></a></li>
+        <li class="menu-nav-item"><a href="#community"><span class="menu-nav-num">10</span><span>Les Cercles &amp;
+              Conférences</span></a></li>
+        <li class="menu-nav-item"><a href="#teamwork"><span class="menu-nav-num">11</span><span>Alliances &amp;
+              Partenaires</span></a></li>
+        <li class="menu-nav-item"><a href="#articles"><span class="menu-nav-num">12</span><span>Chroniques &amp;
+              Essais</span></a></li>
+        <li class="menu-nav-item"><a href="#contact"><span class="menu-nav-num">13</span><span>Conciergerie Privée &amp;
+              Contact</span></a></li>
+      </ul>
+
+      <div class="menu-nav-aside">
+        <div class="menu-featured-card">
+          <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            alt="Monografi Japanese Typography" class="menu-featured-img">
+          <div class="eyebrow" style="margin-bottom: 6px;">Monographie à l'Honneur</div>
+          <h4 class="menu-featured-title">Japanese Typography: 日本タイポグラフィ</h4>
+          <p class="menu-featured-desc">
+            Buku ilmiah telaah tipografi aksara Jepang ber-ISBN resmi: 978-623-09-5379-8. Diliput secara eksklusif oleh
+            Kaltim Post / Jawa Pos.
+          </p>
+          <div style="margin-top: 14px;">
+            <a href="#research" class="btn btn-secondary btn-sm" id="drawerFeaturedLink">
+              <span>Voir la Monographie &nearr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="padding-top: 24px; border-top: 1px solid var(--border-hairline);">
+          <div
+            style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px;">
+            Réseaux &bull; Balikpapan &bull; Nusantara
+          </div>
+          <div style="font-size: 0.84rem; color: var(--ink-secondary);">
+            Email Direct: <strong style="color: var(--ink-pure);">grayhansenl3@gmail.com </strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- =======================================================
+         PRINT-ONLY LUXURY DOSSIER HEADER (Visible exclusively in PDF Dossier)
+         ======================================================= -->
+    <header class="print-dossier-header wrap" aria-hidden="true">
+      <div class="print-header-top">
+        <div class="print-brand-left">
+          <div class="print-brand-crest">林福勝 &bull; MAISON DE CRÉATION &amp; HAUTE RECHERCHE &bull; BALIKPAPAN &bull;
+            NUSANTARA</div>
+          <h1 class="print-brand-name">GRAY HANSEN LIMANTORO, S.Kom.</h1>
+          <div class="print-brand-role">Graphic Designer &bull; Photographer &bull; Researcher &bull; Blogger &bull;
+            Writer &bull; Educator</div>
+        </div>
+        <div class="print-header-meta">
+          <div class="print-doc-badge">CURRICULUM VITAE &amp; DOSSIER D'EXCELLENCE</div>
+          <div class="print-doc-date">Dokumen Resmi &bull; Terdaftar di Kemenparekraf RI</div>
+        </div>
+      </div>
+      <div class="print-contact-strip">
+        <div class="print-contact-item"><strong>Email:</strong> grayhansenl3@gmail.com</div>
+        <div class="print-contact-item"><strong>LinkedIn:</strong> linkedin.com/in/grayhansen</div>
+        <div class="print-contact-item"><strong>Blog &amp; Portfolio:</strong> iamabuabu.wordpress.com</div>
+        <div class="print-contact-item"><strong>Instagram:</strong> @grayhansenliem</div>
+        <div class="print-contact-item"><strong>EKRAF RI:</strong> Terdaftar Kemenparekraf RI</div>
+        <div class="print-contact-item"><strong>Monograf Riset:</strong> ISBN 978-623-09-5379-8</div>
+      </div>
+    </header>
+
+    <!-- =======================================================
+         HERO SECTION: THE MAISON COVER (Haute Editorial)
+         ======================================================= -->
+    <section class="wrap hero-editorial" id="home">
+      <div class="hero-grid">
+
+        <!-- LEFT: EDITORIAL STATEMENT -->
+        <div class="hero-statement reveal">
+          <div class="hero-editorial-badge">
+            Curriculum Vitae &amp; Portfolio d'Excellence
+          </div>
+
+          <h1 class="hero-heading">
+            An Exceptional Pleasure, <br>
+            <em><span class="gold-gradient-text">to Have You here.</span></em>
+          </h1>
+
+          <div class="hero-lead-profile">
+            <strong>Gray Hansen Limantoro, S.Kom.</strong> (<span class="jp-kanji">林福勝</span>) &mdash; Banker,
+            Graphic Designer, Photographer, Researcher, Blogger, Writer, &amp; Educator.
+          </div>
+
+          <p class="hero-narrative">
+            Experienced in creating compelling visual designs,
+            capturing moments through the lens, and conducting research in design, culture, and typography.
+            Skilled in teaching and sharing creative insights, both in academic and professional settings.
+            Passionate about exploring the latest design trends and sharing thoughts through inspiring writing.
+          </p>
+
+          <div class="hero-button-group">
+            <a href="#portfolio" class="btn btn-primary">
+              <span>Discover My Collection &darr;</span>
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <span>I’d Be Delighted to Connect</span>
+            </a>
+            <a href="https://iamabuabu.wordpress.com" target="_blank" rel="noopener noreferrer"
+              class="btn btn-secondary" title="Blog iamabuabu">
+              <span>iamabuabu.wordpress.com &nearr;</span>
+            </a>
+          </div>
+
+          <!-- OFFICIAL NETWORKS ROW -->
+          <div class="hero-social-networks">
+            <span class="hero-networks-label">Let’s Keep in Touch:</span>
+            <div class="social-icon-links">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/grayhansen/" target="_blank" rel="noopener noreferrer"
+                class="social-icon-btn" title="LinkedIn Profile">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/grayhansenliem" target="_blank" rel="noopener noreferrer"
+                class="social-icon-btn" title="Instagram Profile">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+              <!-- Google Scholar -->
+              <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                rel="noopener noreferrer" class="social-icon-btn" title="Google Scholar">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z" />
+                </svg>
+              </a>
+              <!-- EKRAF RI -->
+              <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                rel="noopener noreferrer" class="social-icon-btn" title="EKRAF Kemenparekraf RI">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                </svg>
+                <!-- WordPress -->
+                <a href="https://iamabuabu.wordpress.com/" target="_blank" rel="noopener noreferrer"
+                  class="social-icon-btn" title="WordPress iamabuabu">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.051-.181 2.986-.51-.024-.038-.046-.079-.065-.123l-2.763-7.572zm-5.466 3.018l-3.327-9.61c-.553 1.15-.865 2.44-.865 3.806 0 3.32 1.769 6.223 4.42 7.844l-.228-2.04zm14.168-5.804c0-1.748-.627-2.957-1.168-3.903-.717-1.196-1.393-2.215-1.393-3.411 0-1.341 1.016-2.585 2.45-2.585.068 0 .134.006.2.011C18.966 1.488 15.706.5 12 .5 5.649.5.5 5.649.5 12c0 2.778.988 5.326 2.637 7.32l5.72-16.592c.189-.548.377-.942.565-1.226.283-.424.66-.753 1.13-.753.094 0 .188.013.282.039.094.025.188.064.282.113.376.188.659.565.847 1.13l5.547 15.247c2.09-1.896 3.39-4.663 3.39-7.728 0-.469-.033-.93-.098-1.383-.024-.162-.058-.321-.1-.477-.042-.156-.093-.31-.151-.459-.441-1.144-.882-2.288-.882-3.432z" />
+                  </svg>
+                </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: EDITORIAL PORTRAIT COVER -->
+        <div class="hero-portrait-stage reveal">
+          <div class="portrait-magazine-cover">
+
+            <!-- FLOATING TOP-LEFT BADGE -->
+            <div class="floating-ribbon ribbon-top-left">
+              <span class="ribbon-primary">S.Kom.</span>
+              <span class="ribbon-sub">Sistem Informasi</span>
+            </div>
+
+            <!-- PASSE-PARTOUT FRAME WITH PORTRAIT -->
+            <div class="portrait-inner-frame">
+              <img
+                src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/475445163_18259454560279361_301243607268293540_n.jpg"
+                alt="Portrait Officiel de Gray Hansen Limantoro">
+
+              <!-- JAPANESE RED IN / HANKO SEAL -->
+              <div class="hanko-seal" title="Segel Resmi 林福勝">
+                <span>林福</span>
+                <span>勝印</span>
+              </div>
+            </div>
+
+            <!-- FLOATING BOTTOM-RIGHT BADGE -->
+            <div class="floating-ribbon ribbon-bottom-right">
+              <span class="ribbon-primary">EKRAF HUNT RI</span>
+              <span class="ribbon-sub">Kemenparekraf Accredited</span>
+            </div>
+
+            <div class="portrait-editorial-footer">
+              <span>Balikpapan &bull; Malang</span>
+              <span>ISBN: 978-623-09-5379-8</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         METRIC STRIP: L'ÉCHELLE DE L'EXCELLENCE (LVMH Style)
+         ======================================================= -->
+    <section class="metrics-section" aria-label="Indicateurs de performance">
+      <div class="wrap">
+        <div class="metrics-grid">
+
+          <div class="metric-cell reveal">
+            <div class="metric-number"><span class="counter" data-target="44.9">44.9</span><span
+                class="metric-accent">K+</span></div>
+            <div class="metric-title">Audience &amp; Portée</div>
+            <div class="metric-desc">Social media reach (+50.7% growth for SNS SugoiTV Japan).</div>
+          </div>
+
+          <div class="metric-cell reveal">
+            <div class="metric-number"><span class="counter" data-target="7">7</span><span
+                class="metric-accent">+</span></div>
+            <div class="metric-title">Publications Scientifiques</div>
+            <div class="metric-desc">Research articles published in-journals and typography monographs with ISBNs.</div>
+          </div>
+
+          <div class="metric-cell reveal">
+            <div class="metric-number"><span class="counter" data-target="18">18</span><span
+                class="metric-accent">+</span></div>
+            <div class="metric-title">Alliances Institutionnelles</div>
+            <div class="metric-desc">Partnerships Across Key Industries.</div>
+          </div>
+
+          <div class="metric-cell reveal">
+            <div class="metric-number"><span class="metric-accent">2018</span>&ndash;26</div>
+            <div class="metric-title">Years Pratique</div>
+            <div class="metric-desc">Commitment to Excellence.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         "LES MAISONS" / PILLARS OF EXCELLENCE
+         ======================================================= -->
+    <section class="wrap section" id="maisons">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Core Competencies</div>
+          <h2>The Five Maison of Excellence.</h2>
+        </div>
+        <p class="section-head-desc">
+          Inspired by the art of bringing distinguished Maisons together,
+          our expertise encompasses five complementary disciplines, each reflecting
+          a commitment to refined standards, thoughtful collaboration, and the art of exceptional.
+        </p>
+      </div>
+
+      <div class="maisons-grid">
+
+        <!-- PILIER 1 -->
+        <div class="maison-card reveal">
+          <div>
+            <div class="maison-num">MAISON I</div>
+            <h3>Haute Photography</h3>
+            <p>
+              A specialization in distinguished executive portraiture, encompassing mayors,
+              high-fashion runway and model photography, and corporate visual documentation
+              distinguished by authority, prestige, and impeccable refinement.
+            </p>
+          </div>
+          <a href="#portfolio" class="maison-arrow">
+            <span>An Invitation to Discover</span> &rarr;
+          </a>
+        </div>
+
+        <!-- PILIER 2 -->
+        <div class="maison-card reveal">
+          <div>
+            <div class="maison-num">MAISON II</div>
+            <h3>Design &amp; Identity</h3>
+            <p>
+              Design of the brand identity, outdoor spatial signage, promotional visuals for the IKN boutique hotel, and
+              printed materials with an aristocratic flair.
+            </p>
+          </div>
+          <a href="#portfolio" class="maison-arrow">
+            <span>An Invitation to Discover</span> &rarr;
+          </a>
+        </div>
+
+        <!-- PILIER 3 -->
+        <div class="maison-card reveal">
+          <div>
+            <div class="maison-num">MAISON III</div>
+            <h3>Research Scientifique</h3>
+            <p>
+              Research on Japanese typography, a monograph with an official ISBN, a study of visual psychoanalysis, and
+              internationally renowned scientific publications.
+            </p>
+          </div>
+          <a href="#research" class="maison-arrow">
+            <span>An Invitation to View Article</span> &rarr;
+          </a>
+        </div>
+
+        <!-- PILIER 4 -->
+        <div class="maison-card reveal">
+          <div>
+            <div class="maison-num">MAISON IV</div>
+            <h3>Pédagogie &amp; Éducation</h3>
+            <p>
+              Speaker at a design workshop at a technical college, campus multimedia lab assistant, and
+              instructor of culture and visual aesthetics.
+            </p>
+          </div>
+          <a href="#community" class="maison-arrow">
+            <span>An Invitation to View Conferences</span> &rarr;
+          </a>
+        </div>
+
+        <!-- PILIER 5 -->
+        <div class="maison-card reveal">
+          <div>
+            <div class="maison-num">MAISON V</div>
+            <h3>Chroniques &amp; Letter</h3>
+            <p>
+              Contributing reflective essays to Kompasiana, curating the iamabuabu.wordpress.com blog,
+              & sharing thoughtful perspectives on ethics and the art of contemporary photography.
+            </p>
+          </div>
+          <a href="#articles" class="maison-arrow">
+            <span>An Invitation to Read Essays</span> &rarr;
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PHOTOSESSIONS & PORTRAITS D'HONNEUR (Dedicated Block)
+         ======================================================= -->
+    <section class="wrap section" id="photosessions">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Haute Portrait &amp; Official Sessions</div>
+          <h2>PhotoSessions <br>
+            <em><span class="gold-gradient-text">Portraits of Honneur</span></em>
+          </h2>
+        </div>
+        <p class="section-head-desc">
+          A thoughtfully curated collection of portraits capturing the warmth and presence of public figures, regional
+          leaders, complemented by memorable moments from a fashion festival. Each image offers a glimpse into the
+          people, stories, and experiences that bring leadership and contemporary culture to life. Photographs are
+          featured on our official LinkedIn account.
+        </p>
+      </div>
+
+      <div class="photosessions-grid" id="photosessionsGrid">
+
+        <!-- PHOTOSESSION 1: Hj. Nurlena Rahmad Mas'ud -->
+        <article class="photosession-card reveal" data-title="PhotoSession: Hj. Nurlena Rahmad Mas’ud"
+          data-category-label="Portrait Photography • Government" data-role="Lead Photographer" data-year="2025"
+          data-desc="An official portrait photo session with Hj. Nurlena Rahmad Mas’ud, wife of the Mayor of Balikpapan (2021–present)."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQGRjgRMqtJtrg/feedshare-image-high-res/B56Zc5C1A.HUAs-/0/1749008744284?e=2147483647&v=beta&t=c8UsnkY2Z14cYWdie7Zkd5Pr2doQIYo_Mxrclt65bko"
+          data-link="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-hjnurlena-rahmad-activity-7335874374903730176-kJFK"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQGRjgRMqtJtrg/feedshare-image-high-res/B56Zc5C1A.HUAs-/0/1749008744284?e=2147483647&v=beta&t=c8UsnkY2Z14cYWdie7Zkd5Pr2doQIYo_Mxrclt65bko"
+              alt="PhotoSession Hj. Nurlena Rahmad Mas'ud" loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Wife of the Mayor of Balikpapan (2021&ndash;Present)</span>
+            <h3>PhotoSession: Hj. Nurlena Rahmad Mas’ud</h3>
+            <div class="photosession-role-line">Lead Photographer &bull; 2025 &bull; Balikpapan</div>
+            <p>Official photo session featuring Balikpapan’s female public leaders.
+            </p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">Official Portrait</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-hjnurlena-rahmad-activity-7335874374903730176-kJFK"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Portrait Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHOTOSESSION 2: dr. C. I. Ratih Kusuma W. -->
+        <article class="photosession-card reveal" data-title="PhotoSession: dr. C. I. Ratih Kusuma W."
+          data-category-label="Portrait Photography • Government" data-role="Lead Photographer" data-year="2025"
+          data-desc="An official photo session with Dr. C. I. Ratih Kusuma W., Head of the Balikpapan City Department of Youth, Sports, and Tourism (Disparpora)."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQEvfUY4a-oaug/feedshare-image-high-res/B56Zc5EvMzHoAw-/0/1749009250151?e=2147483647&v=beta&t=hM9e5gi8o5DccEUZ8VP9Y_qBU8gfmB_JQtEeh2YD9f0"
+          data-link="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-dr-c-i-ratih-kusuma-activity-7335876499243180032-HKnp"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQEvfUY4a-oaug/feedshare-image-high-res/B56Zc5EvMzHoAw-/0/1749009250151?e=2147483647&v=beta&t=hM9e5gi8o5DccEUZ8VP9Y_qBU8gfmB_JQtEeh2YD9f0"
+              alt="PhotoSession dr. C. I. Ratih Kusuma W." loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Head of the Balikpapan Tourism, Youth, and Sports, DISPARPORA</span>
+            <h3>PhotoSession: dr. C. I. Ratih Kusuma W.</h3>
+            <div class="photosession-role-line">Lead Photographer &bull; 2025 &bull; Disparpora</div>
+            <p>The official visual representation of Balikpapan City’s leadership in tourism, youth affairs & sports.
+            </p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">Disparpora</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-dr-c-i-ratih-kusuma-activity-7335876499243180032-HKnp"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Portrait Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHOTOSESSION 3: H. Rizal Effendi, S.E. -->
+        <article class="photosession-card reveal" data-title="PhotoSession: H. Rizal Effendi, S.E."
+          data-category-label="Portrait Photography • Former Mayor of Balikpapan" data-role="Lead Photographer"
+          data-year="2024"
+          data-desc="Photoshoot On Frame featuring H. Rizal Effendi, S.E., two-term Mayor of Balikpapan (2006–2011 & 2011–2021)."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQF_Cx9-xJtXtA/feedshare-image-high-res/B56ZUhICtRGUA0-/0/1740017530142?e=2147483647&v=beta&t=1tVKmfM1GZnFNx69jOWzSKsBsBT3gL9rJDYN2MyWbyw"
+          data-link="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-rizal-effendi-se-activity-7298162490234834944-XQed"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQF_Cx9-xJtXtA/feedshare-image-high-res/B56ZUhICtRGUA0-/0/1740017530142?e=2147483647&v=beta&t=1tVKmfM1GZnFNx69jOWzSKsBsBT3gL9rJDYN2MyWbyw"
+              alt="PhotoSession H. Rizal Effendi, S.E." loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Two-Term Mayor of Balikpapan</span>
+            <h3>PhotoSession: H. Rizal Effendi, S.E.</h3>
+            <div class="photosession-role-line">Lead Photographer &bull; 2024 &bull; Two-Term Mayor (2006–2021)</div>
+            <p>A portrait of statesmanship with a distinctive character, capturing the charisma of leadership and the
+              legacy of urban development.</p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">Former Mayor</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_photoshoot-on-frame-rizal-effendi-se-activity-7298162490234834944-XQed"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Portrait Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHOTOSESSION 4: Mr. Troy Pantouw OIKN -->
+        <article class="photosession-card reveal"
+          data-title="PhotoSession: The Late, Mr. Troy Pantouw S.Psi., MA, IAPR, FPR"
+          data-category-label="Portrait Photography • IKN Authority" data-role="Lead Photographer" data-year="2023"
+          data-desc="An official portrait photo shoot with the Spokesperson for the Nusantara Capital Authority (OIKN)."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQFjHA-Oq_S6Jg/feedshare-image-high-res/B56Zc5DdHjGQAs-/0/1749008905523?e=2147483647&v=beta&t=88JPeNiKhgFuoo0RnQ-TyUR2HG9d0RYFfDxfWtqoS9s"
+          data-link="https://www.linkedin.com/posts/grayhansen_photoshoot-on-framemr-troy-pantouw-spsi-activity-7335875051809816576-o2hQ"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQFjHA-Oq_S6Jg/feedshare-image-high-res/B56Zc5DdHjGQAs-/0/1749008905523?e=2147483647&v=beta&t=88JPeNiKhgFuoo0RnQ-TyUR2HG9d0RYFfDxfWtqoS9s"
+              alt="PhotoSession Mr. Troy Pantouw" loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Spokesperson for the (IKN) Nusantara Authority</span>
+            <h3>PhotoSession: The Late, Mr. Troy Pantouw</h3>
+            <div class="photosession-role-line">Lead Photographer &bull; 2023 &bull; OIKN Public Relations</div>
+            <p>Photo session for the national strategic public relations campaign to showcase the leadership of the
+              Nusantara Capital City project.</p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">Nusantara</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_photoshoot-on-framemr-troy-pantouw-spsi-activity-7335875051809816576-o2hQ"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Portrait Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHOTOSESSION 5: Mega Bekapai Model Festival -->
+        <article class="photosession-card reveal" data-title="Event Photography: Mega Bekapai Model Balikpapan Festival"
+          data-category-label="Fashion &amp; Runway Photography" data-role="Festival Photographer" data-year="2024"
+          data-desc="Professional photographic documentation of the Mega Bekapai Model Balikpapan Festival 2024."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQHyAXUBfArkYw/feedshare-shrink_800/B56ZUhJ75qGsAo-/0/1740018047101?e=2147483647&v=beta&t=pUBsVPAU6qO8tL622sFPIi_xI286SqIhnwjVEnA5nig"
+          data-link="https://www.linkedin.com/posts/grayhansen_event-photography-balikpapan-mega-model-activity-7298164661718327296-ZX2e"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQHyAXUBfArkYw/feedshare-shrink_800/B56ZUhJ75qGsAo-/0/1740018047101?e=2147483647&v=beta&t=pUBsVPAU6qO8tL622sFPIi_xI286SqIhnwjVEnA5nig"
+              alt="Mega Bekapai Model Balikpapan Festival" loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Fashion Runway &amp; Permodelan</span>
+            <h3>Mega Bekapai Model Balikpapan Festival</h3>
+            <div class="photosession-role-line">Festival Photographer &bull; 2024 &bull; Runway Stage</div>
+            <p>Stage and dynamic lighting documentation at a prestigious fashion show festival in Balikpapan.</p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">Runway</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_event-photography-balikpapan-mega-model-activity-7298164661718327296-ZX2e"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Model Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PHOTOSESSION 6: Government Economic Creative Meeting -->
+        <article class="photosession-card reveal"
+          data-title="Government Economic Creative Meeting with Disparpora Balikpapan"
+          data-category-label="Creative Economy • Government" data-role="Representative &amp; Photographer"
+          data-year="2025"
+          data-desc="Participation and documentary photography at a creative economy synergy forum held in collaboration with the Balikpapan Tourism, Youth, and Sports Agency to establish creative spaces and accelerate the growth of creative artists."
+          data-image="https://media.licdn.com/dms/image/v2/D5622AQHQF2IM9Wd12A/feedshare-shrink_800/B56Zc5JXHwHUAo-/0/1749010468073?e=2147483647&v=beta&t=fLX67dw4SlFkcp2tissSy1NGsgVYrtF_BQGNbqDMVmo"
+          data-link="https://www.linkedin.com/posts/grayhansen_government-economic-creative-ekraf-meeting-activity-7335881607444078593-Khbp"
+          data-link-label="An Invitation to Discover &nearr;">
+          <div class="photosession-media">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D5622AQHQF2IM9Wd12A/feedshare-shrink_800/B56Zc5JXHwHUAo-/0/1749010468073?e=2147483647&v=beta&t=fLX67dw4SlFkcp2tissSy1NGsgVYrtF_BQGNbqDMVmo"
+              alt="Government Economic Creative Meeting Disparpora" loading="lazy">
+            <div class="photosession-linkedin-badge">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.762-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              <span>LinkedIn Foto</span>
+            </div>
+          </div>
+          <div class="photosession-body">
+            <span class="photosession-subject">Forum Disparpora Balikpapan</span>
+            <h3>Government Economic Creative Meeting</h3>
+            <div class="photosession-role-line">Representative &amp; Photographer &bull; 2025 &bull; EKRAF</div>
+            <p>Coverage of a creative economy meeting with leaders of the Balikpapan City Government’s Department of
+              Tourism, Youth, and Sports to accelerate the UMKM ecosystem.</p>
+            <div class="photosession-footer">
+              <span class="pill-tag pill-tag-gold">EKRAF RI</span>
+              <a href="https://www.linkedin.com/posts/grayhansen_government-economic-creative-ekraf-meeting-activity-7335881607444078593-Khbp"
+                target="_blank" rel="noopener noreferrer" class="photosession-view-link">
+                <span>Documentation Collection</span> &nearr;
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- LINKEDIN FEED STRIP BANNER -->
+      <div class="cloud-archive-banner reveal" style="margin-top: 36px; border-color: var(--gold-border);">
+        <div class="cloud-archive-info">
+          <h4>The Art of Portraiture</h4>
+          <p>All portraits featured above are drawn directly from the original posts published on Gray Hansen
+            Limantoro’s official LinkedIn account.
+          </p>
+        </div>
+        <div class="cloud-archive-links">
+          <a href="https://www.linkedin.com/in/grayhansen/recent-activity/all/" target="_blank"
+            rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <span>An invitation to explore our latest update @grayhansen &nearr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- =======================================================
+           DUAL LIVE CAROUSEL: ARCHITECTURE & GRAPHIC DESIGN (GOOGLE DRIVE)
+           Split: 2 Columns Side-by-Side (Left Landscape 16:9, Right Portrait 9:16)
+           Aesthetics: LVMH Minimalist Editorial Carousel (Clean images, No white text box)
+           Mobile: Stays side-by-side matching desktop layout exactly
+           Live Sync: Connected to Google Drive folder 1yMjZKi0HHhj7kbozoq8XraJQO9_3if7E
+           ======================================================= -->
+      <div class="live-gallery-container reveal" id="liveGallerySection" style="margin-top: 48px;">
+
+        <!-- HEADER: Minimalist Luxury Title & Live Drive Badge -->
+        <div class="live-gallery-header">
+          <div class="live-gallery-title-box">
+            <div class="live-gallery-kicker">
+              <span class="live-sync-pulse"></span>
+              <span class="live-sync-text" id="liveSyncStatus">Google Drive Live Sync</span>
+            </div>
+            <h3 class="live-gallery-title"><span class="gold-gradient-text">The Visual Anthology</span></h3>
+            <p class="live-gallery-sub">
+              Curated Architecture Collection &amp; graphic designs are automatically synced
+              from Google Drive.
+            </p>
+          </div>
+          <div class="live-gallery-actions">
+            <a href="https://drive.google.com/drive/folders/1yMjZKi0HHhj7kbozoq8XraJQO9_3if7E?hl=ID" target="_blank"
+              rel="noopener noreferrer" class="drive-folder-link" title="An Invitation to Explore">
+              <svg viewBox="0 0 24 24" class="drive-svg-icon" aria-hidden="true">
+                <path
+                  d="M7.71 3.5L1.15 15l3.43 6 6.56-11.5L7.71 3.5zm3.14 0l6.56 11.5h6.86l-6.56-11.5H10.85zm-2.57 12.5l-3.43 6h14.3l3.43-6H8.28z"
+                  fill="currentColor" />
+              </svg>
+              <span>An Invitation to Explore</span> &nearr;
+            </a>
+          </div>
+        </div>
+
+        <!-- DUAL SPLIT CAROUSEL BLOCK (Landscape Left, Portrait Right - Desktop & Mobile Side-by-Side) -->
+        <div class="split-gallery-block" id="splitGalleryBlock">
+
+          <!-- LEFT SIDE: ARSITEKTUR LANDSCAPE (16:9) -->
+          <div class="split-gallery-pane split-pane-landscape" id="paneLandscape">
+            <div class="pane-meta-bar">
+              <span class="pane-tag">Architectural &bull; Concept</span>
+              <span class="pane-counter" id="counterLandscape">01 / 03</span>
+            </div>
+
+            <div class="lvmh-carousel-viewport" id="viewportLandscape" data-carousel="landscape">
+              <div class="lvmh-carousel-track" id="trackLandscape">
+                <!-- Architecture slides rendered dynamically -->
+              </div>
+
+              <!-- LVMH Minimalist Glass Arrows (No white card / no white text box) -->
+              <button class="lvmh-nav-btn lvmh-prev-btn" id="prevLandscapeBtn" aria-label="Previous Image"
+                type="button">
+                <svg viewBox="0 0 24 24">
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor" />
+                </svg>
+              </button>
+              <button class="lvmh-nav-btn lvmh-next-btn" id="nextLandscapeBtn" aria-label="Next Image" type="button">
+                <svg viewBox="0 0 24 24">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor" />
+                </svg>
+              </button>
+
+              <!-- Slim Gold Pagination Bar -->
+              <div class="lvmh-dots-bar" id="dotsLandscape"></div>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE: DESAIN GRAFIS E-FLYER PORTRAIT (9:16) -->
+          <div class="split-gallery-pane split-pane-portrait" id="panePortrait">
+            <div class="pane-meta-bar">
+              <span class="pane-tag">Graphic Design &bull; Concept</span>
+              <span class="pane-counter" id="counterPortrait">01 / 03</span>
+            </div>
+
+            <div class="lvmh-carousel-viewport" id="viewportPortrait" data-carousel="portrait">
+              <div class="lvmh-carousel-track" id="trackPortrait">
+                <!-- Graphic design e-flyer slides rendered dynamically -->
+              </div>
+
+              <!-- LVMH Minimalist Glass Arrows (No white card / no white text box) -->
+              <button class="lvmh-nav-btn lvmh-prev-btn" id="prevPortraitBtn" aria-label="Desain Sebelumnya"
+                type="button">
+                <svg viewBox="0 0 24 24">
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor" />
+                </svg>
+              </button>
+              <button class="lvmh-nav-btn lvmh-next-btn" id="nextPortraitBtn" aria-label="Desain Berikutnya"
+                type="button">
+                <svg viewBox="0 0 24 24">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor" />
+                </svg>
+              </button>
+
+              <!-- Slim Gold Pagination Bar -->
+              <div class="lvmh-dots-bar" id="dotsPortrait"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sync Setting / Status Footnote -->
+        <div class="gallery-sync-footnote">
+          <div class="sync-footnote-left">
+            <span class="sync-dot-active"></span>
+            <span id="syncDetailsText">Synced to Drive &bull;
+              Automatic updates are enabled</span>
+          </div>
+          <button class="sync-manual-btn" id="refreshDriveBtn" type="button" title="Refresh the image from Drive">
+            <svg viewBox="0 0 24 24" class="sync-refresh-icon">
+              <path
+                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                fill="currentColor" />
+            </svg>
+            <span>Refresh the Archive</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         Tersinkronisasi ke Google Drive ID: 1yMjZKi0HHhj7kbozoq8XraJQO9_3if7E
+         ======================================================= -->
+
+    <!-- =======================================================
+         PORTFOLIO & CURATED WORKS (Design, Books, Archives)
+         ======================================================= -->
+    <section class="wrap section section-alt" id="portfolio">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Collection &amp; Portofolio</div>
+          <h2>Graphic Design, <br>Monograph &amp; Repository.</h2>
+        </div>
+        <p class="section-head-desc">
+          A thoughtfully curated portfolio of creative and technical endeavors, encompassing distinctive brand
+          identities, refined environmental signage, the publication of an ISBN-assigned typography monograph,
+          precision-driven algorithm engineering, and the development of a dedicated digital archival center. Each
+          endeavor reflects a commitment to thoughtful design, meticulous execution, and enduring professional
+          excellence.
+        </p>
+      </div>
+
+      <!-- FILTER BUTTONS -->
+      <div class="gallery-filters-bar reveal" id="portfolioFilters">
+        <button class="filter-btn active" data-filter="all">The Entire Collection</button>
+        <button class="filter-btn" data-filter="design">Identity &amp; Branding</button>
+        <button class="filter-btn" data-filter="research">Ouvrages &amp; Riset</button>
+        <button class="filter-btn" data-filter="software">Program &amp; Algoritma</button>
+        <button class="filter-btn" data-filter="hub">The Grand Archive</button>
+      </div>
+
+      <!-- EDITORIAL WORKS GRID (NON-PHOTOSESSION) -->
+      <div class="editorial-works-grid" id="portfolioGrid">
+
+        <!-- ITEM 1: Mantau Bucin Balikpapan -->
+        <article class="work-card reveal" data-category="design"
+          data-title="Mantau Bucin Balikpapan: Sign &amp; Branding Design"
+          data-category-label="Graphic Design &amp; Signage" data-role="Graphic Designer" data-year="2024–2025"
+          data-desc="The creation of exceptional visual identities, outdoor signage, and refined promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+          data-link="https://bit.ly/3T5mTmv" data-link-label="An Invitation to Explore">
+          <div class="work-card-media">
+            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+              alt="Mantau Bucin Sign Design" loading="lazy">
+            <span class="card-category-badge">Identity &amp; Branding</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>Culinary Brand Experience</span>
+              <span>2024–2025</span>
+            </div>
+            <h3>Mantau Bucin Balikpapan Sign Design</h3>
+            <p>Design of outdoor signage and visual branding architecture for Balikpapan’s signature culinary offerings.
+            </p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Branding Identity</span>
+              <span class="pill-tag">Branding</span>
+              <span class="pill-tag">Graphic Design</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 2: Buku Japanese Typography -->
+        <article class="work-card reveal" data-category="research"
+          data-title="Book: Japanese Typography (日本タイポグラフィ、過去と現在)" data-category-label="Book &amp; Scientific Research"
+          data-role="Writer &amp; Lead Researcher" data-year="2023"
+          data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet. This work reflects a commitment to intellectual depth, meticulous scholarship, and the thoughtful preservation of linguistic and typographic heritage."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+          data-link="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+          data-link-label="Read the Kaltim Post / Jawa Pos Coverage">
+          <div class="work-card-media">
+            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+              alt="Japanese Typography Book" loading="lazy">
+            <span class="card-category-badge">Research</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>RESEARCH BOOK</span>
+              <span>2023</span>
+            </div>
+            <h3>Japanese Typography: 日本タイポグラフィ</h3>
+            <p>A Scientific Study of Japanese Typography and Its Comparison with the Latin Alphabet (ISBN:
+              978-623-09-5379-8).
+            </p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Research</span>
+              <span class="pill-tag">Typography</span>
+              <span class="pill-tag">Graphic Design</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 3: Qubika Boutique Hotel IKN -->
+        <article class="work-card reveal" data-category="design"
+          data-title="Qubika Boutique Hotel Nusantara: Hospitality Visual Identity"
+          data-category-label="Visual Identity &amp; Hospitality" data-role="Graphic Designer" data-year="2025"
+          data-desc="Design of exclusive promotional materials, the hotel’s prestigious visual identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+          data-link="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
+          data-link-label="Lihat Profil Portofolio EKRAF">
+          <div class="work-card-media">
+            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+              alt="Qubika Boutique Hotel Nusantara" loading="lazy">
+            <span class="card-category-badge">Hospitality</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>Hotelier</span>
+              <span>2025</span>
+            </div>
+            <h3>Qubika Boutique Hotel Nusantara</h3>
+            <p>Designing the visual identity for the first prestigious boutique hotel in the Capital City of Nusantara
+              (IKN).</p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Nusantara</span>
+              <span class="pill-tag">Hospitality</span>
+              <span class="pill-tag">Branding Identity</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 4: Land Gradient Elevation Calculator -->
+        <article class="work-card reveal" data-category="software" data-title="Land Gradient Elevation Calculator"
+          data-category-label="Software &amp; Utility Algorithm" data-role="Software Designer &amp; Developer"
+          data-year="2022"
+          data-desc="Merancang dan mengembangkan program utilitas kalkulator penghitungan persentase gradien elevasi kemiringan kontur tanah untuk kebutuhan pemetaan dan rekayasa lahan."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+          data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="Buka Informasi Lengkap">
+          <div class="work-card-media">
+            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+              alt="Land Gradient Calculator" loading="lazy">
+            <span class="card-category-badge">Algorithm Engineering</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>Program Utilitas Rekayasa</span>
+              <span>2022</span>
+            </div>
+            <h3>Land Gradient Elevation Calculator</h3>
+            <p>Program utilitas komputasi penghitungan gradien elevasi kemiringan kontur permukaan tanah.</p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Software</span>
+              <span class="pill-tag">Algorithm</span>
+              <span class="pill-tag">Sistem Informasi</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 5: Python Graphology Scoring -->
+        <article class="work-card reveal" data-category="software" data-title="Python Graphology Characteristic Scoring"
+          data-category-label="Data Analytics &amp; Psychology" data-role="Python Developer" data-year="2023"
+          data-desc="Mengembangkan perangkat lunak pemrosesan data untuk skoring karakteristik grafologi (analisis psikologi tulisan tangan) menggunakan bahasa pemrograman Python."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+          data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="Buka Informasi Lengkap">
+          <div class="work-card-media">
+            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+              alt="Python Graphology Scoring" loading="lazy">
+            <span class="card-category-badge">Python Analytics</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>Psikoanalisis Grafologi</span>
+              <span>2023</span>
+            </div>
+            <h3>Python Graphology Scoring</h3>
+            <p>Perangkat lunak analisis psikologi tulisan tangan dengan pemodelan data terstruktur menggunakan Python.
+            </p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Python</span>
+              <span class="pill-tag">Grafologi</span>
+              <span class="pill-tag">Data Science</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 6: Full Portfolio Drive Hub -->
+        <article class="work-card reveal" data-category="hub" data-title="Google Drive Portfolio &amp; Direktori EKRAF"
+          data-category-label="Pusat Repositori Digital" data-role="Curator &amp; Creator" data-year="2018–2026"
+          data-desc="Repositori digital utama yang memuat ratusan karya asli desain grafis pra-cetak, arsip fotografi RAW/Hi-Res, serta profil terverifikasi di direktori EKRAF Kemenparekraf Republik Indonesia."
+          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+          data-link="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
+          data-link-label="Kunjungi Direktori Resmi EKRAF RI">
+          <div class="work-card-media">
+            <img
+              src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+              alt="Google Drive Portfolio Hub" loading="lazy">
+            <span class="card-category-badge">Archives Complètes</span>
+            <div class="card-action-cue">&nearr;</div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-meta-row">
+              <span>Pusat Arsip Master</span>
+              <span>2018&ndash;2026</span>
+            </div>
+            <h3>Pusat Portofolio Google Drive &amp; EKRAF</h3>
+            <p>Folder cloud resmi ratusan file asli desain grafis, galeri fotografi, dan sertifikasi Kemenparekraf RI.
+            </p>
+            <div class="work-card-pills">
+              <span class="pill-tag pill-tag-gold">Drive Desain</span>
+              <span class="pill-tag pill-tag-gold">Drive Foto</span>
+              <span class="pill-tag">hunt.ekraf.go.id</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- REPOSITORY QUICK ACCESS BANNER -->
+      <div class="cloud-archive-banner reveal">
+        <div class="cloud-archive-info">
+          <h4>Accès Rapide aux Archives Cloud &amp; Répertoires Officiels</h4>
+          <p>Telusuri seluruh galeri karya pra-cetak dan foto resolusi tinggi langsung di repositori penyimpanan resmi.
+          </p>
+        </div>
+        <div class="cloud-archive-links">
+          <a href="https://drive.google.com/drive/folders/1Xux9IjtQkqeydXA8bTJLEuED0FxyTMrs?usp=sharing" target="_blank"
+            rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            <span>Drive Desain Grafis &nearr;</span>
+          </a>
+          <a href="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+            rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            <span>Drive Fotografi &nearr;</span>
+          </a>
+          <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+            rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <span>Profil Resmi EKRAF RI &nearr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         DISTINCTIONS & AWARDS (Palmarès & Honneurs)
+         ======================================================= -->
+    <section class="wrap section" id="achievements">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Palmarès &amp; Distinctions</div>
+          <h2>Pencapaian &amp; Rekognisi Bergengsi.</h2>
+        </div>
+        <p class="section-head-desc">
+          Rekam jejak kemenangan kompetisi grafis &amp; sastra nasional, penerbitan buku ilmiah, perancangan perangkat
+          lunak algoritma, serta analitik pertumbuhan media.
+        </p>
+      </div>
+
+      <div class="awards-grid">
+
+        <!-- 1. SugoiTV Growth -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">📈</div>
+            <span class="award-date">Maret 2022</span>
+          </div>
+          <h4>SugoiTV Insight Growth</h4>
+          <p>Meningkatkan insight SugoiTV hingga 44.9K (+50.7%) akun dijangkau, 3.076 (+19.2%) interaksi, dan 35.1K
+            (+0.5%) followers.</p>
+          <div><span class="pill-tag pill-tag-gold">Social Media Growth</span></div>
+        </div>
+
+        <!-- 2. Joint Venture Univoir x SugoiTV -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🤝</div>
+            <span class="award-date">Mei 2022</span>
+          </div>
+          <h4>Joint Venture Univoir &amp; SugoiTV</h4>
+          <p>Membentuk kerjasama bisnis strategis Univoir bersama SugoiTV, Japanese Irodori, untuk jalur distribusi
+            T-shirt langsung dari Jepang.</p>
+          <div><span class="pill-tag pill-tag-gold">International Venture</span></div>
+        </div>
+
+        <!-- 3. Land Percentage Calculator -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">📐</div>
+            <span class="award-date">Januari 2022</span>
+          </div>
+          <h4>Land Gradient Elevation Calculator</h4>
+          <p>Merancang dan mengembangkan program utilitas kalkulator penghitungan persentase gradien elevasi kemiringan
+            kontur tanah.</p>
+          <div><span class="pill-tag">Software Engineering</span></div>
+        </div>
+
+        <!-- 4. Japanese Typography Research -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">📖</div>
+            <span class="award-date">2022 &ndash; 2023</span>
+          </div>
+          <h4>Penerbitan Monograf Riset Tipografi Jepang</h4>
+          <p>Menuntaskan riset tipografi komprehensif ber-ISBN resmi: 978-623-09-5379-8 yang diterbitkan oleh CV.
+            Hosting Media Rakyat.</p>
+          <div><span class="pill-tag pill-tag-gold">ISBN: 978-623-09-5379-8</span></div>
+        </div>
+
+        <!-- 5. HokBen Media Partner -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🍱</div>
+            <span class="award-date">Maret 2022</span>
+          </div>
+          <h4>Media Partner Peresmian HokBen</h4>
+          <p>Menerima undangan kehormatan dari Restoran HokBen Balikpapan sebagai Blog Media Partner resmi pada
+            peresmian gerai di Mall Ewalk Balikpapan.</p>
+          <div><span class="pill-tag">Blogger &bull; Media Partner</span></div>
+        </div>
+
+        <!-- 6. Python Graphology Scoring -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🐍</div>
+            <span class="award-date">2023</span>
+          </div>
+          <h4>Python Graphology Characteristic Scoring</h4>
+          <p>Mengembangkan perangkat lunak pemrosesan data untuk skoring karakteristik grafologi (analisis psikologi
+            tulisan tangan) menggunakan Python.</p>
+          <div><span class="pill-tag">Python &bull; Data Analytics</span></div>
+        </div>
+
+        <!-- 7. RANK I UNIBA Gebyar Literasi -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🏆</div>
+            <span class="award-date">Februari 2021</span>
+          </div>
+          <h4>JUARA I Poster Design Gebyar Literasi</h4>
+          <p>Meraih RANK I dalam kompetisi nasional Gebyar Literasi 2021 Universitas Balikpapan (UNIBA); Kategori Poster
+            Design | Desain Grafis.</p>
+          <div><span class="pill-tag pill-tag-gold">JUARA I (RANK I NASIONAL)</span></div>
+        </div>
+
+        <!-- 8. RANK II Rintik Sendja Poetry -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🥈</div>
+            <span class="award-date">Oktober 2020</span>
+          </div>
+          <h4>JUARA II Cipta Puisi Rintik Sendja</h4>
+          <p>Meraih RANK II kompetisi sastra tingkat nasional Rintik Sendja; Kategori Poetry Competition | Bidang Sastra
+            &amp; Literasi.</p>
+          <div><span class="pill-tag">JUARA II (RANK II NASIONAL)</span></div>
+        </div>
+
+        <!-- 9. RANK III Garuda Indonesia Menu Re-design -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <div class="award-icon-box">🥉</div>
+            <span class="award-date">Juli 2019</span>
+          </div>
+          <h4>JUARA III Garuda Indonesia Menu Re-design</h4>
+          <p>Meraih RANK III nasional GDTLab.Id dalam kompetisi perancangan ulang (re-design) Buku Menu Maskapai
+            Penerbangan Garuda Indonesia.</p>
+          <div><span class="pill-tag">JUARA III (RANK III NASIONAL)</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PARCOURS & SAVOIR-FAIRE (Career Heritage Timeline)
+         ======================================================= -->
+    <section class="wrap section section-alt" id="experience">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Parcours &amp; Savoir-Faire</div>
+          <h2>Karir, Konsultansi &amp; Kepemimpinan.</h2>
+        </div>
+        <p class="section-head-desc">
+          Kiprah di sektor perbankan nasional, industri perhotelan butik IKN, agensi internasional, lembaga kementerian,
+          hingga kepemimpinan mahasiswa universitas.
+        </p>
+      </div>
+
+      <div class="timeline-two-column">
+
+        <!-- KOLOM 1: KARIR & PRAKTIK PROFESIONAL -->
+        <div>
+          <div class="timeline-column-title">
+            <span>I. Parcours Professionnel</span>
+          </div>
+
+          <div class="timeline-entries-list">
+
+            <!-- Bank Mayapada -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2026 &ndash; Sekarang</span>
+              <h3>Back Office Operations</h3>
+              <div class="timeline-entry-org">PT Bank Mayapada Internasional, Tbk &bull; KC Kota Balikpapan</div>
+              <p>Mengelola administrasi operasional perbankan, verifikasi keabsahan dokumen nasabah, integritas data
+                transaksi cabang, dan kepatuhan prosedur back office perbankan nasional.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Banking Sector</span>
+                <span class="pill-tag">Back Office</span>
+                <span class="pill-tag">Data Verification</span>
+              </div>
+            </article>
+
+            <!-- Qubika Boutique Hotel IKN -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2025</span>
+              <h3>Graphic Designer</h3>
+              <div class="timeline-entry-org">Qubika Boutique Hotel &bull; Kota Nusantara (IKN)</div>
+              <p>Merancang identitas visual prestisius hotel, material promosi eksklusif, signage ruang, buku panduan
+                tamu, serta aset media sosial di kawasan Ibu Kota Nusantara.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Hospitality</span>
+                <span class="pill-tag">IKN Nusantara</span>
+                <span class="pill-tag">Visual Identity</span>
+              </div>
+            </article>
+
+            <!-- SugoiTV Japan -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2021 &ndash; 2025</span>
+              <h3>SNS Consultant &amp; Influencer Manager</h3>
+              <div class="timeline-entry-org">SugoiTV &bull; Japan &amp; Indonesia Exchange</div>
+              <p>Konsultan strategi media sosial, manajer influencer, desainer grafis dan konsultan edukasi program
+                pertukaran pelajar dan tenaga kerja Jepang-Indonesia.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Global Media</span>
+                <span class="pill-tag">Influencer Management</span>
+                <span class="pill-tag">Japan Exchange</span>
+              </div>
+            </article>
+
+            <!-- Asisten Lab Multimedia UM -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2023</span>
+              <h3>Multimedia Laboratory Assistant</h3>
+              <div class="timeline-entry-org">Universitas Mulia Balikpapan</div>
+              <p>Mendampingi dosen dan menginstruksikan mahasiswa dalam praktikum laboratorium komputer multimedia,
+                peranti lunak desain visual grafis, dan audio-visual.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag">Academic Assistant</span>
+                <span class="pill-tag">Multimedia Lab</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- KOLOM 2: LEADERSHIP & MANDAT RESMI -->
+        <div>
+          <div class="timeline-column-title">
+            <span>II. Leadership &amp; Mandats</span>
+          </div>
+
+          <div class="timeline-entries-list">
+
+            <!-- EKRAF Kemenparekraf -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2025 &ndash; Sekarang</span>
+              <h3>Pelaku Ekonomi Kreatif Terdaftar</h3>
+              <div class="timeline-entry-org">EKRAF Republik Indonesia by Kemenparekraf RI</div>
+              <p>Terdaftar resmi di direktori nasional Kemenparekraf RI subsektor Desain Grafis dan Fotografi sebagai
+                profesional ekonomi kreatif Indonesia berdaya saing.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Kemenparekraf RI</span>
+                <span class="pill-tag">Direktori Nasional</span>
+              </div>
+            </article>
+
+            <!-- Presiden Himpunan Mahasiswa -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2021 &ndash; 2025</span>
+              <h3>President (Ketua Umum)</h3>
+              <div class="timeline-entry-org">Himpunan Mahasiswa Sistem Informasi (HMSI) Universitas Mulia</div>
+              <p>Memimpin organisasi mahasiswa tingkat prodi, mengorkestrasi program riset ilmiah, pelatihan IT,
+                kompetisi teknologi, serta menjalin kemitraan institusional.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Executive Leadership</span>
+                <span class="pill-tag">Student Council</span>
+              </div>
+            </article>
+
+            <!-- Guru Tamu Obenkyo -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2023 &ndash; 2024</span>
+              <h3>Obenkyo Guest Teacher</h3>
+              <div class="timeline-entry-org">SMAN 1 Balikpapan</div>
+              <p>Mengajar bahasa dan wawasan kebudayaan Jepang serta dasar estetika visual seni grafis bagi siswa-siswi
+                ekstrakurikuler SMAN 1 Balikpapan.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag">Educator</span>
+                <span class="pill-tag">Japanese Culture</span>
+              </div>
+            </article>
+
+            <!-- Freelance & Magang -->
+            <article class="timeline-entry reveal">
+              <span class="timeline-entry-period">2020 &ndash; Berjalan</span>
+              <h3>Freelance Designer, Photographer &amp; Writer</h3>
+              <div class="timeline-entry-org">Praktik Mandiri &bull; Magang Multimedia Sinergi (2020)</div>
+              <p>Melayani puluhan klien korporat, institusi pendidikan, dan UMKM dalam fotografi komersial, perancangan
+                identitas merek berkarakter, dan penulisan artikel analitis.</p>
+              <div class="work-card-pills">
+                <span class="pill-tag pill-tag-gold">Creative Practice</span>
+                <span class="pill-tag">Commercial Photo</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         L'ACADÉMIE & CERTIFICATIONS (Education Section)
+         ======================================================= -->
+    <section class="wrap section" id="education">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Académie &amp; Certifications</div>
+          <h2>Fondasi Akademik &amp; Keilmuan.</h2>
+        </div>
+        <p class="section-head-desc">
+          Landasan multidisiplin komprehensif: Sistem Informasi, Desain Grafis, Psikologi Terapan, Kewirausahaan, dan
+          Keselamatan Kerja.
+        </p>
+      </div>
+
+      <div class="academy-grid">
+
+        <!-- Mulia University -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag pill-tag-gold">Gelar Sarjana</span>
+            <span class="award-date">2021 &ndash; 2025</span>
+          </div>
+          <h4>S1 Sistem Informasi (S.Kom.)</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">Universitas Mulia Balikpapan</p>
+          <p>Program Sarjana Ilmu Komputer. Fokus pada rekayasa sistem informasi, pemodelan data, pemrograman Python,
+            dan riset komputasi.</p>
+          <div><span class="pill-tag">S.Kom. Degree</span></div>
+        </div>
+
+        <!-- ASR Academy -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag">Sertifikasi</span>
+            <span class="award-date">2024</span>
+          </div>
+          <h4>Psychology on Human School Life Skill</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">ASR Academy</p>
+          <p>Pelatihan intensif psikologi komunikasi manusia, dinamika emosional interpersonal, dan pengembangan
+            keterampilan hidup sosial dalam ruang edukasi.</p>
+          <div><span class="pill-tag">Human Psychology</span></div>
+        </div>
+
+        <!-- NUSB Bandung -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag">Diploma</span>
+            <span class="award-date">2022</span>
+          </div>
+          <h4>Entrepreneur Diploma Class</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">NUSB Bandung</p>
+          <p>Pendidikan diploma kewirausahaan, perancangan model bisnis kreatif, riset kelayakan pasar komersial, dan
+            strategi akselerasi produk berbasis digital.</p>
+          <div><span class="pill-tag">Entrepreneurship</span></div>
+        </div>
+
+        <!-- Bisa Safety -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag">Standardisasi</span>
+            <span class="award-date">2021</span>
+          </div>
+          <h4>K3 &amp; HSE Series Training</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">Bisa Safety Indonesia</p>
+          <p>Sertifikasi dan pelatihan keselamatan, kesehatan kerja, serta pengelolaan lingkungan (Health, Safety &amp;
+            Environment) sesuai regulasi standardisasi kerja.</p>
+          <div><span class="pill-tag">K3 &bull; HSE</span></div>
+        </div>
+
+        <!-- Widya Kartika University Surabaya -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag">Sit-In Program</span>
+            <span class="award-date">2020 &ndash; 2021</span>
+          </div>
+          <h4>Arsitektur &amp; Psikologi Pendidikan</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">Universitas Widya Kartika Surabaya
+          </p>
+          <p>Program sit-in akademis mendalami teori bentuk ruang arsitektur, estetika proporsi visual, dan psikologi
+            pendidikan untuk integrasi desain lintas bidang.</p>
+          <div><span class="pill-tag">Architecture</span></div>
+        </div>
+
+        <!-- SMKN 3 Balikpapan -->
+        <div class="award-card reveal">
+          <div class="award-head">
+            <span class="pill-tag">Vokasi Kejuruan</span>
+            <span class="award-date">2018 &ndash; 2021</span>
+          </div>
+          <h4>Jurusan Desain Grafis</h4>
+          <p style="font-weight: 600; color: var(--ink-pure); margin-bottom: 6px;">SMKN 3 Balikpapan</p>
+          <p>Pendidikan vokasi kejuruan desain grafis: penguasaan teori warna, prinsip proporsi gestalt, tipografi
+            huruf, teknik tata letak, dan alur pra-cetak profesional.</p>
+          <div><span class="pill-tag">Graphic Design</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         BIBLIOTHÈQUE SCIENTIFIQUE (Academic Research)
+         ======================================================= -->
+    <section class="wrap section section-alt" id="research">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Bibliothèque Scientifique</div>
+          <h2>Penelitian &amp; Publikasi Akademik.</h2>
+        </div>
+        <p class="section-head-desc">
+          Publikasi karya ilmiah pada jurnal internasional dan nasional bereputasi, serta terindeks resmi pada Google
+          Scholar.
+        </p>
+      </div>
+
+      <div class="research-archive-list">
+
+        <!-- Paper 1 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">⏳</div>
+          <div class="research-details">
+            <h4>The Existence of Time</h4>
+            <div class="research-journal-meta">International Review of Social and Cultural Studies, Vol. 1, No. 3, hlm.
+              89–99 (2025).</div>
+            <div class="research-authors">Gray Hansen Limantoro, Riski Zulkarnain, M. A. Rifa’i, &amp; Y. Wibisono.
+            </div>
+          </div>
+          <div>
+            <a href="https://ojs.projurnal.com/index.php/irscs" target="_blank" rel="noopener noreferrer"
+              class="btn btn-secondary btn-sm">
+              <span>Jurnal &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 2 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">📚</div>
+          <div class="research-details">
+            <h4>Japanese Typography: 日本タイポグラフィ、過去と現在 (Monograf Riset)</h4>
+            <div class="research-journal-meta">Penerbit: CV. Hosting Media Rakyat (2023). ISBN Resmi: 978-623-09-5379-8.
+            </div>
+            <div class="research-authors">Penulis Tunggal: Gray Hansen Limantoro.</div>
+          </div>
+          <div>
+            <a href="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+              target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+              <span>Ulasan Jawa Pos &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 3 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">🔤</div>
+          <div class="research-details">
+            <h4>History of Japanese Writing System; From Kanji Into Hiragana</h4>
+            <div class="research-journal-meta">International Journal of Multidisciplinary Sciences and Arts, Vol. 3, No.
+              4, hlm. 96–102 (2024).</div>
+            <div class="research-authors">Gray Hansen Limantoro &amp; Yeyen Dwi Atma.</div>
+          </div>
+          <div>
+            <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>Scholar &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 4 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">🧠</div>
+          <div class="research-details">
+            <h4>The Psychological Horror &amp; Psychoanalysis</h4>
+            <div class="research-journal-meta">Journal of Social Sciences and Cultural Study, Vol. 1, No. 2, hlm.
+              109–115 (2024).</div>
+            <div class="research-authors">Gray Hansen Limantoro &amp; Yeyen Dwi Atma.</div>
+          </div>
+          <div>
+            <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>Scholar &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 5 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">🎌</div>
+          <div class="research-details">
+            <h4>Japanese Typography Essentials: Japanese Type Between Japanese &amp; Latin Character</h4>
+            <div class="research-journal-meta">Transformational Language, Literature, and Technology Overview in
+              Learning, Vol. 3, No. 2, hlm. 19–24 (2024).</div>
+            <div class="research-authors">Penulis Tunggal: Gray Hansen Limantoro.</div>
+          </div>
+          <div>
+            <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>Scholar &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 6 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">📐</div>
+          <div class="research-details">
+            <h4>Japanese Typography Essentials: Learning Framework of Typography in Japan</h4>
+            <div class="research-journal-meta">Review of Multidisciplinary Education, Culture and Pedagogy, Vol. 3, No.
+              3 (2024).</div>
+            <div class="research-authors">Penulis Tunggal: Gray Hansen Limantoro.</div>
+          </div>
+          <div>
+            <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>Scholar &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 7 -->
+        <article class="research-item-row reveal">
+          <div class="research-icon">📊</div>
+          <div class="research-details">
+            <h4>Analisis Keputusan Pemilihan Siswa Ekstrakurikuler Terbaik Dengan Metode Gray Absolute Decision Analysis
+            </h4>
+            <div class="research-journal-meta">Jurnal Data Mining dan Sistem Informasi, Vol. 5, No. 1, hlm. 56–67
+              (2024).</div>
+            <div class="research-authors">Wahyu Nur Alimyaningtias, Riski Zulkarnain, Syaddam, Lisda Hani Gustina, &amp;
+              Gray Hansen Limantoro.</div>
+          </div>
+          <div>
+            <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span>Scholar &nearr;</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         REVUE DE PRESSE & MEDIA
+         ======================================================= -->
+    <section class="wrap section" id="media">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Revue de Presse</div>
+          <h2>Liputan Media &amp; Berita Pers.</h2>
+        </div>
+        <p class="section-head-desc">
+          Dokumentasi peliputan karya ilmiah, penerbitan buku tipografi, serta apresiasi gerakan kreatif oleh media
+          massa terkemuka.
+        </p>
+      </div>
+
+      <div class="press-grid">
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Universitas Mulia &bull; 2025</div>
+            <h4>Mahasiswa SI Universitas Mulia Dedikasikan Karya Ilmiah tentang Konsep Waktu ke Perpustakaan Kampus</h4>
+          </div>
+          <a href="https://universitasmulia.ac.id/2025/07/15/mahasiswa-sistem-informasi-universitas-mulia-dedikasikan-karya-ilmiah-tentang-konsep-waktu-ke-perpustakaan-kampus/"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Universitas Mulia &bull; 2024</div>
+            <h4>Mahasiswa Fakultas Ilmu Komputer Menerbitkan Buku Penelitian Ilmiah Tipografi Jepang</h4>
+          </div>
+          <a href="https://universitasmulia.ac.id/2024/09/02/mahasiswa-fakultas-ilmu-komputer-menerbitkan-buku-penelitian-ilmiah-tipografi-jepang/"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Kaltim Post / Jawa Pos &bull; 2024</div>
+            <h4>Mahasiswa FIK Universitas Mulia Terbitkan Buku Tipografi Jepang</h4>
+          </div>
+          <a href="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">MyEdisi Kaltim Post &bull; 2024</div>
+            <h4>Mahasiswa FIK UM Terbitkan Buku Tipografi Jepang (Liputan Khusus Cetak)</h4>
+          </div>
+          <a href="https://www.myedisi.com/kaltimpost/20240703/584912/mahasiswa-fik-um-terbitkan-buku-tipografi-jepang"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Universitas Mulia &bull; 2025</div>
+            <h4>Kepala Disparpora Balikpapan Kagum dengan Kreativitas Cosplay Mahasiswa di Pasar Pagi Mulia</h4>
+          </div>
+          <a href="https://universitasmulia.ac.id/2025/02/26/kepala-disparpora-balikpapan-kagum-dengan-kreativitas-cosplay-mahasiswa-di-pasar-pagi-mulia/"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Tribun Kaltim &bull; 2023</div>
+            <h4>Membumikan Pop Culture Jepang pada Kaula Muda SMKN 3 Balikpapan via Kanika Skaga</h4>
+          </div>
+          <a href="https://kaltim.tribunnews.com/2023/07/29/membumikan-pop-culture-jepang-pada-kaula-muda-smkn-3-balikpapan-via-kanika-skaga"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">RRI Daerah &bull; 2024</div>
+            <h4>Empat Anak Muda Inisiasi Gerakan Kebaikan Balikpapan</h4>
+          </div>
+          <a href="https://www.rri.co.id/daerah/839321/empat-anak-muda-inisiasi-gerakan-kebaikan-balikpapan"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+        <div class="press-card reveal">
+          <div>
+            <div class="press-outlet">Gerbang Kaltim &bull; 2024</div>
+            <h4>Keren, Empat Anak Muda Inisiasi Gerakan Kebaikan Balikpapan</h4>
+          </div>
+          <a href="https://www.gerbangkaltim.com/keren-empat-anak-muda-inisiasi-gerakan-kebaikan-balikpapan/"
+            target="_blank" rel="noopener noreferrer" class="press-link">
+            <span>Lire l'Article</span> &rarr;
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         COMMUNAUTÉ & CONFÉRENCES (Circles & Speaking)
+         ======================================================= -->
+    <section class="wrap section section-alt" id="community">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Les Cercles &amp; Conférences</div>
+          <h2>Komunitas &amp; Peran Narasumber.</h2>
+        </div>
+        <p class="section-head-desc">
+          Partisipasi aktif dalam perkumpulan fotografi, gerakan ekonomi kreatif, dan peran sebagai pemateri lokakarya
+          desain.
+        </p>
+      </div>
+
+      <div class="community-speaker-layout">
+
+        <!-- KOMUNITAS -->
+        <div>
+          <div class="community-capsules-grid">
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2025 &ndash; Sekarang</span>
+              <span class="capsule-name">BalikpapanGraphy</span>
+              <span class="capsule-role">Komunitas Fotografi Kota Balikpapan</span>
+            </div>
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2024 &ndash; Sekarang</span>
+              <span class="capsule-name">Balikpapan Economic Creative</span>
+              <span class="capsule-role">Ekosistem Penggerak Ekonomi Kreatif</span>
+            </div>
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2019 &ndash; Sekarang</span>
+              <span class="capsule-name">Balikpapan Blogger Community</span>
+              <span class="capsule-role">Komunitas Penulis &amp; Narator Blog</span>
+            </div>
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2023 &ndash; Sekarang</span>
+              <span class="capsule-name">Kameko Project Balikpapan</span>
+              <span class="capsule-role">Fotografer Karakter &amp; Event</span>
+            </div>
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2023 &ndash; 2024</span>
+              <span class="capsule-name">Obenkyo &ndash; SMAN 1 Balikpapan</span>
+              <span class="capsule-role">Pembina &amp; Guru Tamu Budaya Jepang</span>
+            </div>
+
+            <div class="community-capsule reveal">
+              <span class="capsule-period">2021 &ndash; 2025</span>
+              <span class="capsule-name">Himpunan Mahasiswa SI</span>
+              <span class="capsule-role">Ketua Umum (President) &bull; Univ. Mulia</span>
+            </div>
+
+          </div>
+
+          <!-- FOTO DOKUMENTASI KOMUNITAS ASLI -->
+          <div class="reveal"
+            style="margin-top: 22px; border-radius: var(--radius-xs); overflow: hidden; border: 1px solid var(--border-medium); box-shadow: var(--shadow-subtle);">
+            <img
+              src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+              alt="Dokumentasi Komunitas dan Kerjasama Gray Hansen Limantoro">
+          </div>
+        </div>
+
+        <!-- NARASUMBER / SPEAKER BOX -->
+        <div class="speaker-editorial-box reveal">
+          <div class="eyebrow" style="margin-bottom: 8px;">Conférences &amp; Séminaires</div>
+          <h3 style="font-size: 1.8rem; margin-bottom: 24px;">Berbagi Kepakaran Visual.</h3>
+
+          <div class="speaker-item-block">
+            <span class="speaker-year">2026 &bull; Politeknik Negeri Balikpapan</span>
+            <h4>Workshop Creative Visual Design</h4>
+            <p><strong>Peran:</strong> Graphic Designer Keynote Speaker</p>
+            <p>Mengulas prinsip komposisi grafis, hierarki visual industri modern, dan implementasi desain profesional
+              bagi sivitas akademika Poltekba.</p>
+          </div>
+
+          <div class="speaker-item-block">
+            <span class="speaker-year">2024 &bull; GPIB Bukit Benuas</span>
+            <h4>“Create Branding &amp; Outstanding Social Media Pages”</h4>
+            <p><strong>Peran:</strong> Content Creator Speaker</p>
+            <p>Strategi pembentukan branding visual yang berbobot dan perancangan estetika halaman sosial media berdaya
+              pikat tinggi.</p>
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-hairline);">
+            <p style="font-size: 0.82rem; color: var(--ink-secondary); margin: 0;">
+              Terbuka untuk undangan sebagai narasumber seminar, pemateri lokakarya kreatif, serta juri kompetisi desain
+              grafis &amp; fotografi nasional.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         ALLIANCES & PARTENAIRES (Institutional Roster)
+         ======================================================= -->
+    <section class="wrap section" id="teamwork">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Alliances &amp; Partenaires</div>
+          <h2>Kemitraan Instansi &amp; Perseorangan.</h2>
+        </div>
+        <p class="section-head-desc">
+          Daftar instansi perbankan, perhotelan, institusi pendidikan, industri kuliner, dan brand yang telah
+          mempercayakan kerjasama profesional.
+        </p>
+      </div>
+
+      <div class="alliances-grid reveal">
+
+        <div class="alliance-card">
+          <span class="alliance-year">2026 &ndash; Sekarang</span>
+          <div class="alliance-name">PT. Bank Mayapada, Tbk</div>
+          <div class="alliance-desc">KC Kota Balikpapan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2025 &ndash; 2026</span>
+          <div class="alliance-name">Qubika Boutique Hotel</div>
+          <div class="alliance-desc">Kota Nusantara (IKN)</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2026</span>
+          <div class="alliance-name">Kedai 86 Nusantara</div>
+          <div class="alliance-desc">Sepaku, IKN</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2024 &ndash; 2025</span>
+          <div class="alliance-name">Mantau Bucin Balikpapan</div>
+          <div class="alliance-desc">Kuliner Khas Balikpapan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2022 &ndash; 2025</span>
+          <div class="alliance-name">SMPIT Istiqamah</div>
+          <div class="alliance-desc">Institusi Pendidikan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2021 &ndash; 2025</span>
+          <div class="alliance-name">SugoiTV Japan</div>
+          <div class="alliance-desc">Media Internasional</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020 &ndash; Sekarang</span>
+          <div class="alliance-name">Kompasiana</div>
+          <div class="alliance-desc">Media Warga Kompas</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2023</span>
+          <div class="alliance-name">SMAN 1 Balikpapan</div>
+          <div class="alliance-desc">Obenkyo Culture</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2021</span>
+          <div class="alliance-name">SMKN 3 Balikpapan</div>
+          <div class="alliance-desc">Vokasi Desain Grafis</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2022</span>
+          <div class="alliance-name">Oma Ronde Semarang</div>
+          <div class="alliance-desc">Kuliner Tradisional</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">Bakso TBT 9 Malang</div>
+          <div class="alliance-desc">Kuliner Kota Malang</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">Barunawati Restaurant</div>
+          <div class="alliance-desc">Balikpapan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">Kebab Limousine</div>
+          <div class="alliance-desc">Balikpapan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">Mamapapa Bakery</div>
+          <div class="alliance-desc">Balikpapan</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">HH Smartphone</div>
+          <div class="alliance-desc">Retail &amp; Gadget</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2020</span>
+          <div class="alliance-name">Fresh Car Wash</div>
+          <div class="alliance-desc">Otomotif</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2019</span>
+          <div class="alliance-name">Gesture Pro</div>
+          <div class="alliance-desc">Creative Production</div>
+        </div>
+
+        <div class="alliance-card">
+          <span class="alliance-year">2019</span>
+          <div class="alliance-name">Wooden Farm House</div>
+          <div class="alliance-desc">Agrowisata Balikpapan</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         ARTICLES & ESSAIS (Thought Leadership)
+         ======================================================= -->
+    <section class="wrap section section-alt" id="articles">
+      <div class="section-head reveal">
+        <div class="section-head-title">
+          <div class="eyebrow">Chroniques &amp; Essais</div>
+          <h2>Artikel &amp; Pandangan Kreatif.</h2>
+        </div>
+        <p class="section-head-desc">
+          Ulasan inspiratif mengenai etika pemotretan, teknik visual, dan refleksi filosofis kehidupan yang
+          dipublikasikan di Kompasiana.
+        </p>
+      </div>
+
+      <div class="articles-magazine-grid">
+
+        <!-- Artikel 1 -->
+        <article class="magazine-article-card reveal">
+          <span class="article-topic-tag">Tips &amp; Etika Fotografi</span>
+          <h3>Ingin Terjun ke Dunia Fotografi? Pahami Dulu Aturannya!</h3>
+          <p>
+            Panduan mendasar mengenai etika pemotretan, hak cipta karya, rasa hormat terhadap subjek foto, dan fondasi
+            teknis sebelum membidik momen berharga.
+          </p>
+          <div class="article-footer-row">
+            <span>Kompasiana</span>
+            <a href="https://www.kompasiana.com/komentar/grayhansenlimantoro5704/67fc130334777c618f380e22/ingin-terjun-ke-dunia-fotografi-pahami-dulu-aturannya"
+              target="_blank" rel="noopener noreferrer" style="font-weight: 600; color: var(--gold-500);">
+              Lire l'Article &nearr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Artikel 2 -->
+        <article class="magazine-article-card reveal">
+          <span class="article-topic-tag">Refleksi Hubungan &amp; Kehidupan</span>
+          <h3>Kamu Sudah Mencintainya dengan Benar?</h3>
+          <p>
+            Renungan filosofis mendalam tentang makna penerimaan tulus, komunikasi emosional yang matang, dan kedewasaan
+            dalam memelihara relasi bermakna.
+          </p>
+          <div class="article-footer-row">
+            <span>Kompasiana</span>
+            <a href="https://www.kompasiana.com/grayhansenlimantoro5704/67fcf9c5c925c46bb9396bd2/kamu-sudah-mencintainya-dengan-benar"
+              target="_blank" rel="noopener noreferrer" style="font-weight: 600; color: var(--gold-500);">
+              Lire l'Article &nearr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Artikel 3 -->
+        <article class="magazine-article-card reveal">
+          <span class="article-topic-tag">Teknik Seni Visual</span>
+          <h3>Ingin Fotomu Lebih Hidup? Simak Tips Berikut!</h3>
+          <p>
+            Eksplorasi penataan cahaya alami, komposisi leading lines, menangkap gestur spontan manusia, dan sentuhan
+            storytelling pada karya fotografi.
+          </p>
+          <div class="article-footer-row">
+            <span>Kompasiana</span>
+            <a href="https://www.kompasiana.com/grayhansenlimantoro5704/683c9c5c34777c18e534de22/ingin-fotomu-lebih-hidup-simak-tips-berikut"
+              target="_blank" rel="noopener noreferrer" style="font-weight: 600; color: var(--gold-500);">
+              Lire l'Article &nearr;
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         CONCIERGERIE & INQUIRIES (Haute Atelier Contact)
+         ======================================================= -->
+    <section class="wrap section" id="contact">
+      <div class="concierge-card reveal">
+
+        <div class="concierge-left">
+          <div class="eyebrow">Conciergerie Privée &amp; Atelier</div>
+          <h2>
+            Mari Mewujudkan <br>
+            <span class="gold-gradient-text">Karya Bernilai Abadi.</span>
+          </h2>
+          <p>
+            Terbuka untuk konsultasi perancangan identitas merek, sesi pemotretan potret eksekutif, kolaborasi riset
+            akademik, penulisan monograf, serta sesi lokakarya desain.
+          </p>
+
+          <div class="concierge-actions">
+            <a href="https://www.linkedin.com/in/grayhansen/" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary">
+              <span>Profil LinkedIn &nearr;</span>
+            </a>
+            <button class="btn btn-secondary" id="copyEmailBtn" data-email="grayhansenl3@gmail.com">
+              <span>Salin Email Atelier</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="concierge-channels">
+
+          <a href="https://iamabuabu.wordpress.com/" target="_blank" rel="noopener noreferrer"
+            class="concierge-channel-item">
+            <div class="channel-icon">🌐</div>
+            <div>
+              <span class="channel-tag">Journal &amp; Blog Principal</span>
+              <div class="channel-val">iamabuabu.wordpress.com</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/grayhansenliem" target="_blank" rel="noopener noreferrer"
+            class="concierge-channel-item">
+            <div class="channel-icon">📸</div>
+            <div>
+              <span class="channel-tag">Instagram Professionnel</span>
+              <div class="channel-val">@grayhansenliem</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/grayhansen/" target="_blank" rel="noopener noreferrer"
+            class="concierge-channel-item">
+            <div class="channel-icon">💼</div>
+            <div>
+              <span class="channel-tag">Réseau LinkedIn</span>
+              <div class="channel-val">linkedin.com/in/grayhansen</div>
+            </div>
+          </a>
+
+          <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+            rel="noopener noreferrer" class="concierge-channel-item">
+            <div class="channel-icon">🏛️</div>
+            <div>
+              <span class="channel-tag">Répertoire National EKRAF RI</span>
+              <div class="channel-val">Pelaku Ekraf Terdaftar Kemenparekraf</div>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PRINT-ONLY LUXURY DOSSIER COLOPHON (Visible exclusively in PDF Dossier)
+         ======================================================= -->
+    <div class="print-dossier-colophon wrap" aria-hidden="true">
+      <div class="print-colophon-divider"></div>
+      <div class="print-colophon-content">
+        <div class="print-colophon-jp">どうぞ宜しくお願いします！ &bull; &ldquo;Douzo yoroshiku onegaishimasu!&rdquo;</div>
+        <div class="print-colophon-meta">
+          <strong>Gray Hansen Limantoro, S.Kom. (林福勝)</strong> &mdash; Maison de Création &amp; Haute Recherche.
+          Balikpapan &bull; Ibu Kota Nusantara (IKN). Berkas Curriculum Vitae &amp; Portfolio resmi divalidasi melalui
+          Direktori EKRAF Kemenparekraf RI &amp; iamabuabu.wordpress.com.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- =======================================================
+       GRAND MAISON FOOTER (LVMH Style)
+       ======================================================= -->
+  <footer class="maison-footer">
+    <div class="wrap">
+
+      <div class="footer-greeting-center reveal">
+        <div class="footer-greeting-jp">どうぞ宜しくお願いします！</div>
+        <div class="footer-greeting-sub">
+          &ldquo;Douzo yoroshiku onegaishimasu!&rdquo; &mdash; Gray Hansen Limantoro, S.Kom. (<span
+            class="jp-kanji">林福勝</span>)
+        </div>
+      </div>
+
+      <div class="footer-columns-grid">
+        <div class="footer-col">
+          <div class="font-display"
+            style="font-size: 1.15rem; font-weight: 600; letter-spacing: 0.22em; margin-bottom: 12px; color: var(--ink-pure);">
+            GRAY HANSEN LIMANTORO
+          </div>
+          <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.6; max-width: 320px;">
+            Maison de Création &amp; Haute Recherche. Graphic Designer, Photographer, Researcher, Blogger &amp; Educator
+            berbasis di Balikpapan dan berjejaring hingga Tokyo.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Les Maisons</h5>
+          <ul class="footer-links-list">
+            <li><a href="#maisons">Haute Photographie</a></li>
+            <li><a href="#maisons">Design &amp; Identité</a></li>
+            <li><a href="#maisons">Recherche Scientifique</a></li>
+            <li><a href="#maisons">Pédagogie &amp; Conférences</a></li>
+            <li><a href="#maisons">Chroniques iamabuabu</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul class="footer-links-list">
+            <li><a href="#photosessions">PhotoSessions Officiels</a></li>
+            <li><a href="#portfolio">Portofolio &amp; Design</a></li>
+            <li><a href="#achievements">Prestasi &amp; Rekognisi</a></li>
+            <li><a href="#experience">Parcours Karir</a></li>
+            <li><a href="#research">Buku &amp; Jurnal Ilmiah</a></li>
+            <li><a href="#media">Liputan Media Pers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Archives &amp; Liens</h5>
+          <ul class="footer-links-list">
+            <li><a href="https://iamabuabu.wordpress.com" target="_blank"
+                rel="noopener noreferrer">iamabuabu.wordpress.com &nearr;</a></li>
+            <li><a href="https://graystyle.wixsite.com/home" target="_blank" rel="noopener noreferrer">Portfolio Wixsite
+                &nearr;</a></li>
+            <li><a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                rel="noopener noreferrer">Google Scholar &nearr;</a></li>
+            <li><a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                rel="noopener noreferrer">Direktori EKRAF RI &nearr;</a></li>
+            <li><a href="#home">Retour en Haut &uarr;</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div>
+          &copy; <span id="currentYear"></span> Gray Hansen Limantoro, S.Kom. (林福勝). Seluruh Hak Cipta Dilindungi.
+          Data diolah secara resmi dari <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--gold-500); text-decoration: underline;">iamabuabu.wordpress.com</a>.
+        </div>
+
+        <div style="display: flex; gap: 18px; align-items: center;">
+          <button class="utility-link" id="footerShareLinkBtn"
+            style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;">
+            <span>Partager le Portfolio</span> &nearr;
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =======================================================
+       INTERACTIVE DETAIL MODAL
+       ======================================================= -->
+  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="luxury-modal">
+      <button class="modal-close-btn" id="modalClose" aria-label="Tutup Detail">&times;</button>
+      <div class="eyebrow" id="modalCategory">Kategori Portofolio</div>
+      <h3 id="modalTitle" style="font-size: 1.8rem; margin-bottom: 8px;">Judul Proyek</h3>
+      <div class="pill-tag pill-tag-gold" id="modalRoleBadge" style="display: inline-block; margin-bottom: 16px;">Peran
+        &bull; Tahun</div>
+
+      <div class="modal-image-wrap" id="modalImageWrap">
+        <img id="modalImage" src="" alt="Detail Proyek">
+      </div>
+
+      <div id="modalBody"
+        style="font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 24px;">
+        Deskripsi mendalam mengenai proyek ini...
+      </div>
+
+      <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-end;">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="modalActionBtn">
+          <span>Ouvrir le Lien Officiel &nearr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================
+       TOAST NOTIFICATION
+       ======================================================= -->
+  <div class="luxury-toast" id="toastNotification">
+    <span id="toastMessage">Tautan berhasil disalin ke papan klip!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
