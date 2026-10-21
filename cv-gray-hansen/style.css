@@ -1513,6 +1513,13 @@ h5 {
   background-color: var(--gold-glow);
 }
 
+.pill-tag-golden {
+  color: #ffff;
+  border-color: var(--gold-border-subtle);
+  background: var(--gold-gradient);
+  display: inline-block;
+}
+
 /* REPOSITORY DIRECT ACCESS BANNER */
 .cloud-archive-banner {
   margin-top: 44px;
@@ -1596,9 +1603,20 @@ h5 {
 }
 
 @keyframes liveSyncPulseAnim {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 .live-gallery-title {
@@ -1768,6 +1786,7 @@ h5 {
     left: 8px;
     right: 40px;
   }
+
   .lvmh-slide-title {
     font-size: 0.62rem;
   }
@@ -1811,8 +1830,13 @@ h5 {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-.lvmh-prev-btn { left: 14px; }
-.lvmh-next-btn { right: 14px; }
+.lvmh-prev-btn {
+  left: 14px;
+}
+
+.lvmh-next-btn {
+  right: 14px;
+}
 
 /* Subtle Gold Pagination Dots Bar */
 .lvmh-dots-bar {
@@ -1910,8 +1934,13 @@ h5 {
 }
 
 @keyframes spinSync {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* RESPONSIVE DESIGN: MOBILE PRESERVES 2 COLUMNS SIDE-BY-SIDE */
@@ -1968,8 +1997,13 @@ h5 {
     height: 14px;
   }
 
-  .lvmh-prev-btn { left: 6px; }
-  .lvmh-next-btn { right: 6px; }
+  .lvmh-prev-btn {
+    left: 6px;
+  }
+
+  .lvmh-next-btn {
+    right: 6px;
+  }
 
   .lvmh-dots-bar {
     bottom: 8px;
@@ -3095,7 +3129,12 @@ h5 {
     margin-bottom: 8px !important;
   }
 
-  h1, h2, h3, h4, h5, .timeline-column-title {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .timeline-column-title {
     page-break-after: avoid;
     break-after: avoid;
   }
@@ -3545,9 +3584,11 @@ h5 {
   0% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
   }
+
   70% {
     box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
@@ -3735,7 +3776,7 @@ h5 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.35) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.35) 100%);
   opacity: 0.7;
   transition: opacity var(--transition-fast);
 }
