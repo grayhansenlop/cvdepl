@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (triggerToast && typeof showToast === 'function') {
-      showToast(theme === 'noir' ? 'Mode Atelier Noir (Dark Mode) diaktifkan' : 'Mode Maison Blanche (Light Mode) diaktifkan');
+      showToast(theme === 'noir' ? 'Dark Mode is enabled' : 'Light Mode is enabled');
     }
   }
 
