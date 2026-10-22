@@ -588,7 +588,7 @@ h5 {
 .btn-primary:hover {
   background-color: var(--gold-500);
   border-color: var(--gold-500);
-  color: #ffffff;
+  color: #352d2d;
   transform: translateY(-2px);
   box-shadow: var(--shadow-gold);
 }
@@ -607,16 +607,26 @@ h5 {
 }
 
 .btn-gold {
-  background: var(--gold-gradient);
-  color: #0e0f12;
-  border: 1px solid var(--gold-300);
+  background: var(--ink-pure);
+  color: var(--bg-body);
+  border: 1px solid var(--ink-pure);
   font-weight: 700;
+  transition: all 0.3s ease;
 }
 
 .btn-gold:hover {
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: #f1f1f1;
   transform: translateY(-2px);
   box-shadow: var(--shadow-gold);
-  filter: brightness(1.08);
+}
+
+.btn-gold:active {
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: #352d2d;
+  transform: translateY(0);
 }
 
 .btn-pill {
