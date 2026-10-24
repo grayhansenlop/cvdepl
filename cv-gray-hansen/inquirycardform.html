@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="blanche">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.35, user-scalable=yes">
+    <script>
+        (function () {
+            function adjustDesktopViewport() {
+                var targetWidth = 1280;
+                var screenW = window.screen.width || window.innerWidth;
+                var scale = screenW < targetWidth ? (screenW / targetWidth) : 1.0;
+                var meta = document.querySelector('meta[name="viewport"]');
+                if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.name = 'viewport';
+                    document.head.appendChild(meta);
+                }
+                meta.content = 'width=' + targetWidth + ', initial-scale=' + scale.toFixed(4) + ', minimum-scale=' + (scale * 0.4).toFixed(4) + ', maximum-scale=4.0, user-scalable=yes';
+            }
+            adjustDesktopViewport();
+            window.addEventListener('resize', adjustDesktopViewport);
+            window.addEventListener('orientationchange', adjustDesktopViewport);
+        })();
+    </script>
+    <title>Concierge Application &amp; Inquiry Form &mdash; Gray Hansen Limantoro, S.Kom. (林福勝)</title>
+    <meta name="description"
+        content="Official Membership Application & Private Concierge of Maison Gray Hansen Limantoro. Privilege Circle Candidature, Fine Art Photography and Art Direction Commissions.">
+    <meta name="author" content="Gray Hansen Limantoro">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg"
+        href="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/475445163_18259454560279361_301243607268293540_n.jpg">
+
+    <!-- Preconnect & Google Fonts: Cormorant Garamond, Cinzel, Plus Jakarta Sans, Noto Serif JP, Ma Shan Zheng -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif+JP:wght@300;400;600;700&family=Ma+Shan+Zheng&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =======================================================
+       CONCIERGE APPLICATION & INQUIRY FORM DEDICATED STYLES
+       Consistent with Gray Hansen Haute Maison Aesthetics
+       ======================================================= */
+
+        .inquiry-hero-section {
+            padding-top: clamp(40px, 5vw, 70px);
+            padding-bottom: clamp(60px, 7vw, 100px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concierge-app-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            padding: clamp(36px, 6vw, 68px) clamp(24px, 5vw, 60px);
+            box-shadow: var(--shadow-elevated);
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .concierge-app-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            height: 2px;
+            background: var(--gold-gradient);
+        }
+
+        .app-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .app-label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-secondary);
+            margin-bottom: 8px;
+        }
+
+        .app-input,
+        .app-select,
+        .app-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            background: var(--bg-surface-elevated);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--ink-pure);
+            transition: all var(--transition-fast);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .app-input:focus,
+        .app-select:focus,
+        .app-textarea:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 2px var(--gold-glow);
+        }
+
+        /* VIP SUCCESS MODAL */
+        .vip-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(8px);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .vip-modal-backdrop.open {
+            display: flex;
+        }
+
+        .vip-modal-dialog {
+            background: var(--bg-surface);
+            border: 1px solid var(--gold-400);
+            border-radius: var(--radius-sm);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            box-shadow: var(--shadow-gold), var(--shadow-elevated);
+            animation: modalPop 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close-cross {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--ink-muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close-cross:hover {
+            color: var(--ink-pure);
+        }
+
+        @media (max-width: 1024px) {
+            .app-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =======================================================
+       TOP UTILITY BAR (LVMH Style Pre-Header)
+       ======================================================= -->
+    <aside class="top-utility-bar" aria-label="Utility navigation">
+        <div class="wrap top-utility-inner">
+            <div class="utility-left">
+                <div class="utility-motto">
+                    <span class="utility-motto-dot"></span>
+                    <span>Creative Atelier &bull; Private Circle &amp; Concierge &bull; Balikpapan &bull; Malang &bull;
+                        Tokyo</span>
+                </div>
+            </div>
+
+            <div class="utility-right">
+                <a href="index.html" class="utility-link" title="Return to Gray Hansen Main Profile">
+                    <span>&larr; Main Profile (index.html)</span>
+                </a>
+                <a href="indexdua.html" class="utility-link" title="Open Membership Card Page">
+                    <span style="font-weight: 700; color: var(--gold-500);">&larr; Membership Card
+                        (indexdua.html)</span>
+                </a>
+                <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                    rel="noopener noreferrer" class="utility-link"
+                    title="Officially Registered with EKRAF Kemenparekraf RI">
+                    <span>EKRAF Kemenparekraf RI</span> &nearr;
+                </a>
+                <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                    rel="noopener noreferrer" class="utility-link" title="Google Scholar Research Profile">
+                    <span>Google Scholar</span> &nearr;
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- =======================================================
+       PRIMARY LUXURY NAVIGATION (Consistent with index.html)
+       ======================================================= -->
+    <header class="main-header" id="mainHeader">
+        <div class="wrap nav-container">
+
+            <!-- LEFT: MENU DRAWER TRIGGER & QUICK JUMP -->
+            <div class="nav-left-actions">
+                <button class="menu-trigger-btn" id="menuOpenBtn" aria-label="Buka Menu Navigasi Eksklusif">
+                    <div class="menu-burger-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Menu</span>
+                </button>
+
+                <nav class="header-quick-links" aria-label="Quick Navigation">
+                    <a href="index.html" class="header-nav-link">The Atelier</a>
+                    <a href="indexdua.html" class="header-nav-link">Privilege Card</a>
+                    <a href="#concierge" class="header-nav-link active">Concierge Form</a>
+                </nav>
+            </div>
+
+            <!-- CENTER: PRESTIGE MAISON MONOGRAM & BRAND -->
+            <div class="nav-center-brand">
+                <a href="inquirycardform.html" class="maison-logo-link">
+                    <span class="maison-title-main">Gray Hansen Limantoro</span>
+                    <span class="maison-subtitle">
+                        <span class="jp-kanji">林福勝</span> &bull; S.Kom. &bull; <span
+                            class="kanji-crest">Concierge</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- RIGHT: THEME SWITCH & ACTION -->
+            <div class="nav-right-actions">
+                <!-- THEME BUTTON (LIGHT / DARK MODE) -->
+                <div class="theme-mini-switch" role="group" aria-label="Display Mode: Light or Dark">
+                    <button type="button" class="theme-mini-btn active" data-theme-set="blanche" id="themeBtnLight"
+                        title="Light Mode (Maison Blanche)" aria-pressed="true">
+                        <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <span class="theme-mini-text">Light</span>
+                    </button>
+                    <button type="button" class="theme-mini-btn" data-theme-set="noir" id="themeBtnDark"
+                        title="Dark Mode (Atelier Noir)" aria-pressed="false">
+                        <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span class="theme-mini-text">Dark</span>
+                    </button>
+                </div>
+
+                <a href="indexdua.html" class="btn btn-secondary btn-sm" title="View 3D Member Card">
+                    <span>3D Card &nearr;</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =======================================================
+       FULLSCREEN EDITORIAL MENU DRAWER (Identical to index.html)
+       ======================================================= -->
+    <div class="menu-drawer" id="menuDrawer" role="dialog" aria-modal="true" aria-label="Complete Navigation Menu">
+        <div class="menu-drawer-header">
+            <div class="wrap menu-drawer-top">
+                <div class="font-display" style="font-size: 0.82rem; letter-spacing: 0.24em; color: var(--gold-500);">
+                    Table of Content &bull; Portfolio Framework
+                </div>
+                <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close Menu">
+                    <span>with Gratitude</span>
+                    <span>&times;</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="wrap menu-drawer-body">
+            <ul class="menu-nav-list" id="drawerNavList">
+                <li class="menu-nav-item"><a href="index.html#home"><span class="menu-nav-num">01</span><span>The House
+                            (Home)</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#photosessions"><span
+                            class="menu-nav-num">02</span><span>PhotoSessions &amp; Portraits of Honour</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#maisons"><span class="menu-nav-num">03</span><span>Fields
+                            of Excellence</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#portfolio"><span class="menu-nav-num">04</span><span>The
+                            Gallery (Design &amp; Works)</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#achievements"><span
+                            class="menu-nav-num">05</span><span>Awards &amp; Honours</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#experience"><span
+                            class="menu-nav-num">06</span><span>Career &amp; Expertise</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#education"><span
+                            class="menu-nav-num">07</span><span>Academy &amp; Certifications</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#research"><span
+                            class="menu-nav-num">08</span><span>Scholarly Library</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#media"><span class="menu-nav-num">09</span><span>Press
+                            Review
+                            &amp; Media</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#community"><span
+                            class="menu-nav-num">10</span><span>Circles
+                            &amp; Conferences</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#teamwork"><span
+                            class="menu-nav-num">11</span><span>Alliances &amp; Partners</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#articles"><span
+                            class="menu-nav-num">12</span><span>Chronicles &amp; Essays</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#contact"><span class="menu-nav-num">13</span><span>Private
+                            Concierge &amp; Contact</span></a></li>
+                <li class="menu-nav-item"><a href="indexdua.html"><span class="menu-nav-num">14</span><span
+                            style="color: var(--gold-500);">Membership Card &amp; Privileges &nearr;</span></a>
+                </li>
+            </ul>
+
+            <div class="menu-nav-aside">
+                <div class="menu-featured-card">
+                    <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                        alt="Monografi Japanese Typography" class="menu-featured-img">
+                    <div class="eyebrow" style="margin-bottom: 6px;">Featured Monograph</div>
+                    <h4 class="menu-featured-title">Japanese Typography: 日本タイポグラフィ</h4>
+                    <p class="menu-featured-desc">
+                        A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8,
+                        presenting a
+                        rigorous examination of Kanji, Hiragana and contemporary Latin typographic architecture.
+                    </p>
+                    <div style="margin-top: 14px;">
+                        <a href="index.html#research" class="btn btn-secondary btn-sm" id="drawerFeaturedLink">
+                            <span>View the Monograph &nearr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="padding-top: 24px; border-top: 1px solid var(--border-hairline);">
+                    <div
+                        style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px;">
+                        Malang &bull; Balikpapan &bull; Nusantara
+                    </div>
+                    <div style="font-size: 0.84rem; color: var(--ink-secondary);">
+                        Email Direct: <strong style="color: var(--ink-pure);">grayhansenl3@gmail.com </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- =======================================================
+         SECTION: CONCIERGE APPLICATION & INQUIRY FORM
+         ======================================================= -->
+        <section class="section" id="concierge">
+            <div class="wrap">
+                <div class="concierge-app-box">
+                    <div style="text-align: center; max-width: 720px; margin: 0 auto 30px;">
+                        <div class="eyebrow center-eyebrow">MEMBERSHIP INQUIRY &bull; PRIVATE CONCIERGE</div>
+                        <h2 style="font-size: clamp(2rem, 3.4vw, 2.8rem); margin-bottom: 14px;">Join the Privilege
+                            Circle</h2>
+                        <p style="color: var(--ink-secondary); font-size: 0.94rem; line-height: 1.65;">
+                            Allocation of the Membership Card is conducted via application dossier or sponsorship from
+                            an
+                            existing member. Please complete the following information so our concierge may
+                            review your request.
+                        </p>
+                    </div>
+
+                    <form id="membershipForm">
+                        <div class="app-form-grid">
+                            <div>
+                                <label for="formFullName" class="app-label">Full Name &bull; Official Title</label>
+                                <input type="text" id="formFullName" class="app-input"
+                                    placeholder="Ex: Dr. Alexandre de Vance, MBA" required>
+                            </div>
+
+                            <div>
+                                <label for="formEmail" class="app-label">Confidential Email</label>
+                                <input type="email" id="formEmail" class="app-input" placeholder="alexandre@domaine.com"
+                                    required>
+                            </div>
+
+                            <div>
+                                <label for="formPhone" class="app-label">WhatsApp / Signal Number (Direct
+                                    Line)</label>
+                                <input type="tel" id="formPhone" class="app-input"
+                                    placeholder="+62 812 ... or +1 / +44 ..." required>
+                            </div>
+
+                            <div>
+                                <label for="formField" class="app-label">Field of Activity / Organization</label>
+                                <select id="formField" class="app-select">
+                                    <option value="Art Direction & Luxury Industry">Art Direction, Fashion & Luxury
+                                        Industry</option>
+                                    <option value="Executive Leadership & Business">Executive Leadership & Business
+                                    </option>
+                                    <option value="Scholarly Research & Academia">Scholarly Research, University &
+                                        Letters</option>
+                                    <option value="Art Patronage & Private Collection">Art Patronage & Private
+                                        Collection</option>
+                                    <option value="Professional Photography & Media">Media, Publishing & Professional
+                                        Photography</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group-full">
+                                <label for="formInterest" class="app-label">Primary Interest in the Private
+                                    Circle</label>
+                                <select id="formInterest" class="app-select">
+                                    <option value="Portraits of Honour & VIP Private Studio">Portraits of Honour & VIP
+                                        Private Studio</option>
+                                    <option value="Brand Identity & Typographic Direction">Brand Identity Creation &
+                                        Typographic Direction</option>
+                                    <option value="Rare Monographs & Scholarly Publications">Access to Rare Monographs &
+                                        Scholarly Publications</option>
+                                    <option value="Full Privilege Access (Noir Elite Tier)">Full Privilege Access &
+                                        Concierge (Complete Tier)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group-full">
+                                <label for="formNotes" class="app-label">Additional Comments & Motivations
+                                    (Optional)</label>
+                                <textarea id="formNotes" class="app-textarea" rows="4"
+                                    placeholder="Briefly describe your creative projects, design needs, or motivations for connecting with Maison Gray Hansen..."></textarea>
+                            </div>
+
+                            <div class="form-group-full"
+                                style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 10px;">
+                                <div
+                                    style="font-size: 0.74rem; color: var(--ink-muted); max-width: 440px; line-height: 1.45;">
+                                    &bull; Your information is handled under strict confidentiality by Atelier Gray
+                                    Hansen Limantoro in accordance with institutional privacy ethics.
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" id="btnSubmitMembership"
+                                    style="padding: 14px 34px;">
+                                    <span>Submit Membership Application &nearr;</span>
+                                </button>
+                            </div>
+
+                            <!-- GOOGLE SHEETS LIVE REGISTRY SYNC BAR -->
+                            <div class="form-group-full"
+                                style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-hairline); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.76rem; color: var(--ink-secondary);">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span
+                                        style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2e8b57; box-shadow: 0 0 6px rgba(46,139,87,0.5);"></span>
+                                    <span>Direct Live Registry: <strong style="color: var(--ink-pure);">Google Sheets
+                                            (Card Apply)</strong></span>
+                                </div>
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <a href="https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit?usp=sharing"
+                                        target="_blank" rel="noopener noreferrer"
+                                        style="color: var(--gold-500); text-decoration: underline; font-weight: 500;">
+                                        Open Google Sheet &nearr;
+                                    </a>
+                                    <button type="button" id="btnOpenSheetConfig"
+                                        style="background: var(--bg-surface-elevated); border: 1px solid var(--border-hairline); border-radius: var(--radius-xs); padding: 4px 10px; font-size: 0.72rem; color: var(--ink-secondary); cursor: pointer;"
+                                        title="Configure Google Apps Script Live Sync Endpoint, https://script.google.com/macros/s/AKfycbw4AierL9IGdmVICNVlHvh3mB5TFZ7T02CW7_2-htTMWNcL0UZRbOYpCd7ly-K4jS_z/exec">
+                                        ⚙ Apps Script Endpoint
+                                        https://script.google.com/macros/s/AKfycbw4AierL9IGdmVICNVlHvh3mB5TFZ7T02CW7_2-htTMWNcL0UZRbOYpCd7ly-K4jS_z/exec
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =======================================================
+       GRAND MAISON FOOTER (Consistent with index.html)
+       ======================================================= -->
+    <footer class="main-footer">
+        <div class="wrap">
+            <div class="footer-columns-grid">
+
+                <div class="footer-brand-col">
+                    <div class="footer-brand-name">Gray Hansen Limantoro</div>
+                    <div class="footer-brand-crest">林福勝 &bull; S.Kom. &bull; Creative Atelier</div>
+                    <p class="footer-brand-desc">
+                        Private Concierge &amp; Advanced Research. Official admission application form for the Privilege
+                        Circle.
+                        Balikpapan &bull; Malang &bull; Tokyo, Japan.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Concierge</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="#concierge">Application Form</a></li>
+                        <li><a href="indexdua.html">3D Member Card &nearr;</a></li>
+                        <li><a href="indexdua.html#privileges">Exclusive Privileges</a></li>
+                        <li><a href="indexdua.html#authenticity">Registry Verification</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Maison Navigation</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Home &bull; Main Profile</a></li>
+                        <li><a href="index.html#portfolio">Portfolio &amp; Gallery</a></li>
+                        <li><a href="index.html#experience">Career &amp; Expertise</a></li>
+                        <li><a href="index.html#research">Scholarly Library</a></li>
+                        <li><a href="index.html#contact">General Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Archives &amp; Links</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="https://iamabuabu.wordpress.com" target="_blank"
+                                rel="noopener noreferrer">iamabuabu.wordpress.com &nearr;</a></li>
+                        <li><a href="https://graystyle.wixsite.com/home" target="_blank"
+                                rel="noopener noreferrer">Portfolio Wixsite &nearr;</a></li>
+                        <li><a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                                rel="noopener noreferrer">Google Scholar &nearr;</a></li>
+                        <li><a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
+                                target="_blank" rel="noopener noreferrer">EKRAF HUNT Repository &nearr;</a></li>
+                        <li><a href="#concierge">Back to Top &uarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-row">
+                <div>
+                    &copy; <span id="currentYear"></span> Gray Hansen Limantoro, S.Kom. (林福勝). All Rights Reserved.
+                    Official Concierge Dossier.
+                </div>
+
+                <div style="display: flex; gap: 18px; align-items: center;">
+                    <button class="utility-link" id="footerShareLinkBtn"
+                        style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;">
+                        <span>Share this Form &nearr;</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- =======================================================
+       VIP WELCOME CONFIRMATION MODAL
+       ======================================================= -->
+    <div class="vip-modal-backdrop" id="vipSuccessModal" role="dialog" aria-modal="true"
+        aria-labelledby="vipModalTitle">
+        <div class="vip-modal-dialog">
+            <button type="button" class="modal-close-cross" id="closeVipModal" aria-label="Close">&times;</button>
+            <div class="eyebrow">APPLICATION DOSSIER REGISTERED</div>
+            <h3 id="vipModalTitle" style="font-size: 1.85rem; margin-bottom: 12px; color: var(--ink-pure);">
+                Welcome to the Privilege Circle
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.65; margin-bottom: 20px;">
+                Your application dossier has been successfully submitted to the office of Gray Hansen Limantoro. Our
+                concierge
+                will contact you within 24 hours to arrange your induction consultation and coordinate
+                the custom minting of your membership card.
+            </p>
+
+            <div
+                style="padding: 18px; background: var(--bg-surface-elevated); border: 1px solid var(--gold-border); border-radius: var(--radius-xs); margin-bottom: 24px;">
+                <div
+                    style="font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 4px;">
+                    Registered Applicant</div>
+                <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--ink-pure);"
+                    id="modalApplicantNameDisplay">ALEXANDRE DE VANCE</div>
+                <div
+                    style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--ink-muted); margin-top: 6px; border-top: 1px solid var(--border-hairline); padding-top: 6px;">
+                    <span id="modalDossierRefDisplay">Ref: DOSSIER-GH-2026-9481</span>
+                    <span style="color: var(--gold-500); font-weight: 600;">Status: Pending Induction Review</span>
+                </div>
+                <div
+                    style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border-hairline); font-size: 0.72rem; color: var(--ink-secondary); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                    <span>&bull; Synced with: <strong style="color: var(--ink-pure);">Card Apply (Google
+                            Sheets)</strong></span>
+                    <a href="https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit?usp=sharing"
+                        target="_blank" rel="noopener noreferrer"
+                        style="color: var(--gold-500); text-decoration: underline;">
+                        Inspect Row in Spreadsheet &nearr;
+                    </a>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" class="btn btn-primary btn-sm" id="confirmVipModalBtn">
+                    <span>Acknowledged with Gratitude &check;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================
+       GOOGLE SHEETS APPS SCRIPT CONFIGURATION MODAL
+       ======================================================= -->
+    <div class="vip-modal-backdrop" id="sheetConfigModal" role="dialog" aria-modal="true"
+        aria-labelledby="sheetConfigTitle">
+        <div class="vip-modal-dialog" style="max-width: 580px;">
+            <button type="button" class="modal-close-cross" id="closeSheetConfigModal"
+                aria-label="Close">&times;</button>
+            <div class="eyebrow">REGISTRY INTEGRATION &bull; GOOGLE SHEETS</div>
+            <h3 id="sheetConfigTitle" style="font-size: 1.5rem; margin-bottom: 10px; color: var(--ink-pure);">
+                Google Sheets Live Sync Endpoint
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--ink-secondary); line-height: 1.6; margin-bottom: 16px;">
+                All form submissions are automatically structured and forwarded to your official Google Spreadsheet:
+                <br>
+                <a href="https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit?usp=sharing"
+                    target="_blank" rel="noopener noreferrer"
+                    style="color: var(--gold-500); font-weight: 600; text-decoration: underline;">
+                    Card Apply &bull; 13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw &nearr;
+                </a>
+            </p>
+
+            <div style="margin-bottom: 16px;">
+                <label for="gasEndpointInput" class="app-label">Google Apps Script Web App URL</label>
+                <input type="url" id="gasEndpointInput" class="app-input"
+                    placeholder="https://script.google.com/macros/s/.../exec">
+                <div style="font-size: 0.72rem; color: var(--ink-muted); margin-top: 6px; line-height: 1.45;">
+                    Obtain this URL by deploying <code>google_sheet_card_apply_bridge.gs</code> in your Google
+                    Spreadsheet (Extensions &gt; Apps Script &gt; Deploy &gt; Web app with access: Anyone).
+                </div>
+            </div>
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-secondary btn-sm" id="testSheetConnBtn">
+                    <span>Test Endpoint</span>
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="saveSheetConfigBtn">
+                    <span>Save Endpoint &check;</span>
+                </button>
+            </div>
+            <div id="gasConfigFeedback"
+                style="display: none; margin-top: 14px; font-size: 0.8rem; padding: 10px; border-radius: var(--radius-xs);">
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================
+       TOAST NOTIFICATION
+       ======================================================= -->
+    <div class="luxury-toast" id="toastNotification">
+        <span id="toastMessage">Your inquiry has been recorded.</span>
+    </div>
+
+    <!-- =======================================================
+       INTERACTIVE SCRIPT
+       ======================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Current Year in Footer
+            const yearEl = document.getElementById('currentYear');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+
+            // 2. Dual Luxury Theme Toggle (Maison Blanche & Atelier Noir) - Synced with index.html
+            const htmlRoot = document.documentElement;
+            const themeButtons = document.querySelectorAll('[data-theme-set]');
+            const savedTheme = localStorage.getItem('luxury-maison-theme') || 'blanche';
+            setTheme(savedTheme, false);
+
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetTheme = btn.getAttribute('data-theme-set');
+                    if (targetTheme) {
+                        setTheme(targetTheme, true);
+                    }
+                });
+            });
+
+            function setTheme(theme, triggerToast = false) {
+                htmlRoot.setAttribute('data-theme', theme);
+                localStorage.setItem('luxury-maison-theme', theme);
+
+                themeButtons.forEach(btn => {
+                    const isTarget = btn.getAttribute('data-theme-set') === theme;
+                    btn.classList.toggle('active', isTarget);
+                    btn.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+                });
+
+                if (triggerToast) {
+                    showToast(theme === 'noir' ? 'Mode Sombre (Atelier Noir) activé' : 'Mode Clair (Maison Blanche) activé');
+                }
+            }
+
+            // Toast Notification Utility
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            let toastTimeout;
+
+            function showToast(message) {
+                if (!toast || !toastMsg) return;
+                toastMsg.textContent = message;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3200);
+            }
+
+            // 3. Fullscreen Editorial Menu Drawer (LVMH Style - Same as index.html)
+            const menuOpenBtn = document.getElementById('menuOpenBtn');
+            const menuCloseBtn = document.getElementById('menuCloseBtn');
+            const menuDrawer = document.getElementById('menuDrawer');
+            const drawerNavLinks = document.querySelectorAll('#drawerNavList a, #drawerFeaturedLink');
+
+            function openDrawer() {
+                if (!menuDrawer) return;
+                menuDrawer.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                menuCloseBtn?.focus();
+            }
+
+            function closeDrawer() {
+                if (!menuDrawer) return;
+                menuDrawer.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            if (menuOpenBtn) menuOpenBtn.addEventListener('click', openDrawer);
+            if (menuCloseBtn) menuCloseBtn.addEventListener('click', closeDrawer);
+
+            drawerNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeDrawer();
+                });
+            });
+
+            // 4. Header Dynamic Blur on Scroll
+            const mainHeader = document.getElementById('mainHeader');
+            function handleHeaderScroll() {
+                if (!mainHeader) return;
+                if (window.scrollY > 40) {
+                    mainHeader.classList.add('scrolled');
+                } else {
+                    mainHeader.classList.remove('scrolled');
+                }
+            }
+            window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+            handleHeaderScroll();
+
+            // 5. Concierge Application Form Submission & Google Sheets Live Sync
+            const membershipForm = document.getElementById('membershipForm');
+            const vipModal = document.getElementById('vipSuccessModal');
+            const closeVipModal = document.getElementById('closeVipModal');
+            const confirmVipModalBtn = document.getElementById('confirmVipModalBtn');
+            const modalApplicantNameDisplay = document.getElementById('modalApplicantNameDisplay');
+            const modalDossierRefDisplay = document.getElementById('modalDossierRefDisplay');
+
+            // Google Sheets Sync Configuration
+            // Target Spreadsheet: https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit
+            const DEFAULT_GAS_ENDPOINT = ''; // Can be set directly here or stored in localStorage
+            const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit?usp=sharing';
+
+            function getGasEndpoint() {
+                return localStorage.getItem('gh-card-apply-gas-endpoint') || DEFAULT_GAS_ENDPOINT;
+            }
+
+            // Sheet Configuration Modal Handlers
+            const sheetConfigModal = document.getElementById('sheetConfigModal');
+            const btnOpenSheetConfig = document.getElementById('btnOpenSheetConfig');
+            const closeSheetConfigModal = document.getElementById('closeSheetConfigModal');
+            const saveSheetConfigBtn = document.getElementById('saveSheetConfigBtn');
+            const testSheetConnBtn = document.getElementById('testSheetConnBtn');
+            const gasEndpointInput = document.getElementById('gasEndpointInput');
+            const gasConfigFeedback = document.getElementById('gasConfigFeedback');
+
+            function openSheetConfig() {
+                if (gasEndpointInput) gasEndpointInput.value = getGasEndpoint();
+                if (gasConfigFeedback) gasConfigFeedback.style.display = 'none';
+                if (sheetConfigModal) sheetConfigModal.classList.add('open');
+            }
+
+            function closeSheetModal() {
+                if (sheetConfigModal) sheetConfigModal.classList.remove('open');
+            }
+
+            if (btnOpenSheetConfig) btnOpenSheetConfig.addEventListener('click', openSheetConfig);
+            if (closeSheetConfigModal) closeSheetConfigModal.addEventListener('click', closeSheetModal);
+
+            if (saveSheetConfigBtn) {
+                saveSheetConfigBtn.addEventListener('click', () => {
+                    const url = gasEndpointInput?.value.trim() || '';
+                    if (url) {
+                        localStorage.setItem('gh-card-apply-gas-endpoint', url);
+                        showToast('Google Sheets endpoint configured and saved.');
+                    } else {
+                        localStorage.removeItem('gh-card-apply-gas-endpoint');
+                        showToast('Custom endpoint cleared.');
+                    }
+                    closeSheetModal();
+                });
+            }
+
+            if (testSheetConnBtn) {
+                testSheetConnBtn.addEventListener('click', async () => {
+                    const testUrl = gasEndpointInput?.value.trim() || getGasEndpoint();
+                    if (!testUrl) {
+                        if (gasConfigFeedback) {
+                            gasConfigFeedback.style.display = 'block';
+                            gasConfigFeedback.style.background = 'rgba(230, 80, 80, 0.1)';
+                            gasConfigFeedback.style.color = '#e65050';
+                            gasConfigFeedback.textContent = 'Please enter a valid Google Apps Script Web App URL first.';
+                        }
+                        return;
+                    }
+                    testSheetConnBtn.disabled = true;
+                    testSheetConnBtn.innerHTML = '<span>Testing...</span>';
+                    try {
+                        const res = await fetch(testUrl + (testUrl.includes('?') ? '&' : '?') + 't=' + Date.now());
+                        const json = await res.json();
+                        if (gasConfigFeedback) {
+                            gasConfigFeedback.style.display = 'block';
+                            gasConfigFeedback.style.background = 'rgba(46, 139, 87, 0.1)';
+                            gasConfigFeedback.style.color = '#2e8b57';
+                            gasConfigFeedback.textContent = `Connected successfully! Target Sheet: ${json.spreadsheet || 'Active'}`;
+                        }
+                    } catch (err) {
+                        if (gasConfigFeedback) {
+                            gasConfigFeedback.style.display = 'block';
+                            gasConfigFeedback.style.background = 'rgba(230, 80, 80, 0.1)';
+                            gasConfigFeedback.style.color = '#e65050';
+                            gasConfigFeedback.textContent = 'Connection test failed. Verify Web App deployment has Who has access set to "Anyone".';
+                        }
+                    } finally {
+                        testSheetConnBtn.disabled = false;
+                        testSheetConnBtn.innerHTML = '<span>Test Endpoint</span>';
+                    }
+                });
+            }
+
+            // Membership Application Submission Handler
+            if (membershipForm) {
+                membershipForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const submitBtn = membershipForm.querySelector('button[type="submit"]');
+                    const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<span>Transmitting Dossier to Google Sheet...</span>';
+                    }
+
+                    const fullName = document.getElementById('formFullName')?.value.trim() || 'Titulaire';
+                    const email = document.getElementById('formEmail')?.value.trim() || '';
+                    const phone = document.getElementById('formPhone')?.value.trim() || '';
+                    const field = document.getElementById('formField')?.value || '';
+                    const interest = document.getElementById('formInterest')?.value || '';
+                    const notes = document.getElementById('formNotes')?.value.trim() || '';
+                    const randomDossierNum = Math.floor(1000 + Math.random() * 9000);
+                    const dossierRef = `DOSSIER-GH-2026-${randomDossierNum}`;
+                    const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }) + ' (WIB)';
+
+                    const payload = {
+                        timestamp: timestamp,
+                        dossierRef: dossierRef,
+                        fullName: fullName,
+                        email: email,
+                        phone: phone,
+                        field: field,
+                        interest: interest,
+                        notes: notes,
+                        status: 'Pending Induction Review'
+                    };
+
+                    // 1. Store locally in browser for redundancy & offline history
+                    try {
+                        const localDossiers = JSON.parse(localStorage.getItem('gh-membership-dossiers') || '[]');
+                        localDossiers.unshift(payload);
+                        localStorage.setItem('gh-membership-dossiers', JSON.stringify(localDossiers.slice(0, 50)));
+                    } catch (err) {
+                        console.warn('Local storage save error:', err);
+                    }
+
+                    // 2. Transmit to Google Sheet via Google Apps Script Web App
+                    const gasEndpoint = getGasEndpoint();
+                    if (gasEndpoint) {
+                        try {
+                            // mode: 'no-cors' allows submission to Google Apps Script without browser CORS blocking
+                            await fetch(gasEndpoint, {
+                                method: 'POST',
+                                mode: 'no-cors',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(payload)
+                            });
+                            console.log('Transmitted to Google Sheets successfully.');
+                        } catch (err) {
+                            console.warn('Google Sheets transmission error:', err);
+                        }
+                    } else {
+                        console.info('No custom Apps Script endpoint configured yet. Saved locally.');
+                    }
+
+                    // 3. Update Modal & UI Feedback
+                    if (modalApplicantNameDisplay) modalApplicantNameDisplay.textContent = fullName.toUpperCase();
+                    if (modalDossierRefDisplay) modalDossierRefDisplay.textContent = `Ref: ${dossierRef}`;
+
+                    if (vipModal) vipModal.classList.add('open');
+                    showToast('Application dossier submitted and recorded in registry.');
+
+                    membershipForm.reset();
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnContent;
+                    }
+                });
+            }
+
+            function hideVipModal() {
+                if (vipModal) vipModal.classList.remove('open');
+            }
+
+            if (closeVipModal) closeVipModal.addEventListener('click', hideVipModal);
+            if (confirmVipModalBtn) confirmVipModalBtn.addEventListener('click', hideVipModal);
+            if (vipModal) {
+                vipModal.addEventListener('click', (e) => {
+                    if (e.target === vipModal) hideVipModal();
+                });
+            }
+            if (sheetConfigModal) {
+                sheetConfigModal.addEventListener('click', (e) => {
+                    if (e.target === sheetConfigModal) closeSheetModal();
+                });
+            }
+
+            // Escape key to close modal or drawer
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (menuDrawer && menuDrawer.classList.contains('open')) {
+                        closeDrawer();
+                    }
+                    if (vipModal && vipModal.classList.contains('open')) {
+                        hideVipModal();
+                    }
+                    if (sheetConfigModal && sheetConfigModal.classList.contains('open')) {
+                        closeSheetModal();
+                    }
+                }
+            });
+
+            // 6. Footer Share Button
+            const shareBtn = document.getElementById('footerShareLinkBtn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: "Private Concierge — Gray Hansen Limantoro",
+                            url: window.location.href
+                        }).catch(() => { });
+                    } else {
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            showToast('Application link copied to clipboard.');
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

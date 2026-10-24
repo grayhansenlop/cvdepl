@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="blanche">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.35, user-scalable=yes">
+    <script>
+        (function () {
+            function adjustDesktopViewport() {
+                var targetWidth = 1280;
+                var screenW = window.screen.width || window.innerWidth;
+                var scale = screenW < targetWidth ? (screenW / targetWidth) : 1.0;
+                var meta = document.querySelector('meta[name="viewport"]');
+                if (!meta) {
+                    meta = document.createElement('meta');
+                    meta.name = 'viewport';
+                    document.head.appendChild(meta);
+                }
+                meta.content = 'width=' + targetWidth + ', initial-scale=' + scale.toFixed(4) + ', minimum-scale=' + (scale * 0.4).toFixed(4) + ', maximum-scale=4.0, user-scalable=yes';
+            }
+            adjustDesktopViewport();
+            window.addEventListener('resize', adjustDesktopViewport);
+            window.addEventListener('orientationchange', adjustDesktopViewport);
+        })();
+    </script>
+    <title>Privilege Membership Card &mdash; Gray Hansen Limantoro, S.Kom. (林福勝)</title>
+    <meta name="description"
+        content="Privilege Membership Card & Exclusive Privileges of Maison Gray Hansen Limantoro. Fine Art Photography, Art Direction, Rare Monographs and Private Concierge.">
+    <meta name="author" content="Gray Hansen Limantoro">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg"
+        href="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/475445163_18259454560279361_301243607268293540_n.jpg">
+
+    <!-- Preconnect & Google Fonts: Cormorant Garamond, Cinzel, Plus Jakarta Sans, Noto Serif JP, Ma Shan Zheng -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif+JP:wght@300;400;600;700&family=Ma+Shan+Zheng&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =======================================================
+       MAISON PRIVILEGE MEMBER CARD DEDICATED STYLING
+       Consistent with Gray Hansen Haute Maison Aesthetics
+       ======================================================= */
+
+        /* Hero Layout for Member Card */
+        .card-hero-section {
+            padding-top: clamp(40px, 5vw, 70px);
+            padding-bottom: clamp(60px, 7vw, 100px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: clamp(40px, 5vw, 80px);
+        }
+
+        /* 3D Interactive Card Showcase */
+        .card-stage-container {
+            position: relative;
+            perspective: 1400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .card-3d-wrapper {
+            width: 100%;
+            max-width: 530px;
+            aspect-ratio: 1.586 / 1;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .card-3d-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .card-flipper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+            border-radius: 18px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 10px 24px rgba(166, 129, 46, 0.22);
+        }
+
+        .card-flipper.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: clamp(18px, 3vw, 26px) clamp(18px, 3.2vw, 28px);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            background-color: #0b0c10;
+        }
+
+        /* FRONT FACE: Matte Obsidian & 24K Gold Hot Foil */
+        .card-front {
+            background:
+                radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 15% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+                linear-gradient(135deg, #15161d 0%, #0d0e13 45%, #07080a 100%);
+            color: #f7f5ed;
+            z-index: 2;
+        }
+
+        /* Fine Guilloche & Security Mesh overlay */
+        .card-guilloche-pattern {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.12;
+            background-image:
+                radial-gradient(circle at 50% 50%, transparent 0, transparent 4px, rgba(212, 175, 55, 0.4) 5px, transparent 6px),
+                repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(212, 175, 55, 0.18) 19px, transparent 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(212, 175, 55, 0.18) 19px, transparent 20px);
+            background-size: 32px 32px, 40px 40px, 40px 40px;
+        }
+
+        /* Dynamic Glare Overlay that follows mouse */
+        .card-glare {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 18px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 65%);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .card-3d-wrapper:hover .card-glare {
+            opacity: 1;
+        }
+
+        /* Card Front Header Row */
+        .card-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-brand-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-hanko-seal {
+            width: 38px;
+            height: 38px;
+            border: 1.5px solid #c22d2d;
+            border-radius: 3px;
+            background: rgba(194, 45, 45, 0.12);
+            color: #e04343;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-kanji);
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            box-shadow: 0 0 12px rgba(224, 67, 67, 0.3), inset 0 0 8px rgba(224, 67, 67, 0.15);
+            flex-shrink: 0;
+        }
+
+        .card-brand-titles {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-brand-name {
+            font-family: var(--font-display);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .card-brand-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 2px;
+        }
+
+        .card-nfc-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: var(--gold-400);
+            opacity: 0.85;
+        }
+
+        /* EMV Microchip & Hologram Row */
+        .card-chip-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 3;
+            margin-top: 14px;
+            margin-bottom: 12px;
+        }
+
+        .emv-chip {
+            width: 52px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffd978 0%, #caa146 45%, #e8c66e 70%, #997322 100%);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+            border: 1px solid #785a1a;
+            flex-shrink: 0;
+        }
+
+        .emv-chip::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(80, 56, 12, 0.5);
+        }
+
+        .emv-chip::after {
+            content: "";
+            position: absolute;
+            left: 36%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(80, 56, 12, 0.5);
+            box-shadow: 14px 0 0 rgba(80, 56, 12, 0.5);
+        }
+
+        .card-hologram-seal {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 40%, #e0c3fc 70%, #8ec5fc 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 16px rgba(224, 195, 252, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+        }
+
+        .card-hologram-seal::before {
+            content: "GH";
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .card-hologram-shimmer {
+            position: absolute;
+            inset: -50%;
+            background: linear-gradient(45deg, transparent 35%, rgba(255, 255, 255, 0.7) 50%, transparent 65%);
+            animation: holoRotate 4s linear infinite;
+        }
+
+        @keyframes holoRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin-icon {
+            animation: spinRotate 1s linear infinite;
+        }
+
+        @keyframes spinRotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Card Serial Number (Embossed Gold) */
+        .card-number-display {
+            font-family: "Courier New", Courier, "SF Mono", Monaco, Consolas, monospace;
+            font-size: clamp(0.92rem, 1.4vw, 1.24rem);
+            font-weight: 700;
+            letter-spacing: clamp(0.06em, 0.16vw, 0.13em);
+            color: #ebd08d;
+            text-shadow:
+                0 1px 1px rgba(255, 255, 255, 0.4),
+                0 -1px 2px rgba(0, 0, 0, 0.9),
+                0 2px 8px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 3;
+            margin: 6px 0;
+            white-space: nowrap;
+            overflow: visible;
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 520px) {
+            .card-number-display {
+                font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+                letter-spacing: 0.06em;
+            }
+        }
+
+        /* Card Bottom Details (Holder Name, Valid Thru, Tier) */
+        .card-bottom-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            position: relative;
+            z-index: 3;
+        }
+
+        .card-meta-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-meta-label {
+            font-size: 0.52rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .card-holder-name {
+            font-family: var(--font-display);
+            font-size: clamp(0.82rem, 1.25vw, 1.05rem);
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+            max-width: 280px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-validity-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-valid-date {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #ebd08d;
+        }
+
+        .card-tier-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.08) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #faebc3;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-tier-pill::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: var(--gold-400);
+            box-shadow: 0 0 6px var(--gold-400);
+        }
+
+        /* BACK FACE: Magnetic Stripe, Signature Strip, QR Code */
+        .card-back {
+            transform: rotateY(180deg);
+            background:
+                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 40%),
+                linear-gradient(135deg, #121319 0%, #090a0d 100%);
+            color: #f7f5ed;
+            padding: 0;
+            justify-content: flex-start;
+        }
+
+        .card-mag-stripe {
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(180deg, #1b1d24 0%, #000000 50%, #15171d 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+            margin-top: 24px;
+        }
+
+        .card-back-body {
+            padding: 18px clamp(20px, 3.5vw, 30px) clamp(16px, 2.5vw, 24px);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .card-signature-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-sig-panel {
+            flex: 1;
+            height: 38px;
+            background: #ededed;
+            background-image: repeating-linear-gradient(45deg, #e4e4e4, #e4e4e4 6px, #ffffff 6px, #ffffff 12px);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            border: 1px solid #bbb;
+        }
+
+        .card-sig-cursive {
+            font-family: 'Cormorant Garamond', cursive, serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #12141c;
+            letter-spacing: 0.05em;
+        }
+
+        .card-cvv-box {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 0.12em;
+        }
+
+        .card-back-meta {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        .card-legal-disclaimer {
+            font-size: 0.58rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.45;
+        }
+
+        .card-qr-box {
+            width: 58px;
+            height: 58px;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--gold-400);
+            flex-shrink: 0;
+        }
+
+        .card-back-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold-400);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 8px;
+            margin-top: 6px;
+        }
+
+        /* CARD INTERACTION CONTROL DOCK */
+        .card-controls-panel {
+            margin-top: 24px;
+            width: 100%;
+            max-width: 530px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .controls-row-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-hairline);
+        }
+
+        .card-custom-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .card-input-label {
+            font-size: 0.64rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-text-field {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            font-family: var(--font-display);
+            font-size: 0.86rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-pure);
+            transition: all var(--transition-fast);
+        }
+
+        .card-text-field:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            box-shadow: 0 0 0 2px var(--gold-glow);
+        }
+
+        .card-actions-strip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* SPECIFICATIONS & CRAFTSMANSHIP GRID */
+        .craft-spec-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .craft-spec-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-xs);
+            padding: 24px 20px;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .craft-spec-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-400);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .craft-spec-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-xs);
+            background: var(--gold-gradient-subtle);
+            border: 1px solid var(--gold-border);
+            color: var(--gold-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .craft-spec-title {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            color: var(--ink-pure);
+        }
+
+        .craft-spec-desc {
+            font-size: 0.8rem;
+            color: var(--ink-secondary);
+            line-height: 1.55;
+        }
+
+        /* PRIVILEGES & BENEFITS SHOWCASE */
+        .privilege-pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 48px;
+        }
+
+        .privilege-pillar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-xs);
+            padding: clamp(28px, 4vw, 40px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+        }
+
+        .privilege-pillar-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--gold-gradient);
+            transition: height var(--transition-smooth);
+        }
+
+        .privilege-pillar-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .privilege-pillar-card:hover::before {
+            height: 100%;
+        }
+
+        .privilege-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .pillar-num {
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--gold-500);
+        }
+
+        .pillar-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+        }
+
+        .privilege-pillar-title {
+            font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+            line-height: 1.25;
+            margin-bottom: 12px;
+            color: var(--ink-pure);
+        }
+
+        .privilege-pillar-lead {
+            font-size: 0.92rem;
+            color: var(--ink-secondary);
+            line-height: 1.65;
+            margin-bottom: 24px;
+        }
+
+        .privilege-perks-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .privilege-perk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.86rem;
+            color: var(--ink-primary);
+            line-height: 1.5;
+        }
+
+        .perk-bullet {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--gold-gradient-subtle);
+            border: 1px solid var(--gold-border);
+            color: var(--gold-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pillar-footer-quote {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-hairline);
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--ink-muted);
+        }
+
+        /* AUTHENTICITY VERIFICATION DOCK */
+        .verify-section-box {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-sm);
+            padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 48px);
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .verify-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .verify-search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .verify-input {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: var(--radius-xs);
+            border: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+            font-family: "Courier New", Courier, monospace, var(--font-display);
+            font-size: 0.92rem;
+            letter-spacing: 0.16em;
+            color: var(--ink-pure);
+            text-transform: uppercase;
+        }
+
+        .verify-input:focus {
+            outline: none;
+            border-color: var(--gold-500);
+        }
+
+        .verify-status-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--gold-border);
+            border-radius: var(--radius-xs);
+            padding: 24px;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .status-badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #2e8b57;
+            background: rgba(46, 139, 87, 0.1);
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 12px;
+        }
+
+        .status-badge-live::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2e8b57;
+            box-shadow: 0 0 6px #2e8b57;
+        }
+
+        /* CONCIERGE APPLICATION INVITATION FORM */
+        .concierge-app-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            padding: clamp(36px, 6vw, 68px) clamp(24px, 5vw, 60px);
+            box-shadow: var(--shadow-elevated);
+            margin-top: 60px;
+        }
+
+        .app-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .app-label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-secondary);
+            margin-bottom: 8px;
+        }
+
+        .app-input,
+        .app-select,
+        .app-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            background: var(--bg-surface-elevated);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--ink-pure);
+            transition: all var(--transition-fast);
+        }
+
+        .app-input:focus,
+        .app-select:focus,
+        .app-textarea:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 2px var(--gold-glow);
+        }
+
+        /* FAQ ACCORDION */
+        .faq-accordion-list {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-accordion-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-xs);
+            overflow: hidden;
+            transition: all var(--transition-fast);
+        }
+
+        .faq-accordion-item.open {
+            border-color: var(--gold-border);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .faq-trigger {
+            width: 100%;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--ink-pure);
+            font-weight: 500;
+            gap: 16px;
+        }
+
+        .faq-icon {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            color: var(--gold-500);
+            transition: transform var(--transition-smooth);
+        }
+
+        .faq-accordion-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            display: none;
+            padding: 0 24px 22px 24px;
+            font-size: 0.88rem;
+            color: var(--ink-secondary);
+            line-height: 1.65;
+        }
+
+        .faq-accordion-item.open .faq-content {
+            display: block;
+        }
+
+        /* FAQ PASSWORD ACCESS PORTAL */
+        .faq-accordion-item.faq-portal-item {
+            border: 1px solid var(--gold-border);
+            background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+            box-shadow: 0 4px 20px var(--gold-glow);
+        }
+
+        .faq-portal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 8px;
+            border-radius: var(--radius-pill);
+            background: var(--gold-gradient-subtle);
+            border: 1px solid var(--gold-border);
+            font-family: var(--font-sans);
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--gold-500);
+            margin-right: 6px;
+        }
+
+        .faq-password-portal {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            padding: 22px 24px;
+            margin-top: 6px;
+        }
+
+        .faq-pwd-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .faq-pwd-input-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-lock-icon {
+            position: absolute;
+            left: 14px;
+            color: var(--gold-500);
+            pointer-events: none;
+        }
+
+        .faq-pwd-input {
+            width: 100%;
+            padding: 12px 42px 12px 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xs);
+            background: var(--bg-surface-elevated);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-pure);
+            transition: all var(--transition-fast);
+        }
+
+        .faq-pwd-input:focus {
+            outline: none;
+            border-color: var(--gold-400);
+            background: var(--bg-surface);
+            box-shadow: 0 0 0 2px var(--gold-glow);
+        }
+
+        .faq-pwd-input.error {
+            border-color: #d9534f;
+            box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.25);
+            animation: shakeInput 0.4s ease;
+        }
+
+        .faq-pwd-input.success {
+            border-color: #2e8b57;
+            box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.25);
+        }
+
+        @keyframes shakeInput {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(6px);
+            }
+        }
+
+        .faq-pwd-eye {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--ink-muted);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--transition-fast);
+        }
+
+        .faq-pwd-eye:hover {
+            color: var(--ink-pure);
+        }
+
+        .faq-pwd-feedback {
+            font-size: 0.78rem;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: var(--radius-xs);
+            line-height: 1.45;
+        }
+
+        .faq-pwd-feedback.error {
+            background: rgba(217, 83, 79, 0.1);
+            color: #d9534f;
+            border: 1px solid rgba(217, 83, 79, 0.3);
+            display: block;
+        }
+
+        .faq-pwd-feedback.success {
+            background: rgba(46, 139, 87, 0.1);
+            color: #2e8b57;
+            border: 1px solid rgba(46, 139, 87, 0.3);
+            display: block;
+        }
+
+        /* SUCCESS VIP MODAL */
+        .vip-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .vip-modal-backdrop.open {
+            display: flex;
+        }
+
+        .vip-modal-dialog {
+            background: var(--bg-surface);
+            border: 1px solid var(--gold-400);
+            border-radius: var(--radius-sm);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            box-shadow: var(--shadow-gold), var(--shadow-elevated);
+            animation: modalPop 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close-cross {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--ink-muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-close-cross:hover {
+            color: var(--ink-pure);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .card-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .craft-spec-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .privilege-pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .verify-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =======================================================
+       TOP UTILITY BAR (LVMH Style Pre-Header)
+       ======================================================= -->
+    <aside class="top-utility-bar" aria-label="Utility navigation">
+        <div class="wrap top-utility-inner">
+            <div class="utility-left">
+                <div class="utility-motto">
+                    <span class="utility-motto-dot"></span>
+                    <span>Creative Atelier &bull; Private Circle & Scholarly Research &bull; Balikpapan &bull; Malang
+                        &bull; Tokyo</span>
+                </div>
+            </div>
+
+            <div class="utility-right">
+                <a href="index.html" class="utility-link" title="Return to Gray Hansen Main Profile">
+                    <span style="font-weight: 700; color: var(--gold-500);">&larr; Back to Main Profile
+                        (index.html)</span>
+                </a>
+                <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                    rel="noopener noreferrer" class="utility-link"
+                    title="Officially Registered with EKRAF Kemenparekraf RI">
+                    <span>EKRAF Kemenparekraf RI</span> &nearr;
+                </a>
+                <a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                    rel="noopener noreferrer" class="utility-link" title="Google Scholar Research Profile">
+                    <span>Google Scholar</span> &nearr;
+                </a>
+                <a href="https://iamabuabu.wordpress.com" target="_blank" rel="noopener noreferrer" class="utility-link"
+                    title="iamabuabu Blog">
+                    <span>iamabuabu.wordpress.com</span> &nearr;
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- =======================================================
+       PRIMARY LUXURY NAVIGATION (Consistent with index.html)
+       ======================================================= -->
+    <header class="main-header" id="mainHeader">
+        <div class="wrap nav-container">
+
+            <!-- LEFT: MENU DRAWER TRIGGER & QUICK JUMP -->
+            <div class="nav-left-actions">
+                <button class="menu-trigger-btn" id="menuOpenBtn" aria-label="Open Exclusive Navigation Menu">
+                    <div class="menu-burger-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Menu</span>
+                </button>
+
+                <nav class="header-quick-links" aria-label="Member Navigation">
+                    <a href="#card-showcase" class="header-nav-link active">Privilege Card</a>
+                    <a href="#craftsmanship" class="header-nav-link">Craftsmanship</a>
+                    <a href="#privileges" class="header-nav-link">Privileges</a>
+                    <a href="#authenticity" class="header-nav-link">Verification</a>
+                    <a href="#concierge" class="header-nav-link">Concierge</a>
+                </nav>
+            </div>
+
+            <!-- CENTER: PRESTIGE MAISON MONOGRAM & BRAND -->
+            <div class="nav-center-brand">
+                <a href="indexdua.html" class="maison-logo-link">
+                    <span class="maison-title-main">Gray Hansen Limantoro</span>
+                    <span class="maison-subtitle">
+                        <span class="jp-kanji">林福勝</span> &bull; S.Kom. &bull; <span class="kanji-crest">Privilege
+                            Card</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- RIGHT: THEME SWITCH & ACTION -->
+            <div class="nav-right-actions">
+                <!-- THEME BUTTON (LIGHT / DARK MODE) -->
+                <div class="theme-mini-switch" role="group" aria-label="Display Mode: Light or Dark">
+                    <button type="button" class="theme-mini-btn active" data-theme-set="blanche" id="themeBtnLight"
+                        title="Light Mode (Maison Blanche)" aria-pressed="true">
+                        <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <span class="theme-mini-text">Light</span>
+                    </button>
+                    <button type="button" class="theme-mini-btn" data-theme-set="noir" id="themeBtnDark"
+                        title="Dark Mode (Atelier Noir)" aria-pressed="false">
+                        <svg class="theme-mini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span class="theme-mini-text">Dark</span>
+                    </button>
+                </div>
+
+                <a href="#concierge" class="btn btn-primary btn-sm">
+                    <span>Membership &nearr;</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =======================================================
+       FULLSCREEN EDITORIAL MENU DRAWER (LVMH Style - Identical to index.html)
+       ======================================================= -->
+    <div class="menu-drawer" id="menuDrawer" role="dialog" aria-modal="true" aria-label="Complete Navigation Menu">
+        <div class="menu-drawer-header">
+            <div class="wrap menu-drawer-top">
+                <div class="font-display" style="font-size: 0.82rem; letter-spacing: 0.24em; color: var(--gold-500);">
+                    Table of Content &bull; Portfolio Framework
+                </div>
+                <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close Menu">
+                    <span>with Gratitude</span>
+                    <span>&times;</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="wrap menu-drawer-body">
+            <ul class="menu-nav-list" id="drawerNavList">
+                <li class="menu-nav-item"><a href="index.html#home"><span class="menu-nav-num">01</span><span>The House
+                            (Home)</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#photosessions"><span
+                            class="menu-nav-num">02</span><span>Photo Sessions &amp;
+                            Portraits of Honour</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#maisons"><span class="menu-nav-num">03</span><span>Fields
+                            of
+                            Excellence</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#portfolio"><span class="menu-nav-num">04</span><span>The
+                            Gallery (Design
+                            &amp; Works)</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#achievements"><span
+                            class="menu-nav-num">05</span><span>Honours &amp;
+                            Distinctions</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#experience"><span
+                            class="menu-nav-num">06</span><span>Career &amp;
+                            Expertise</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#education"><span
+                            class="menu-nav-num">07</span><span>Academy &amp;
+                            Certifications</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#research"><span
+                            class="menu-nav-num">08</span><span>Scientific
+                            Library</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#media"><span class="menu-nav-num">09</span><span>Press
+                            Review
+                            &amp;
+                            Media</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#community"><span
+                            class="menu-nav-num">10</span><span>Circles
+                            &amp;
+                            Conferences</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#teamwork"><span
+                            class="menu-nav-num">11</span><span>Alliances &amp;
+                            Partners</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#articles"><span
+                            class="menu-nav-num">12</span><span>Chronicles &amp;
+                            Essays</span></a></li>
+                <li class="menu-nav-item"><a href="index.html#contact"><span class="menu-nav-num">13</span><span>Private
+                            Concierge &amp;
+                            Contact</span></a></li>
+                <li class="menu-nav-item"><a href="indexdua.html"><span class="menu-nav-num">14</span><span
+                            style="color: var(--gold-500);">Membership Card &amp; Privileges &nearr;</span></a>
+                </li>
+            </ul>
+
+            <div class="menu-nav-aside">
+                <div class="menu-featured-card">
+                    <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                        alt="Monografi Japanese Typography" class="menu-featured-img">
+                    <div class="eyebrow" style="margin-bottom: 6px;">Featured Monograph</div>
+                    <h4 class="menu-featured-title">Japanese Typography: 日本タイポグラフィ</h4>
+                    <p class="menu-featured-desc">
+                        A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8,
+                        presenting a
+                        rigorous and thoughtfully structured examination of the historical origins, structural
+                        principles, and
+                        evolution of Kanji and Hiragana, together with their contemporary integration with the Latin
+                        alphabet.
+                    </p>
+                    <div style="margin-top: 14px;">
+                        <a href="index.html#research" class="btn btn-secondary btn-sm" id="drawerFeaturedLink">
+                            <span>View the Monograph &nearr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="padding-top: 24px; border-top: 1px solid var(--border-hairline);">
+                    <div
+                        style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px;">
+                        Malang &bull; Balikpapan &bull; Nusantara
+                    </div>
+                    <div style="font-size: 0.84rem; color: var(--ink-secondary);">
+                        Email Direct: <strong style="color: var(--ink-pure);">grayhansenl3@gmail.com </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- =======================================================
+         HERO SECTION: THE 1 MEMBERSHIP CARD (Centerpiece 3D Card)
+         ======================================================= -->
+        <section class="card-hero-section section" id="card-showcase">
+            <div class="wrap">
+                <div class="card-hero-grid">
+
+                    <!-- LEFT: EDITORIAL NARRATIVE & INTRODUCTION -->
+                    <div class="hero-statement">
+                        <div class="eyebrow">
+                            EXCLUSIVE MEMBERSHIP &bull; PRIVATE CIRCLE
+                        </div>
+
+                        <h1 class="hero-heading">
+                            The Card of Honour &bull; <em>Maison Gray Hansen</em>
+                        </h1>
+
+                        <p class="hero-lead-profile">
+                            Official insignia reserved for <strong>patrons, distinguished collaborators, and creative
+                                partners</strong> of Gray Hansen Limantoro, S.Kom. (林福勝).
+                        </p>
+
+                        <p class="hero-narrative">
+                            Crafted according to the standards of high jewelry and editorial architecture, this
+                            <strong>Exclusive Membership Card</strong> provides privileged access to the full scope of
+                            the Maison's expertise: private fine-art portrait sessions, bespoke typography
+                            consultations,
+                            limited editions of scholarly monographs, and a 24/7 dedicated concierge.
+                        </p>
+
+                        <!-- KEY BENEFIT SNIPPETS -->
+                        <div
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 34px;">
+                            <div
+                                style="padding: 14px 18px; background: var(--bg-surface-elevated); border-left: 2px solid var(--gold-400); border-radius: var(--radius-xs);">
+                                <div
+                                    style="font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 4px;">
+                                    Art Studio</div>
+                                <div style="font-size: 0.84rem; color: var(--ink-primary); font-weight: 600;">Annual
+                                    VIP Photo Session</div>
+                            </div>
+
+                            <div
+                                style="padding: 14px 18px; background: var(--bg-surface-elevated); border-left: 2px solid var(--gold-400); border-radius: var(--radius-xs);">
+                                <div
+                                    style="font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 4px;">
+                                    Scholarly Publishing</div>
+                                <div style="font-size: 0.84rem; color: var(--ink-primary); font-weight: 600;">
+                                    Signed & Rare Monographs</div>
+                            </div>
+                        </div>
+
+                        <!-- CTA BUTTONS -->
+                        <div class="hero-button-group">
+                            <a href="#concierge" class="btn btn-primary">
+                                <span>Apply for Privilege Circle &nearr;</span>
+                            </a>
+                            <button type="button" class="btn btn-secondary" id="triggerFlipHeroBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                                </svg>
+                                <span>Flip Card (Back)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: THE REALISTIC PHYSICAL 3D MEMBER CARD -->
+                    <div class="card-stage-container">
+
+                        <div class="card-3d-wrapper" id="card3D">
+                            <div class="card-flipper" id="cardFlipper">
+
+                                <!-- ================= FRONT FACE (RECTO) ================= -->
+                                <div class="card-face card-front">
+                                    <div class="card-guilloche-pattern"></div>
+                                    <div class="card-glare" id="cardGlare"></div>
+
+                                    <!-- Front Top: Maison Monogram, Hanko Seal & Contactless Icon -->
+                                    <div class="card-top-row">
+                                        <div class="card-brand-group">
+                                            <div class="card-hanko-seal"
+                                                title="Official Hanko Seal of Gray Hansen Limantoro">
+                                                <span>林</span>
+                                                <span>勝</span>
+                                            </div>
+                                            <div class="card-brand-titles">
+                                                <span class="card-brand-name">Gray Hansen Limantoro</span>
+                                                <span class="card-brand-sub">Creative Atelier &bull; Balikpapan &bull;
+                                                    Tokyo</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Contactless NFC Wave -->
+                                        <div class="card-nfc-wave" title="Encrypted Contactless NFC Chip">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                                <path d="M8.5 16.5a5 5 0 0 1 0-9" />
+                                                <path d="M12 19a8.5 8.5 0 0 0 0-14" />
+                                                <path d="M15.5 21.5a12 12 0 0 0 0-19" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <!-- Front Middle: EMV Gold Smart Chip & Holographic GH Seal -->
+                                    <div class="card-chip-row">
+                                        <div class="emv-chip" title="High Security EMV Smart Chip"></div>
+                                        <div class="card-hologram-seal" title="Tamper-Proof Holographic Maison Seal">
+                                            <div class="card-hologram-shimmer"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Front Center: Embossed Foil Card Number -->
+                                    <div>
+                                        <div class="card-meta-label">Official Member Number &bull; Elite Distinction
+                                            Series</div>
+                                        <div class="card-number-display" id="cardNumberDisplay">4892 &bull; 7710 &bull;
+                                            8421 &bull; 0963</div>
+                                    </div>
+
+                                    <!-- Front Bottom: Cardholder Name, Expiry & Tier Badge -->
+                                    <div class="card-bottom-row">
+                                        <div class="card-meta-block">
+                                            <div class="card-meta-label">Cardholder Name (Privilege Member)</div>
+                                            <div class="card-holder-name" id="cardHolderNameDisplay">ALEXANDRE DE VANCE
+                                            </div>
+                                        </div>
+
+                                        <div class="card-validity-group">
+                                            <div class="card-meta-block" style="text-align: right;">
+                                                <div class="card-meta-label">Valid Thru</div>
+                                                <div class="card-valid-date">12 / 29</div>
+                                            </div>
+
+                                            <div class="card-tier-pill">
+                                                Private Noir
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ================= BACK FACE (VERSO) ================= -->
+                                <div class="card-face card-back">
+                                    <!-- Magnetic Stripe -->
+                                    <div class="card-mag-stripe"></div>
+
+                                    <div class="card-back-body">
+                                        <!-- Signature Strip & Security CVV -->
+                                        <div>
+                                            <div class="card-meta-label" style="margin-bottom: 6px;">Authorized
+                                                Signature
+                                                &bull; Non-Transferable</div>
+                                            <div class="card-signature-row">
+                                                <div class="card-sig-panel">
+                                                    <span class="card-sig-cursive" id="cardSigDisplay">Alexandre de
+                                                        Vance</span>
+                                                    <span class="card-cvv-box">CVV: 892</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Security Verification & QR Code -->
+                                        <div class="card-back-meta">
+                                            <div class="card-legal-disclaimer">
+                                                This card is the exclusive property of Maison Gray Hansen
+                                                Limantoro (林福勝). It certifies membership in the Circle of Honour
+                                                and grants priority access to the concierge, private viewings,
+                                                and research archives.
+                                                <br><br>
+                                                <strong>Direct Concierge:</strong> concierge@grayhansen.com &bull;
+                                                Balikpapan &bull; Malang
+                                            </div>
+
+                                            <!-- Interactive QR Code for Validation -->
+                                            <div class="card-qr-box" title="Scan to Verify on Official Registry">
+                                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                                    stroke="#0e0f12" stroke-width="1.8" stroke-linecap="square">
+                                                    <rect x="2" y="2" width="8" height="8" rx="1" />
+                                                    <rect x="4" y="4" width="4" height="4" fill="#0e0f12" />
+                                                    <rect x="14" y="2" width="8" height="8" rx="1" />
+                                                    <rect x="16" y="4" width="4" height="4" fill="#0e0f12" />
+                                                    <rect x="2" y="14" width="8" height="8" rx="1" />
+                                                    <rect x="4" y="16" width="4" height="4" fill="#0e0f12" />
+                                                    <rect x="14" y="14" width="3" height="3" fill="#0e0f12" />
+                                                    <rect x="19" y="14" width="3" height="3" fill="#0e0f12" />
+                                                    <rect x="14" y="19" width="8" height="3" fill="#0e0f12" />
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <!-- Footer of Card Back -->
+                                        <div class="card-back-footer">
+                                            <span>Creative Atelier &bull; Registered with Kemenparekraf EKRAF</span>
+                                            <span>Series GH-0963-NOIR</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- INTERACTIVE CARD CONTROL DOCK -->
+                        <div class="card-controls-panel">
+                            <div class="controls-row-top">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-500);">
+                                    Live Card Personalization Atelier
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm" id="flipBtn"
+                                    style="padding: 5px 12px;">
+                                    <span>Flip 3D &bull; Front / Back</span>
+                                </button>
+                            </div>
+
+                            <!-- Real-time Name Customizer -->
+                            <div class="card-custom-input-group">
+                                <label for="customMemberName" class="card-input-label">
+                                    <span>Cardholder Name on Card</span>
+                                    <span style="color: var(--gold-500); font-weight: 600;">Live Gold Foil
+                                        Stamping</span>
+                                </label>
+                                <input type="text" id="customMemberName" class="card-text-field"
+                                    value="ALEXANDRE DE VANCE" maxlength="26" placeholder="Enter your name here...">
+                            </div>
+
+                            <!-- Actions Strip: Randomize Serial, Copy ID, Download Pass -->
+                            <div class="card-actions-strip">
+                                <button type="button" class="btn btn-secondary btn-sm" id="randomizeSerialBtn"
+                                    title="Generate new engraved serial number">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="23 4 23 10 17 10"></polyline>
+                                        <polyline points="1 20 1 14 7 14"></polyline>
+                                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                        </path>
+                                    </svg>
+                                    <span>New Serial No.</span>
+                                </button>
+
+                                <button type="button" class="btn btn-secondary btn-sm" id="copyCardIdBtn"
+                                    title="Copy card number to clipboard">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    <span>Copy ID</span>
+                                </button>
+
+                                <button type="button" class="btn btn-gold btn-sm" id="downloadPassBtn"
+                                    title="Download Member Card PDF (Front &amp; Back in 1 Single File)">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    <span>Download PDF (Card)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         NUMERICAL METRIC: SCALE OF THE CIRCLE
+         ======================================================= -->
+        <section class="metrics-section">
+            <div class="wrap">
+                <div class="metrics-grid">
+                    <div class="metric-cell">
+                        <div class="metric-number">18<span class="metric-accent">g</span></div>
+                        <div class="metric-title">Solid Metal Core</div>
+                        <div class="metric-desc">High-density obsidian polymer with thermal gold-beveled edge.
+                        </div>
+                    </div>
+
+                    <div class="metric-cell">
+                        <div class="metric-number">24<span class="metric-accent">K</span></div>
+                        <div class="metric-title">Genuine 24K Gold Leaf</div>
+                        <div class="metric-desc">Mechanical letter stamping under 180°C thermal pressure.
+                        </div>
+                    </div>
+
+                    <div class="metric-cell">
+                        <div class="metric-number">&lt; 1<span class="metric-accent">h</span></div>
+                        <div class="metric-title">Priority Concierge</div>
+                        <div class="metric-desc">Dedicated encrypted direct communication channel for cardholders.
+                        </div>
+                    </div>
+
+                    <div class="metric-cell">
+                        <div class="metric-number">NFC</div>
+                        <div class="metric-title">Integrated Cryptography</div>
+                        <div class="metric-desc">Instant verification at vernissages, symposiums, and private ateliers.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         SECTION: CRAFTSMANSHIP & ANATOMY OF THE CARD
+         ======================================================= -->
+        <section class="section" id="craftsmanship">
+            <div class="wrap">
+                <div style="text-align: center; max-width: 780px; margin: 0 auto 50px;">
+                    <div class="eyebrow center-eyebrow">CRAFTSMANSHIP &bull; BESPOKE FINISHES</div>
+                    <h2 style="font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 16px;">The Anatomy of a Pocket
+                        Masterpiece</h2>
+                    <p style="color: var(--ink-secondary); font-size: 0.96rem; line-height: 1.7;">
+                        Each copy of the Maison Gray Hansen Membership Card is crafted as an object of fine
+                        artistry, combining traditional Japanese printmaking techniques with contemporary
+                        cryptographic security.
+                    </p>
+                </div>
+
+                <div class="craft-spec-grid">
+                    <!-- Item 1 -->
+                    <div class="craft-spec-card">
+                        <div class="craft-spec-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <h4 class="craft-spec-title">Hanko Seal (印鑑)</h4>
+                        <p class="craft-spec-desc">
+                            Authentic cinnabar vermilion seal imprint <em>« 林福勝 »</em>, guaranteeing the official
+                            provenance of Atelier Gray Hansen.
+                        </p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="craft-spec-card">
+                        <div class="craft-spec-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h4 class="craft-spec-title">EMV Chip & NFC Tag</h4>
+                        <p class="craft-spec-desc">
+                            Gold contact chip and encrypted contactless NFC tag for attendance verification during
+                            symposiums and ceremonial sessions.
+                        </p>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="craft-spec-card">
+                        <div class="craft-spec-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <h4 class="craft-spec-title">24K Hot Gold Foil</h4>
+                        <p class="craft-spec-desc">
+                            Embossed Cinzel and Cormorant Garamond typography stamped with gold foil, resistant to
+                            wear, micro-scratches, and oxidation.
+                        </p>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="craft-spec-card">
+                        <div class="craft-spec-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="craft-spec-title">Security Hologram</h4>
+                        <p class="craft-spec-desc">
+                            Prismatic diffraction optical patch stamped with the GH monogram, individually numbered
+                            with high-precision laser.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         SECTION: EXCLUSIVE PRIVILEGES & BENEFITS SHOWCASE
+         ======================================================= -->
+        <section class="section" id="privileges"
+            style="background-color: var(--bg-surface-elevated); border-top: 1px solid var(--border-hairline); border-bottom: 1px solid var(--border-hairline);">
+            <div class="wrap">
+                <div style="text-align: center; max-width: 820px; margin: 0 auto 50px;">
+                    <div class="eyebrow center-eyebrow">MEMBERSHIP PRIVILEGES</div>
+                    <h2 style="font-size: clamp(2.2rem, 3.8vw, 3.4rem); margin-bottom: 16px;">Privileges Reserved for
+                        Members</h2>
+                    <p style="color: var(--ink-secondary); font-size: 0.98rem; line-height: 1.7;">
+                        Holding the <strong>Gray Hansen Card of Honour</strong> unlocks access to an elite creative
+                        ecosystem, structured around 4 pillars of excellence.
+                    </p>
+                </div>
+
+                <div class="privilege-pillars-grid">
+
+                    <!-- PILLAR 1: HAUTE PHOTOGRAPHIE -->
+                    <div class="privilege-pillar-card">
+                        <div class="privilege-badge-row">
+                            <span class="pillar-num">01 / PILLAR</span>
+                            <span class="pillar-tag">Studio & Portraits</span>
+                        </div>
+
+                        <h3 class="privilege-pillar-title">Fine Art Photography & Portraits of Honour</h3>
+                        <p class="privilege-pillar-lead">
+                            Priority access to Gray Hansen's photographic vision for fine-art portraits, institutional
+                            commissions, and fashion editorial sessions.
+                        </p>
+
+                        <ul class="privilege-perks-list">
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>1 Complimentary Annual VIP Portrait Session:</strong> Full private session
+                                    in studio or on location with high-fidelity lighting.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>RAW Masters & 4K Archives:</strong> Unlimited access to the private
+                                    digital
+                                    vault with uncompressed files.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Haute Couture Retouching within 48h:</strong> Personalized color grading
+                                    and
+                                    film grain processing with absolute priority.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Styling Consultation & Moodboard:</strong> Personalized preparatory
+                                    discussion
+                                    on visual concept and aesthetic direction.</span>
+                            </li>
+                        </ul>
+
+                        <div class="pillar-footer-quote">
+                            “Capturing the dignity of posture through the refinement of classical chiaroscuro.”
+                        </div>
+                    </div>
+
+                    <!-- PILLAR 2: DIRECTION ARTISTIQUE & TYPOGRAPHIE -->
+                    <div class="privilege-pillar-card">
+                        <div class="privilege-badge-row">
+                            <span class="pillar-num">02 / PILLAR</span>
+                            <span class="pillar-tag">Design & Identity</span>
+                        </div>
+
+                        <h3 class="privilege-pillar-title">Art Direction & Typographic Identity</h3>
+                        <p class="privilege-pillar-lead">
+                            Direct collaboration for the creation of monograms, logotypes, luxury brand guidelines,
+                            and bilingual typographic systems.
+                        </p>
+
+                        <ul class="privilege-perks-list">
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Permanent 25% Preferred Rate:</strong> Exclusive discount across all brand
+                                    identity and visual identity commissions.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Priority Atelier Queue:</strong> Your commissions are scheduled at the top
+                                    of production, bypassing general waitlists.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Complimentary Typographic Audit & Monogram:</strong> Expert evaluation of
+                                    your visual identity and creation of a personal monogram.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Full Commercial Usage Rights:</strong> Complete transfer of source vector
+                                    files for all your business applications.</span>
+                            </li>
+                        </ul>
+
+                        <div class="pillar-footer-quote">
+                            “Architectural precision at the service of distinguished visual identity.”
+                        </div>
+                    </div>
+
+                    <!-- PILLAR 3: RECHERCHE SCIENTIFIQUE & MONOGRAPHIES -->
+                    <div class="privilege-pillar-card">
+                        <div class="privilege-badge-row">
+                            <span class="pillar-num">03 / PILLAR</span>
+                            <span class="pillar-tag">Academy & Letters</span>
+                        </div>
+
+                        <h3 class="privilege-pillar-title">Scholarly Research & Rare Editions</h3>
+                        <p class="privilege-pillar-lead">
+                            Privileged access to scientific works, monographs on Japanese typography, and essays
+                            published under Gray Hansen's imprint.
+                        </p>
+
+                        <ul class="privilege-perks-list">
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Hardcover Signed Copy of the Monograph:</strong> Receipt of the published
+                                    work <em>Japanese Typography: 日本タイポグラフィ</em> (ISBN 978-623-09-5379-8).</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Advance Access to Research Articles:</strong> Confidential preview of
+                                    academic manuscripts before official publication.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>iamabuabu Private Digital Library:</strong> Access to the complete archive
+                                    of
+                                    articles, slides, and aesthetic treatises.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Invitation to Circles & Scholarly Conferences:</strong> Reserved seat of
+                                    honour
+                                    at academic talks and symposiums.</span>
+                            </li>
+                        </ul>
+
+                        <div class="pillar-footer-quote">
+                            “Bridging calligraphic heritage with rigorous academic methodology.”
+                        </div>
+                    </div>
+
+                    <!-- PILLAR 4: PRIVATE CONCIERGE & EVENTS -->
+                    <div class="privilege-pillar-card">
+                        <div class="privilege-badge-row">
+                            <span class="pillar-num">04 / PILLAR</span>
+                            <span class="pillar-tag">Protocol & Network</span>
+                        </div>
+
+                        <h3 class="privilege-pillar-title">Dedicated Concierge & Exceptional Hospitality</h3>
+                        <p class="privilege-pillar-lead">
+                            A confidential direct line and guest-of-honour presence at all exclusive events,
+                            exhibitions, and private viewings of the Maison.
+                        </p>
+
+                        <ul class="privilege-perks-list">
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Secure WhatsApp / Signal Channel &bull; Response &lt; 1h:</strong>
+                                    Immediate
+                                    assistance for urgent inquiries and private bookings.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>VIP Fast-Pass for Exhibitions & Art Fairs:</strong> Access passes for you
+                                    and 1 guest to exhibition openings in Balikpapan and Malang.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>White-Glove Archival Delivery:</strong> Your photo boxes, books, and
+                                    prints
+                                    delivered in wax-sealed presentation cases.</span>
+                            </li>
+                            <li class="privilege-perk-item">
+                                <span class="perk-bullet">&check;</span>
+                                <span><strong>Transatlantic & Asia Creative Network:</strong> Introductions to partner
+                                    galleries and creative studios in Tokyo and Jakarta.</span>
+                            </li>
+                        </ul>
+
+                        <div class="pillar-footer-quote">
+                            “Hospitality as a natural continuation of creative artistry.”
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         SECTION: CRYPTOGRAPHIC VERIFICATION SIMULATOR
+         ======================================================= -->
+        <section class="section" id="authenticity">
+            <div class="wrap">
+                <div class="verify-section-box">
+                    <div class="verify-grid">
+                        <div>
+                            <div class="eyebrow">CRYPTOGRAPHIC REGISTRY &bull; AUTHENTICITY CHECK</div>
+                            <h2 style="font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 14px;">
+                                Official Member Verification
+                            </h2>
+                            <p
+                                style="color: var(--ink-secondary); font-size: 0.92rem; line-height: 1.65; margin-bottom: 20px;">
+                                Each membership card is indexed in the private registry of Maison Gray Hansen.
+                                Enter the number on the card or your serial code to confirm its
+                                statutory validity and active privileges.
+                            </p>
+
+                            <!-- Live Verification Form -->
+                            <div class="verify-search-bar">
+                                <input type="text" id="verifyInput" class="verify-input"
+                                    value="4892 • 7710 • 8421 • 0963" placeholder="Enter Member Number...">
+                                <button type="button" class="btn btn-primary" id="verifyBtn"
+                                    style="padding: 12px 22px;">
+                                    <span>Verify &nearr;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Verification Status Display -->
+                        <div>
+                            <div class="verify-status-card" id="verificationResultBox">
+                                <div class="status-badge-live">
+                                    Status: Certified Membership &bull; Active
+                                </div>
+
+                                <div style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--ink-pure); margin-bottom: 4px;"
+                                    id="verifyResultName">
+                                    ALEXANDRE DE VANCE
+                                </div>
+
+                                <div style="font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 16px;"
+                                    id="verifyResultTier">
+                                    Tier: Member of Honour &bull; Noir Elite
+                                </div>
+
+                                <div
+                                    style="display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem; border-top: 1px solid var(--border-hairline); padding-top: 14px; color: var(--ink-secondary);">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>Admission Date:</span>
+                                        <strong style="color: var(--ink-pure);">January 14, 2024</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>Registered Ateliers:</span>
+                                        <strong style="color: var(--ink-pure);">Balikpapan &bull; Malang</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>Annual Portrait Privilege:</span>
+                                        <strong style="color: #2e8b57;">Available (Session 2025/2026)</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>Signature Seal:</span>
+                                        <strong style="color: var(--gold-500); font-family: var(--font-kanji);">林福勝
+                                            (Certified)</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         SECTION: FREQUENTLY ASKED QUESTIONS (F.A.Q.)
+         ======================================================= -->
+        <section class="section" id="faq" style="padding-bottom: clamp(60px, 8vw, 110px);">
+            <div class="wrap">
+                <div style="text-align: center; max-width: 760px; margin: 0 auto;">
+                    <div class="eyebrow center-eyebrow">FREQUENTLY ASKED QUESTIONS &bull; PROTOCOL</div>
+                    <h2 style="font-size: clamp(2rem, 3.2vw, 2.8rem); margin-bottom: 12px;">F.A.Q. &bull; Circle
+                        Protocol</h2>
+                    <p style="color: var(--ink-secondary); font-size: 0.94rem;">
+                        Comprehensive answers regarding card delivery, exclusive privileges, and circle protocols.
+                    </p>
+                </div>
+
+                <div class="faq-accordion-list">
+
+                    <div class="faq-accordion-item open">
+                        <button type="button" class="faq-trigger">
+                            <span>What is the validity period of the Membership Card?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            The card is issued for a renewable 3-year term. Registry status remains lifelong, ensuring
+                            that any unused portrait sessions and consultation privileges rollover automatically.
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <button type="button" class="faq-trigger">
+                            <span>How is the physical card delivered?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            Each metal card is packaged in a matte black velvet-lined case, sealed with vermilion wax
+                            bearing Gray Hansen's Hanko seal. Delivery is made via secure courier requiring signature
+                            upon receipt at your residence or executive office.
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <button type="button" class="faq-trigger">
+                            <span>Can I transfer my annual portrait session to a colleague or family member?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            Yes. As a member, you have the privilege of transferring your annual VIP session to an
+                            associate, spouse, or executive partner with prior notice to the concierge.
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <button type="button" class="faq-trigger">
+                            <span>How do I use the integrated NFC chip at exhibitions?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            At partner gallery vernissages or upon arriving at the atelier, simply tap the card on the
+                            contactless reception reader for priority fast-track entry and your numbered art catalogue.
+                        </div>
+                    </div>
+
+                    <div class="faq-accordion-item">
+                        <button type="button" class="faq-trigger">
+                            <span>Does membership include the luxury edition of the Japanese Typography
+                                monograph?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            Absolutely. Upon membership confirmation, a numbered clothbound hardcover copy of Japanese
+                            Typography (ISBN 978-623-09-5379-8) is personally dedicated and inscribed to you by author
+                            Gray Hansen Limantoro.
+                        </div>
+                    </div>
+
+                    <!-- FAQ BLOCK: SECURE ACCESS TO MEMBERSHIP APPLICATION (INQUIRYCARD FORM) -->
+                    <div class="faq-accordion-item faq-portal-item" id="faqInquiryPortal">
+                        <button type="button" class="faq-trigger" style="color: var(--gold-500); font-weight: 600;">
+                            <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                <span class="faq-portal-badge">PRIVATE PORTAL 🔒</span>
+                                <span>Secure Access to Inquiry Application (inquirycardform.html)</span>
+                            </span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-content">
+                            <div class="faq-password-portal">
+                                <div class="eyebrow" style="margin-bottom: 8px;">SECURE ACCESS &bull; PRIVATE CONCIERGE
+                                </div>
+                                <h4
+                                    style="font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 8px; color: var(--ink-pure);">
+                                    Unlock the Official Membership Application Form
+                                </h4>
+                                <p
+                                    style="margin-bottom: 18px; color: var(--ink-secondary); font-size: 0.88rem; line-height: 1.6;">
+                                    Access to the official application form (<code>inquirycardform.html</code>) is
+                                    restricted to invited guests, patrons, and creative partners. Enter your
+                                    confidential access code to unlock the application.
+                                </p>
+
+                                <form id="faqPasswordForm" class="faq-pwd-form" onsubmit="return false;">
+                                    <div class="faq-pwd-input-wrap">
+                                        <svg class="faq-lock-icon" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                        </svg>
+                                        <input type="password" id="faqInquiryPassword" class="faq-pwd-input"
+                                            placeholder="Enter confidential access code (e.g. GRAYHANSEN)..."
+                                            autocomplete="current-password">
+                                        <button type="button" id="togglePwdVisibilityBtn" class="faq-pwd-eye"
+                                            title="Show / Hide password">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <button type="submit" id="faqUnlockBtn" class="btn btn-primary"
+                                        style="padding: 12px 24px;">
+                                        <span>Unlock &amp; Proceed &nearr;</span>
+                                    </button>
+                                </form>
+
+                                <div id="faqPwdFeedback" class="faq-pwd-feedback" style="display: none;"></div>
+
+                                <div
+                                    style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.74rem; color: var(--ink-muted); border-top: 1px solid var(--border-hairline); padding-top: 12px;">
+                                    <span>
+                                        Official invitation access code: <strong
+                                            style="color: var(--gold-500); letter-spacing: 0.08em; background: var(--bg-surface-elevated); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border-hairline);">GRAYHANSEN</strong>
+                                        or <strong
+                                            style="color: var(--gold-500); letter-spacing: 0.08em; background: var(--bg-surface-elevated); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border-hairline);">CERCLEPRIVE</strong>
+                                    </span>
+                                    <span>Target destination: <code>inquirycardform.html</code></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =======================================================
+       LUXURY FOOTER (Consistent with index.html)
+       ======================================================= -->
+    <footer class="main-footer">
+        <div class="wrap">
+            <div class="footer-columns-grid">
+
+                <div class="footer-brand-col">
+                    <div class="footer-brand-name">Gray Hansen Limantoro</div>
+                    <div class="footer-brand-crest">林福勝 &bull; S.Kom. &bull; Creative Atelier</div>
+                    <p class="footer-brand-desc">
+                        Privilege Membership Card &amp; Exclusive Privileges. Graphic Designer, Fine-Art Photographer,
+                        Researcher,
+                        Writer, and Educator based in Indonesia with active international outreach to Tokyo, Japan.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Privileges</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="#card-showcase">3D Card of Honour</a></li>
+                        <li><a href="#craftsmanship">Metal Craftsmanship</a></li>
+                        <li><a href="#privileges">VIP Portraits &amp; Studio</a></li>
+                        <li><a href="#privileges">Scholarly Monographs</a></li>
+                        <li><a href="#authenticity">Registry Verification</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Maison Navigation</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Main Profile &bull; Home</a></li>
+                        <li><a href="index.html#portfolio">Portfolio &amp; Design</a></li>
+                        <li><a href="index.html#experience">Career &amp; Experience</a></li>
+                        <li><a href="index.html#research">Scholarly Library</a></li>
+                        <li><a href="index.html#contact">General Concierge</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Archives &amp; Links</h5>
+                    <ul class="footer-links-list">
+                        <li><a href="https://iamabuabu.wordpress.com" target="_blank"
+                                rel="noopener noreferrer">iamabuabu.wordpress.com &nearr;</a></li>
+                        <li><a href="https://graystyle.wixsite.com/home" target="_blank"
+                                rel="noopener noreferrer">Portfolio Wixsite &nearr;</a></li>
+                        <li><a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                                rel="noopener noreferrer">Google Scholar &nearr;</a></li>
+                        <li><a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
+                                target="_blank" rel="noopener noreferrer">EKRAF HUNT Repository &nearr;</a></li>
+                        <li><a href="#card-showcase">Back to Top &uarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-row">
+                <div>
+                    &copy; <span id="currentYear"></span> Gray Hansen Limantoro, S.Kom. (林福勝). All Rights Reserved.
+                    Official Maison Membership Card.
+                </div>
+
+                <div style="display: flex; gap: 18px; align-items: center;">
+                    <button class="utility-link" id="footerShareLinkBtn"
+                        style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;">
+                        <span>Share this Page &nearr;</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- =======================================================
+       VIP WELCOME MODAL DIALOG
+       ======================================================= -->
+    <div class="vip-modal-backdrop" id="vipSuccessModal" role="dialog" aria-modal="true"
+        aria-labelledby="vipModalTitle">
+        <div class="vip-modal-dialog">
+            <button type="button" class="modal-close-cross" id="closeVipModal" aria-label="Close">&times;</button>
+            <div class="eyebrow">MEMBERSHIP DOSSIER REGISTERED</div>
+            <h3 id="vipModalTitle" style="font-size: 1.85rem; margin-bottom: 12px; color: var(--ink-pure);">
+                Welcome to the Privilege Circle
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.65; margin-bottom: 20px;"
+                id="vipModalMessage">
+                Your application has been submitted to the office of Gray Hansen Limantoro. Our concierge will contact
+                you within 24 hours to finalize the engraving of your physical card.
+            </p>
+
+            <div
+                style="padding: 16px; background: var(--bg-surface-elevated); border: 1px solid var(--gold-border); border-radius: var(--radius-xs); margin-bottom: 24px;">
+                <div
+                    style="font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 4px;">
+                    Registered Cardholder</div>
+                <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--ink-pure);"
+                    id="vipModalApplicantName">ALEXANDRE DE VANCE</div>
+                <div style="font-size: 0.78rem; color: var(--ink-muted); margin-top: 4px;" id="vipModalSerialNotice">
+                    Reserved Serial Number: 4892 &bull; 7710 &bull; 8421 &bull; 0963</div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" class="btn btn-primary btn-sm" id="confirmVipModalBtn">
+                    <span>Acknowledged with Gratitude &check;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================
+       TOAST NOTIFICATION (Consistent with index.html)
+       ======================================================= -->
+    <div class="luxury-toast" id="toastNotification">
+        <span id="toastMessage">The member number has been copied.</span>
+    </div>
+
+    <!-- =======================================================
+       PDF GENERATION ENGINES (Offline Vendor with CDN Fallback)
+       ======================================================= -->
+    <script src="vendor/html2canvas.min.js"></script>
+    <script src="vendor/jspdf.umd.min.js"></script>
+
+    <!-- =======================================================
+       INTERACTIVE MEMBER CARD SCRIPT
+       ======================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Current Year in Footer
+            const yearEl = document.getElementById('currentYear');
+            if (yearEl) {
+                yearEl.textContent = new Date().getFullYear();
+            }
+
+            // 2. Dual Luxury Theme Toggle (Maison Blanche & Atelier Noir) - Synced with index.html
+            const htmlRoot = document.documentElement;
+            const themeButtons = document.querySelectorAll('[data-theme-set]');
+            const savedTheme = localStorage.getItem('luxury-maison-theme') || 'blanche';
+            setTheme(savedTheme, false);
+
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetTheme = btn.getAttribute('data-theme-set');
+                    if (targetTheme) {
+                        setTheme(targetTheme, true);
+                    }
+                });
+            });
+
+            function setTheme(theme, triggerToast = false) {
+                htmlRoot.setAttribute('data-theme', theme);
+                localStorage.setItem('luxury-maison-theme', theme);
+
+                themeButtons.forEach(btn => {
+                    const isTarget = btn.getAttribute('data-theme-set') === theme;
+                    btn.classList.toggle('active', isTarget);
+                    btn.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+                });
+
+                if (triggerToast) {
+                    showToast(theme === 'noir' ? 'Mode Sombre (Atelier Noir) activé' : 'Mode Clair (Maison Blanche) activé');
+                }
+            }
+
+            // Toast Notification Utility
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            let toastTimeout;
+
+            function showToast(message) {
+                if (!toast || !toastMsg) return;
+                toastMsg.textContent = message;
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3200);
+            }
+
+            // 3. Header Dynamic Scroll
+            const mainHeader = document.getElementById('mainHeader');
+            function handleHeaderScroll() {
+                if (!mainHeader) return;
+                if (window.scrollY > 40) {
+                    mainHeader.classList.add('scrolled');
+                } else {
+                    mainHeader.classList.remove('scrolled');
+                }
+            }
+            window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+            handleHeaderScroll();
+
+            // 3b. Fullscreen Editorial Menu Drawer (LVMH Style - Same as index.html)
+            const menuOpenBtn = document.getElementById('menuOpenBtn');
+            const menuCloseBtn = document.getElementById('menuCloseBtn');
+            const menuDrawer = document.getElementById('menuDrawer');
+            const drawerNavLinks = document.querySelectorAll('#drawerNavList a, #drawerFeaturedLink');
+
+            function openDrawer() {
+                if (!menuDrawer) return;
+                menuDrawer.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                menuCloseBtn?.focus();
+            }
+
+            function closeDrawer() {
+                if (!menuDrawer) return;
+                menuDrawer.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            if (menuOpenBtn) menuOpenBtn.addEventListener('click', openDrawer);
+            if (menuCloseBtn) menuCloseBtn.addEventListener('click', closeDrawer);
+
+            drawerNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeDrawer();
+                });
+            });
+
+            // 4. 3D Card Interactive Tilt & Specular Glare Tracking
+            const card3D = document.getElementById('card3D');
+            const cardGlare = document.getElementById('cardGlare');
+            const cardFlipper = document.getElementById('cardFlipper');
+
+            if (card3D && cardFlipper) {
+                let isHovered = false;
+
+                card3D.addEventListener('mouseenter', () => {
+                    isHovered = true;
+                });
+
+                card3D.addEventListener('mouseleave', () => {
+                    isHovered = false;
+                    // Smooth return to resting angle
+                    card3D.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    if (cardGlare) {
+                        cardGlare.style.opacity = '0';
+                    }
+                });
+
+                card3D.addEventListener('mousemove', (e) => {
+                    if (!isHovered) return;
+
+                    const rect = card3D.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Subtle, luxurious tilt (-12deg to +12deg)
+                    const rotateX = ((y - centerY) / centerY) * -11;
+                    const rotateY = ((x - centerX) / centerX) * 11;
+
+                    card3D.style.transform = `perspective(1400px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+
+                    // Glare spotlight position
+                    if (cardGlare) {
+                        const glareX = (x / rect.width) * 100;
+                        const glareY = (y / rect.height) * 100;
+                        cardGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 60%)`;
+                        cardGlare.style.opacity = '1';
+                    }
+                });
+            }
+
+            // 5. Card Flip Logic (Recto / Verso 3D Rotation)
+            const flipBtn = document.getElementById('flipBtn');
+            const triggerFlipHeroBtn = document.getElementById('triggerFlipHeroBtn');
+
+            function toggleCardFlip() {
+                if (!cardFlipper) return;
+                const isFlipped = cardFlipper.classList.toggle('is-flipped');
+                const label = isFlipped ? 'Voir le Recto (Face)' : 'Retourner la Carte (Verso)';
+                if (triggerFlipHeroBtn) {
+                    triggerFlipHeroBtn.querySelector('span').textContent = label;
+                }
+                showToast(isFlipped ? 'Affichage du Verso : Bande magnétique & QR cryptographique' : 'Affichage du Recto : Gravure or & Puce EMV');
+            }
+
+            if (flipBtn) flipBtn.addEventListener('click', toggleCardFlip);
+            if (triggerFlipHeroBtn) triggerFlipHeroBtn.addEventListener('click', toggleCardFlip);
+
+            // 6. Live Cardholder Name Stamping
+            const nameInput = document.getElementById('customMemberName');
+            const nameDisplay = document.getElementById('cardHolderNameDisplay');
+            const sigDisplay = document.getElementById('cardSigDisplay');
+
+            if (nameInput) {
+                nameInput.addEventListener('input', (e) => {
+                    const val = e.target.value.trim().toUpperCase() || 'ALEXANDRE DE VANCE';
+                    if (nameDisplay) nameDisplay.textContent = val;
+                    if (sigDisplay) {
+                        // Convert to Title Case for signature
+                        const titleCase = val.toLowerCase().replace(/(?:^|\s)\w/g, match => match.toUpperCase());
+                        sigDisplay.textContent = titleCase;
+                    }
+                });
+            }
+
+            // 7. Randomize Card Serial Number
+            const randomizeBtn = document.getElementById('randomizeSerialBtn');
+            const cardNumberDisplay = document.getElementById('cardNumberDisplay');
+            const verifyInput = document.getElementById('verifyInput');
+
+            function generateLuxurySerial() {
+                const p1 = Math.floor(1000 + Math.random() * 9000);
+                const p2 = Math.floor(1000 + Math.random() * 9000);
+                const p3 = Math.floor(1000 + Math.random() * 9000);
+                const p4 = Math.floor(1000 + Math.random() * 9000);
+                return `${p1} • ${p2} • ${p3} • ${p4}`;
+            }
+
+            if (randomizeBtn && cardNumberDisplay) {
+                randomizeBtn.addEventListener('click', () => {
+                    const newSerial = generateLuxurySerial();
+                    cardNumberDisplay.textContent = newSerial;
+                    if (verifyInput) verifyInput.value = newSerial;
+                    showToast('Nouveau numéro de membre gravé au registre.');
+                });
+            }
+
+            // 8. Copy Card ID to Clipboard
+            const copyBtn = document.getElementById('copyCardIdBtn');
+            if (copyBtn && cardNumberDisplay) {
+                copyBtn.addEventListener('click', () => {
+                    const cleanText = cardNumberDisplay.textContent.replace(/•/g, '').replace(/\s+/g, ' ').trim();
+                    navigator.clipboard.writeText(cleanText).then(() => {
+                        showToast(`N° de membre copié : ${cleanText}`);
+                    }).catch(() => {
+                        showToast('Numéro prêt à être partagé.');
+                    });
+                });
+            }
+
+            // 9. Download Member Card PDF (Front & Back Views in 1 Single PDF)
+            const downloadPassBtn = document.getElementById('downloadPassBtn');
+
+            function ensureScriptLoaded(src, globalVarName) {
+                return new Promise((resolve, reject) => {
+                    if (window[globalVarName] || (globalVarName === 'jspdf' && window.jspdf)) {
+                        return resolve();
+                    }
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.onload = () => resolve();
+                    s.onerror = () => reject(new Error('Failed to load: ' + src));
+                    document.head.appendChild(s);
+                });
+            }
+
+            if (downloadPassBtn) {
+                downloadPassBtn.addEventListener('click', async () => {
+                    const originalBtnContent = downloadPassBtn.innerHTML;
+                    downloadPassBtn.disabled = true;
+                    downloadPassBtn.innerHTML = `
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin-icon">
+                            <line x1="12" y1="2" x2="12" y2="6"></line>
+                            <line x1="12" y1="18" x2="12" y2="22"></line>
+                            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                            <line x1="2" y1="12" x2="6" y2="12"></line>
+                            <line x1="18" y1="12" x2="22" y2="12"></line>
+                            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+                        </svg>
+                        <span>Generating PDF...</span>
+                    `;
+                    showToast('Rendering high-resolution Member Card (Front & Back) into PDF...');
+
+                    try {
+                        if (typeof html2canvas === 'undefined') {
+                            await ensureScriptLoaded('vendor/html2canvas.min.js', 'html2canvas');
+                        }
+                        if (!window.jspdf && typeof jsPDF === 'undefined') {
+                            await ensureScriptLoaded('vendor/jspdf.umd.min.js', 'jspdf');
+                        }
+
+                        const cardFrontEl = document.querySelector('.card-front');
+                        const cardBackEl = document.querySelector('.card-back');
+
+                        if (!cardFrontEl || !cardBackEl) {
+                            throw new Error('Card elements not found');
+                        }
+
+                        const memberName = (document.getElementById('cardHolderNameDisplay')?.textContent || 'ALEXANDRE DE VANCE').trim();
+                        const memberSerial = (document.getElementById('cardNumberDisplay')?.textContent || '4892 • 7710 • 8421 • 0963').trim();
+                        const validDate = (document.querySelector('.card-valid-date')?.textContent || '12 / 29').trim();
+
+                        // Isolated off-screen flat staging container
+                        const offscreen = document.createElement('div');
+                        offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:530px;height:334px;z-index:-9999;overflow:hidden;background:transparent;';
+                        document.body.appendChild(offscreen);
+
+                        // 1. Capture Front (Recto)
+                        const frontClone = cardFrontEl.cloneNode(true);
+                        frontClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;-webkit-transform:none !important;backface-visibility:visible !important;-webkit-backface-visibility:visible !important;border-radius:18px !important;margin:0 !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
+                        const glareEl = frontClone.querySelector('.card-glare');
+                        if (glareEl) glareEl.style.display = 'none';
+
+                        offscreen.appendChild(frontClone);
+                        const frontCanvas = await html2canvas(frontClone, {
+                            scale: 2.5,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#0b0c10',
+                            logging: false
+                        });
+                        offscreen.removeChild(frontClone);
+
+                        // 2. Capture Back (Verso)
+                        const backClone = cardBackEl.cloneNode(true);
+                        backClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;-webkit-transform:none !important;backface-visibility:visible !important;-webkit-backface-visibility:visible !important;border-radius:18px !important;margin:0 !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;';
+
+                        offscreen.appendChild(backClone);
+                        const backCanvas = await html2canvas(backClone, {
+                            scale: 2.5,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#0b0c10',
+                            logging: false
+                        });
+                        offscreen.removeChild(backClone);
+                        document.body.removeChild(offscreen);
+
+                        const frontImgData = frontCanvas.toDataURL('image/png');
+                        const backImgData = backCanvas.toDataURL('image/png');
+
+                        // 3. Compile into Single Luxury A4 PDF
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF({
+                            orientation: 'portrait',
+                            unit: 'mm',
+                            format: 'a4'
+                        });
+
+                        // Premium ivory background
+                        doc.setFillColor(252, 251, 247);
+                        doc.rect(0, 0, 210, 297, 'F');
+
+                        // Double gold hairline borders
+                        doc.setDrawColor(212, 175, 55); // #d4af37
+                        doc.setLineWidth(0.6);
+                        doc.rect(10, 10, 190, 277);
+                        doc.setLineWidth(0.2);
+                        doc.rect(12, 12, 186, 273);
+
+                        // Header Metadata
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(7.5);
+                        doc.setTextColor(170, 130, 40); // Gold tone
+                        doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL MEMBER CARD DOSSIER', 105, 20, { align: 'center' });
+
+                        doc.setFont('times', 'bold');
+                        doc.setFontSize(17);
+                        doc.setTextColor(20, 22, 28); // Deep Obsidian
+                        doc.text('The Card of Honour • Official Pass', 105, 27, { align: 'center' });
+
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(8);
+                        doc.setTextColor(100, 105, 115);
+                        doc.text(`Cardholder: ${memberName}   •   Serial: ${memberSerial}   •   Tier: Noir Elite   •   Valid: ${validDate}`, 105, 32.5, { align: 'center' });
+
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.3);
+                        doc.line(32, 35.5, 178, 35.5);
+
+                        // Card Placement Geometry (Aspect ratio 1.586)
+                        const cardW = 144; // mm
+                        const cardH = cardW / 1.586; // ~90.8 mm
+                        const cardX = (210 - cardW) / 2; // 33 mm (centered)
+
+                        // 1. RECTO (FRONT VIEW)
+                        const frontY = 41;
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(7.5);
+                        doc.setTextColor(170, 130, 40);
+                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, frontY - 2);
+
+                        // Subtle shadow behind card
+                        doc.setFillColor(224, 220, 210);
+                        doc.roundedRect(cardX + 1.2, frontY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
+                        doc.addImage(frontImgData, 'PNG', cardX, frontY, cardW, cardH);
+
+                        // 2. VERSO (BACK VIEW)
+                        const backY = frontY + cardH + 13;
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(7.5);
+                        doc.setTextColor(170, 130, 40);
+                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 2);
+
+                        // Subtle shadow behind card
+                        doc.setFillColor(224, 220, 210);
+                        doc.roundedRect(cardX + 1.2, backY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
+                        doc.addImage(backImgData, 'PNG', cardX, backY, cardW, cardH);
+
+                        // Certificate Footer
+                        const footerY = backY + cardH + 10;
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.3);
+                        doc.line(32, footerY, 178, footerY);
+
+                        doc.setFont('times', 'italic');
+                        doc.setFontSize(8);
+                        doc.setTextColor(70, 75, 85);
+                        doc.text('“Capturing the dignity of posture through the refinement of classical chiaroscuro.”', 105, footerY + 5, { align: 'center' });
+
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(7);
+                        doc.setTextColor(115, 120, 130);
+                        const issueDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro (林福勝)  •  Balikpapan • Malang • Tokyo  •  Date: ${issueDate}`, 105, footerY + 10.5, { align: 'center' });
+                        doc.text('Official Registry Reference: Series GH-0963-NOIR  •  Registered with EKRAF Kemenparekraf RI', 105, footerY + 14.5, { align: 'center' });
+
+                        const cleanSerial = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
+                        const filename = `Gray_Hansen_Membership_Card_${cleanSerial}.pdf`;
+
+                        doc.save(filename);
+                        showToast(`PDF downloaded: ${filename}`);
+
+                    } catch (err) {
+                        console.error('PDF Generation Error:', err);
+                        showToast('Error generating PDF. Please ensure browser permits downloads.');
+                    } finally {
+                        downloadPassBtn.disabled = false;
+                        downloadPassBtn.innerHTML = originalBtnContent;
+                    }
+                });
+            }
+
+            // 10. Verification Simulator
+            const verifyBtn = document.getElementById('verifyBtn');
+            const verifyResultName = document.getElementById('verifyResultName');
+
+            if (verifyBtn && verifyInput) {
+                verifyBtn.addEventListener('click', () => {
+                    const val = verifyInput.value.trim();
+                    if (!val) {
+                        showToast('Veuillez saisir un numéro de membre valide.');
+                        return;
+                    }
+
+                    const currentHolder = nameDisplay ? nameDisplay.textContent : 'ALEXANDRE DE VANCE';
+                    if (verifyResultName) {
+                        verifyResultName.textContent = currentHolder;
+                    }
+                    showToast(`Vérification réussie : Carte valide pour ${currentHolder}`);
+                });
+            }
+
+            // 11. FAQ Accordion Handling
+            const faqItems = document.querySelectorAll('.faq-accordion-item');
+            faqItems.forEach(item => {
+                const trigger = item.querySelector('.faq-trigger');
+                if (trigger) {
+                    trigger.addEventListener('click', () => {
+                        const isOpen = item.classList.contains('open');
+                        // Close others for clean accordion
+                        faqItems.forEach(other => other.classList.remove('open'));
+                        if (!isOpen) {
+                            item.classList.add('open');
+                        }
+                    });
+                }
+            });
+
+            // 11b. FAQ Password Protection for inquirycardform.html
+            const faqPwdForm = document.getElementById('faqPasswordForm');
+            const faqInquiryPassword = document.getElementById('faqInquiryPassword');
+            const faqUnlockBtn = document.getElementById('faqUnlockBtn');
+            const faqPwdFeedback = document.getElementById('faqPwdFeedback');
+            const togglePwdVisibilityBtn = document.getElementById('togglePwdVisibilityBtn');
+
+            // Accepted luxury passcodes (case-insensitive)
+            const validPasswords = ['grayhansen', 'cercleprive', 'maison', 'grayhansen2026', '123456', 'hansen'];
+
+            function checkFaqPassword() {
+                if (!faqInquiryPassword) return;
+                const entered = faqInquiryPassword.value.trim().toLowerCase();
+
+                if (!entered) {
+                    showFeedback('Veuillez saisir le mot de passe pour continuer.', 'error');
+                    faqInquiryPassword.classList.add('error');
+                    return;
+                }
+
+                if (validPasswords.includes(entered)) {
+                    faqInquiryPassword.classList.remove('error');
+                    faqInquiryPassword.classList.add('success');
+                    showFeedback('✓ Mot de passe authentifié avec succès. Redirection vers le formulaire d\'adhésion...', 'success');
+                    if (typeof showToast === 'function') {
+                        showToast('Accès déverrouillé. Ouverture de la conciergerie...');
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = 'inquirycardform.html';
+                    }, 850);
+                } else {
+                    faqInquiryPassword.classList.remove('success');
+                    faqInquiryPassword.classList.add('error');
+                    showFeedback('✗ Mot de passe incorrect. Veuillez utiliser "GRAYHANSEN" ou "CERCLEPRIVE".', 'error');
+                    if (typeof showToast === 'function') {
+                        showToast('Code d\'invitation erroné. Veuillez réessayer.');
+                    }
+                    setTimeout(() => {
+                        faqInquiryPassword.classList.remove('error');
+                    }, 800);
+                }
+            }
+
+            function showFeedback(msg, type) {
+                if (!faqPwdFeedback) return;
+                faqPwdFeedback.textContent = msg;
+                faqPwdFeedback.className = `faq-pwd-feedback ${type}`;
+                faqPwdFeedback.style.display = 'block';
+            }
+
+            if (faqPwdForm) {
+                faqPwdForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    checkFaqPassword();
+                });
+            }
+
+            if (faqUnlockBtn) {
+                faqUnlockBtn.addEventListener('click', checkFaqPassword);
+            }
+
+            if (togglePwdVisibilityBtn && faqInquiryPassword) {
+                togglePwdVisibilityBtn.addEventListener('click', () => {
+                    const isPassword = faqInquiryPassword.getAttribute('type') === 'password';
+                    faqInquiryPassword.setAttribute('type', isPassword ? 'text' : 'password');
+                    togglePwdVisibilityBtn.style.color = isPassword ? 'var(--gold-500)' : 'var(--ink-muted)';
+                });
+            }
+
+            // 12. Concierge Membership Application Form & Modal
+            const membershipForm = document.getElementById('membershipForm');
+            const vipModal = document.getElementById('vipSuccessModal');
+            const closeVipModal = document.getElementById('closeVipModal');
+            const confirmVipModalBtn = document.getElementById('confirmVipModalBtn');
+            const vipModalApplicantName = document.getElementById('vipModalApplicantName');
+            const vipModalSerialNotice = document.getElementById('vipModalSerialNotice');
+
+            if (membershipForm) {
+                membershipForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const fullName = document.getElementById('formFullName')?.value.trim() || 'Titulaire';
+                    const serial = cardNumberDisplay ? cardNumberDisplay.textContent : '4892 • 7710 • 8421 • 0963';
+
+                    if (vipModalApplicantName) vipModalApplicantName.textContent = fullName.toUpperCase();
+                    if (vipModalSerialNotice) vipModalSerialNotice.textContent = `Numéro de série réservé : ${serial}`;
+
+                    // Also update the physical card on screen!
+                    if (nameDisplay) nameDisplay.textContent = fullName.toUpperCase();
+                    if (sigDisplay) {
+                        sigDisplay.textContent = fullName.replace(/(?:^|\s)\w/g, m => m.toUpperCase());
+                    }
+                    if (nameInput) nameInput.value = fullName.toUpperCase();
+
+                    if (vipModal) vipModal.classList.add('open');
+                    showToast('Demande transmise avec succès au cabinet.');
+                    membershipForm.reset();
+                });
+            }
+
+            function hideVipModal() {
+                if (vipModal) vipModal.classList.remove('open');
+            }
+
+            if (closeVipModal) closeVipModal.addEventListener('click', hideVipModal);
+            if (confirmVipModalBtn) confirmVipModalBtn.addEventListener('click', hideVipModal);
+            if (vipModal) {
+                vipModal.addEventListener('click', (e) => {
+                    if (e.target === vipModal) hideVipModal();
+                });
+            }
+
+            // Escape key to close modal or drawer
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (menuDrawer && menuDrawer.classList.contains('open')) {
+                        closeDrawer();
+                    }
+                    if (vipModal && vipModal.classList.contains('open')) {
+                        hideVipModal();
+                    }
+                }
+            });
+
+            // 13. Footer Share Button
+            const shareBtn = document.getElementById('footerShareLinkBtn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: "Carte de Membre Privilège — Gray Hansen Limantoro",
+                            url: window.location.href
+                        }).catch(() => { });
+                    } else {
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            showToast('Lien de la Carte de Membre copié dans le presse-papiers.');
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>
