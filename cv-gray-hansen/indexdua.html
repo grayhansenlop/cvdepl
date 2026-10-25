@@ -39,6 +39,12 @@
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif+JP:wght@300;400;600;700&family=Ma+Shan+Zheng&display=swap"
         rel="stylesheet">
 
+    <!-- Core Libraries for High-Res Member Pass PDF Generation (CDN with local fallback) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -1451,8 +1457,14 @@
 
                         <!-- CTA BUTTONS -->
                         <div class="hero-button-group">
-                            <a href="#concierge" class="btn btn-primary">
-                                <span>Apply for Privilege Circle &nearr;</span>
+                            <a href="graycomcard.html" class="btn btn-primary" id="seeMyCardHeroBtn">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-right: 6px;">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <span>See My Card &rarr;</span>
                             </a>
                             <button type="button" class="btn btn-secondary" id="triggerFlipHeroBtn">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1603,7 +1615,7 @@
                             <div class="controls-row-top">
                                 <div
                                     style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-500);">
-                                    Live Card Personalization Atelier
+                                    Interactive Card Dock &bull; Verification Pass
                                 </div>
                                 <button type="button" class="btn btn-secondary btn-sm" id="flipBtn"
                                     style="padding: 5px 12px;">
@@ -1611,31 +1623,8 @@
                                 </button>
                             </div>
 
-                            <!-- Real-time Name Customizer -->
-                            <div class="card-custom-input-group">
-                                <label for="customMemberName" class="card-input-label">
-                                    <span>Cardholder Name on Card</span>
-                                    <span style="color: var(--gold-500); font-weight: 600;">Live Gold Foil
-                                        Stamping</span>
-                                </label>
-                                <input type="text" id="customMemberName" class="card-text-field"
-                                    value="ALEXANDRE DE VANCE" maxlength="26" placeholder="Enter your name here...">
-                            </div>
-
-                            <!-- Actions Strip: Randomize Serial, Copy ID, Download Pass -->
+                            <!-- Actions Strip: Copy ID, See My Card, Download Pass -->
                             <div class="card-actions-strip">
-                                <button type="button" class="btn btn-secondary btn-sm" id="randomizeSerialBtn"
-                                    title="Generate new engraved serial number">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <polyline points="23 4 23 10 17 10"></polyline>
-                                        <polyline points="1 20 1 14 7 14"></polyline>
-                                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
-                                        </path>
-                                    </svg>
-                                    <span>New Serial No.</span>
-                                </button>
-
                                 <button type="button" class="btn btn-secondary btn-sm" id="copyCardIdBtn"
                                     title="Copy card number to clipboard">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1643,18 +1632,28 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                                     </svg>
-                                    <span>Copy ID</span>
+                                    <span>Copy Card ID</span>
                                 </button>
 
+                                <a href="graycomcard.html" class="btn btn-secondary btn-sm"
+                                    title="Search and verify your membership card">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <span>Search / See My Card &rarr;</span>
+                                </a>
+
                                 <button type="button" class="btn btn-gold btn-sm" id="downloadPassBtn"
-                                    title="Download Member Card PDF (Front &amp; Back in 1 Single File)">
+                                    title="Download Member Card PDF (Page 1 Dossier, Pages 2 & 3 Card Only)">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                         <polyline points="7 10 12 15 17 10"></polyline>
                                         <line x1="12" y1="15" x2="12" y2="3"></line>
                                     </svg>
-                                    <span>Download PDF (Card)</span>
+                                    <span>Download PDF (Pass &amp; Cards)</span>
                                 </button>
                             </div>
                         </div>
@@ -1698,6 +1697,271 @@
                         <div class="metric-desc">Instant verification at vernissages, symposiums, and private ateliers.
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =======================================================
+         SECTION: DUAL PRIVILEGE EDITIONS (NOIR OBSIDIAN & ROUGE IMPÉRIAL)
+         ======================================================= -->
+        <section class="section" id="editions"
+            style="background: var(--bg-surface-elevated); border-top: 1px solid var(--border-hairline); border-bottom: 1px solid var(--border-hairline);">
+            <div class="wrap">
+                <div style="text-align: center; max-width: 820px; margin: 0 auto 50px;">
+                    <div class="eyebrow center-eyebrow">DUAL PRIVILEGE EDITIONS &bull; BESPOKE INDUCTION</div>
+                    <h2 style="font-size: clamp(2.1rem, 3.6vw, 3.2rem); margin-bottom: 16px;">The Two Emblems of
+                        Distinction</h2>
+                    <p style="color: var(--ink-secondary); font-size: 0.96rem; line-height: 1.75;">
+                        Maison Gray Hansen Limantoro presents two distinguished physical membership passes&mdash;each
+                        crafted in weighted solid core metal, stamped in genuine 24K gold foil, and conferring curated
+                        privileges tailored to patrons, scholars, and commissioners.
+                    </p>
+                </div>
+
+                <div class="editions-dual-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 36px; align-items: stretch;">
+
+                    <!-- CARD 1: ÉDITION NOIR OBSIDIAN -->
+                    <div class="edition-card-box"
+                        style="background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: var(--shadow-elevated);">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <span
+                                    style="font-size: 0.66rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-500);">Tier
+                                    01 &bull; Signature</span>
+                                <span class="card-tier-pill" style="font-size: 0.58rem;">Private Noir</span>
+                            </div>
+                            <h3 style="font-size: 1.55rem; margin-bottom: 18px; font-family: var(--font-display);">
+                                Édition Noir Obsidian</h3>
+
+                            <!-- Physical Card Replica Preview -->
+                            <div
+                                style="position: relative; aspect-ratio: 1.586/1; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.18) 0%, transparent 40%), radial-gradient(circle at 15% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 45%), linear-gradient(135deg, #15161d 0%, #0d0e13 45%, #07080a 100%); border: 1px solid rgba(212, 175, 55, 0.45); padding: 18px 22px; color: #f7f5ed; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 16px 36px rgba(0,0,0,0.4);">
+                                <div class="card-top-row" style="margin-bottom: 4px;">
+                                    <div class="card-brand-group">
+                                        <div class="card-hanko-seal"
+                                            style="width: 32px; height: 32px; font-size: 0.65rem;">
+                                            <span>林</span><span>勝</span>
+                                        </div>
+                                        <div class="card-brand-titles">
+                                            <span class="card-brand-name" style="font-size: 0.76rem;">Gray Hansen
+                                                Limantoro</span>
+                                            <span class="card-brand-sub" style="font-size: 0.52rem;">Creative Atelier
+                                                &bull; Tokyo</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-nfc-wave">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                            <path d="M8.5 16.5a5 5 0 0 1 0-9" />
+                                            <path d="M12 19a8.5 8.5 0 0 0 0-14" />
+                                            <path d="M15.5 21.5a12 12 0 0 0 0-19" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-chip-row" style="margin: 4px 0;">
+                                    <div class="emv-chip" style="width: 44px; height: 34px;"></div>
+                                    <div class="card-hologram-seal"
+                                        style="width: 38px; height: 38px; font-size: 0.78rem;"></div>
+                                </div>
+                                <div>
+                                    <div class="card-meta-label" style="font-size: 0.48rem;">Official Member Number
+                                    </div>
+                                    <div class="card-number-display" style="font-size: 1.05rem; margin: 2px 0;">4892
+                                        &bull; 7710 &bull; 8421 &bull; 0963</div>
+                                </div>
+                                <div class="card-bottom-row">
+                                    <div class="card-meta-block">
+                                        <div class="card-meta-label" style="font-size: 0.48rem;">Cardholder Name</div>
+                                        <div class="card-holder-name" style="font-size: 0.88rem;">ALEXANDRE DE VANCE
+                                        </div>
+                                    </div>
+                                    <div class="card-validity-group">
+                                        <div class="card-meta-block" style="text-align: right;">
+                                            <div class="card-meta-label" style="font-size: 0.48rem;">Valid Thru</div>
+                                            <div class="card-valid-date" style="font-size: 0.76rem;">12 / 29</div>
+                                        </div>
+                                        <div class="card-tier-pill" style="font-size: 0.5rem; padding: 2px 8px;">Private
+                                            Noir</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dedicated Benefits List -->
+                            <div style="margin-top: 24px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 12px;">
+                                    Curated Privileges &bull; Private Noir</div>
+                                <ul
+                                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.86rem; color: var(--ink-secondary);">
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: var(--gold-500); font-weight: 700;">&check;</span>
+                                        <span><strong>Priority Concierge Channel</strong> &mdash; Direct encrypted line
+                                            with &lt; 1h response guarantee for studio appointments.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: var(--gold-500); font-weight: 700;">&check;</span>
+                                        <span><strong>Private Vernissage Invitations</strong> &mdash; Reserved admission
+                                            to solo exhibitions and gallery debuts in Balikpapan and Tokyo.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: var(--gold-500); font-weight: 700;">&check;</span>
+                                        <span><strong>Signed Research Monographs</strong> &mdash; Complimentary official
+                                            ISBN monographs published with CV. Hosting Media Rakyat.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: var(--gold-500); font-weight: 700;">&check;</span>
+                                        <span><strong>Annual Portrait of Honour Session</strong> &mdash; 1 complimentary
+                                            fine art portrait session under chiaroscuro lighting annually.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: var(--gold-500); font-weight: 700;">&check;</span>
+                                        <span><strong>Atelier Digital Vault</strong> &mdash; Access to high-resolution
+                                            typographic specimens and scholarly monographs.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border-hairline);">
+                            <a href="inquirycardform.html?tier=noir" class="btn btn-secondary"
+                                style="width: 100%; justify-content: center;">
+                                <span>Inquire for Private Noir &nearr;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: ÉDITION ROUGE IMPÉRIAL (MERAH MAROON) -->
+                    <div class="edition-card-box"
+                        style="background: var(--bg-surface); border: 1.5px solid rgba(180, 20, 30, 0.45); border-radius: var(--radius-sm); padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: var(--shadow-elevated);">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <span
+                                    style="font-size: 0.66rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #c22d2d;">Tier
+                                    Suprême &bull; Grand Patron</span>
+                                <span class="card-tier-pill"
+                                    style="font-size: 0.58rem; background: linear-gradient(135deg, rgba(194, 45, 45, 0.4) 0%, rgba(120, 15, 20, 0.25) 100%); border-color: rgba(230, 180, 60, 0.8); color: #ffe6a3;">Rouge
+                                    Impérial</span>
+                            </div>
+                            <h3
+                                style="font-size: 1.55rem; margin-bottom: 18px; font-family: var(--font-display); color: #b81d24;">
+                                Édition Rouge Impérial</h3>
+
+                            <!-- Physical Card Replica Preview (Maroon Edition) -->
+                            <div
+                                style="position: relative; aspect-ratio: 1.586/1; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 85% 15%, rgba(255, 195, 75, 0.24) 0%, transparent 42%), radial-gradient(circle at 15% 85%, rgba(210, 25, 40, 0.45) 0%, transparent 50%), linear-gradient(135deg, #44090e 0%, #2b0407 48%, #160103 100%); border: 1.5px solid rgba(235, 185, 70, 0.65); padding: 18px 22px; color: #fff8f0; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 16px 36px rgba(130, 10, 20, 0.35);">
+                                <div class="card-top-row" style="margin-bottom: 4px;">
+                                    <div class="card-brand-group">
+                                        <div class="card-hanko-seal"
+                                            style="width: 32px; height: 32px; font-size: 0.65rem; border-color: #ffd700; background: rgba(255, 215, 0, 0.18); color: #ffd700; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);">
+                                            <span>林</span><span>勝</span>
+                                        </div>
+                                        <div class="card-brand-titles">
+                                            <span class="card-brand-name"
+                                                style="font-size: 0.76rem; background: linear-gradient(135deg, #fff2cc 0%, #e6be60 50%, #ffd978 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Gray
+                                                Hansen Limantoro</span>
+                                            <span class="card-brand-sub"
+                                                style="font-size: 0.52rem; color: rgba(255, 235, 200, 0.75);">Grand
+                                                Atelier &bull; Balikpapan &bull; Tokyo</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-nfc-wave" style="color: #ffd700;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                            <path d="M8.5 16.5a5 5 0 0 1 0-9" />
+                                            <path d="M12 19a8.5 8.5 0 0 0 0-14" />
+                                            <path d="M15.5 21.5a12 12 0 0 0 0-19" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-chip-row" style="margin: 4px 0;">
+                                    <div class="emv-chip" style="width: 44px; height: 34px; border-color: #ffd700;">
+                                    </div>
+                                    <div class="card-hologram-seal"
+                                        style="width: 38px; height: 38px; font-size: 0.78rem; background: linear-gradient(135deg, #ffd700 0%, #c41829 45%, #ffd7a8 75%, #8c101b 100%); border-color: rgba(255, 255, 255, 0.8);">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="card-meta-label"
+                                        style="font-size: 0.48rem; color: rgba(255, 220, 180, 0.65);">Imperial
+                                        Distinction Number</div>
+                                    <div class="card-number-display"
+                                        style="font-size: 1.05rem; margin: 2px 0; color: #ffebaa; text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.9);">
+                                        9981 &bull; 3302 &bull; 7741 &bull; 0108</div>
+                                </div>
+                                <div class="card-bottom-row">
+                                    <div class="card-meta-block">
+                                        <div class="card-meta-label"
+                                            style="font-size: 0.48rem; color: rgba(255, 220, 180, 0.65);">Grand Patron
+                                            Holder</div>
+                                        <div class="card-holder-name" style="font-size: 0.88rem; color: #fff8eb;">
+                                            ALEXANDRE DE VANCE</div>
+                                    </div>
+                                    <div class="card-validity-group">
+                                        <div class="card-meta-block" style="text-align: right;">
+                                            <div class="card-meta-label"
+                                                style="font-size: 0.48rem; color: rgba(255, 220, 180, 0.65);">Valid Thru
+                                            </div>
+                                            <div class="card-valid-date" style="font-size: 0.76rem; color: #ffd778;">12
+                                                / 29</div>
+                                        </div>
+                                        <div class="card-tier-pill"
+                                            style="font-size: 0.5rem; padding: 2px 8px; background: linear-gradient(135deg, rgba(200, 35, 50, 0.6) 0%, rgba(120, 15, 25, 0.4) 100%); border-color: rgba(255, 215, 0, 0.85); color: #ffe6a3;">
+                                            Rouge Impérial</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dedicated Benefits List (Distinct for Maroon) -->
+                            <div style="margin-top: 24px;">
+                                <div
+                                    style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #c22d2d; margin-bottom: 12px;">
+                                    Exclusive Privileges &bull; Rouge Impérial</div>
+                                <ul
+                                    style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.86rem; color: var(--ink-secondary);">
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: #c22d2d; font-weight: 700;">&starf;</span>
+                                        <span><strong>Lifetime Honorary Atelier Fellowship</strong> &mdash; Permanent
+                                            honorary seat at curatorial symposiums and private salon dinners.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: #c22d2d; font-weight: 700;">&starf;</span>
+                                        <span><strong>Bespoke Art Direction Consultation</strong> &mdash; 1-on-1 direct
+                                            creative direction, identity, and typographic advisory with Gray
+                                            Hansen.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: #c22d2d; font-weight: 700;">&starf;</span>
+                                        <span><strong>Numbered Hand-Bound Master Monographs</strong> &mdash; Special
+                                            collector's editions bound in French book-cloth with hand-pressed
+                                            washi.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: #c22d2d; font-weight: 700;">&starf;</span>
+                                        <span><strong>Worldwide Studio &amp; Salon Accreditations</strong> &mdash; VIP
+                                            reciprocal access to affiliated art societies and private viewing quarters
+                                            in Tokyo.</span>
+                                    </li>
+                                    <li style="display: flex; gap: 10px; align-items: flex-start;">
+                                        <span style="color: #c22d2d; font-weight: 700;">&starf;</span>
+                                        <span><strong>Archival Masterprint Acquisition Priority</strong> &mdash;
+                                            Exclusive pre-allocation rights for rare silver-gelatin &amp; pigment
+                                            masterprints.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border-hairline);">
+                            <a href="inquirycardform.html?tier=maroon" class="btn btn-gold"
+                                style="width: 100%; justify-content: center;">
+                                <span>Inquire for Rouge Impérial &nearr;</span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -2544,13 +2808,25 @@
 
             function ensureScriptLoaded(src, globalVarName) {
                 return new Promise((resolve, reject) => {
-                    if (window[globalVarName] || (globalVarName === 'jspdf' && window.jspdf)) {
+                    if (window[globalVarName] || (globalVarName === 'jspdf' && (window.jspdf || typeof jsPDF !== 'undefined'))) {
                         return resolve();
                     }
                     const s = document.createElement('script');
                     s.src = src;
+                    s.crossOrigin = 'anonymous';
                     s.onload = () => resolve();
-                    s.onerror = () => reject(new Error('Failed to load: ' + src));
+                    s.onerror = () => {
+                        // Fallback to high-speed CDN if local fails (vital on Vercel)
+                        const cdnUrl = globalVarName === 'html2canvas'
+                            ? 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
+                            : 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                        const fallbackScript = document.createElement('script');
+                        fallbackScript.src = cdnUrl;
+                        fallbackScript.crossOrigin = 'anonymous';
+                        fallbackScript.onload = () => resolve();
+                        fallbackScript.onerror = () => reject(new Error('Failed to load library: ' + globalVarName));
+                        document.head.appendChild(fallbackScript);
+                    };
                     document.head.appendChild(s);
                 });
             }
@@ -2570,9 +2846,9 @@
                             <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
                             <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
                         </svg>
-                        <span>Generating PDF...</span>
+                        <span>Generating 3-Page PDF...</span>
                     `;
-                    showToast('Rendering high-resolution Member Card (Front & Back) into PDF...');
+                    showToast('Rendering high-resolution Member Pass & Standalone Cards (3 Pages)...');
 
                     try {
                         if (typeof html2canvas === 'undefined') {
@@ -2630,8 +2906,8 @@
                         const frontCanvas = await html2canvas(frontClone, {
                             scale: 2.5,
                             useCORS: true,
-                            allowTaint: true,
-                            backgroundColor: '#0b0c10',
+                            allowTaint: false,
+                            backgroundColor: null,
                             logging: false
                         });
                         offscreen.removeChild(frontClone);
@@ -2644,8 +2920,8 @@
                         const backCanvas = await html2canvas(backClone, {
                             scale: 2.5,
                             useCORS: true,
-                            allowTaint: true,
-                            backgroundColor: '#0b0c10',
+                            allowTaint: false,
+                            backgroundColor: null,
                             logging: false
                         });
                         offscreen.removeChild(backClone);
@@ -2654,34 +2930,43 @@
                         const frontImgData = frontCanvas.toDataURL('image/png');
                         const backImgData = backCanvas.toDataURL('image/png');
 
-                        // 3. Compile into Single Luxury A4 PDF
-                        const { jsPDF } = window.jspdf;
-                        const doc = new jsPDF({
+                        // 3. Compile Multi-Page Luxury PDF
+                        // Page 1: A4 Luxury Official Dossier
+                        // Page 2: Standalone Card Front ONLY (CR80 standard, no borders/margins)
+                        // Page 3: Standalone Card Back ONLY (CR80 standard, no borders/margins)
+                        const jsPDFClass = window.jspdf ? window.jspdf.jsPDF : (typeof jsPDF !== 'undefined' ? jsPDF : null);
+                        if (!jsPDFClass) {
+                            throw new Error('jsPDF library could not be initialized');
+                        }
+
+                        const doc = new jsPDFClass({
                             orientation: 'portrait',
                             unit: 'mm',
                             format: 'a4'
                         });
 
-                        // Premium ivory background
+                        // -------------------------------------------------------------
+                        // PAGE 1: LUXURY DOSSIER PRESENTATION (A4)
+                        // -------------------------------------------------------------
                         doc.setFillColor(252, 251, 247);
                         doc.rect(0, 0, 210, 297, 'F');
 
                         // Double gold hairline borders
-                        doc.setDrawColor(212, 175, 55); // #d4af37
+                        doc.setDrawColor(212, 175, 55);
                         doc.setLineWidth(0.6);
                         doc.rect(10, 10, 190, 277);
                         doc.setLineWidth(0.2);
                         doc.rect(12, 12, 186, 273);
 
-                        // Header Metadata (Properly spaced, no overlaps)
+                        // Header Metadata (Clean spacing, zero overlaps)
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(8);
-                        doc.setTextColor(170, 130, 40); // Champagne Gold tone
+                        doc.setTextColor(170, 130, 40);
                         doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL MEMBER PASS', 105, 22, { align: 'center' });
 
                         doc.setFont('times', 'bold');
                         doc.setFontSize(18);
-                        doc.setTextColor(20, 22, 28); // Deep Obsidian
+                        doc.setTextColor(20, 22, 28);
                         doc.text('The Card of Honour • Official Pass', 105, 30, { align: 'center' });
 
                         doc.setFont('helvetica', 'normal');
@@ -2693,36 +2978,34 @@
                         doc.setLineWidth(0.35);
                         doc.line(33, 41.5, 177, 41.5);
 
-                        // Card Placement Geometry (Aspect ratio 1.586)
+                        // Card Placement Geometry
                         const cardW = 144; // mm
                         const cardH = cardW / 1.586; // ~90.8 mm
-                        const cardX = (210 - cardW) / 2; // 33 mm (centered)
+                        const cardX = (210 - cardW) / 2; // 33 mm
 
-                        // 1. RECTO (FRONT VIEW)
+                        // RECTO on Page 1
                         const frontY = 50.5;
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
                         doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, frontY - 3);
 
-                        // Subtle shadow behind card
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, frontY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(frontImgData, 'PNG', cardX, frontY, cardW, cardH);
 
-                        // 2. VERSO (BACK VIEW)
+                        // VERSO on Page 1
                         const backY = 151.5;
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
                         doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 3);
 
-                        // Subtle shadow behind card
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, backY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(backImgData, 'PNG', cardX, backY, cardW, cardH);
 
-                        // Certificate Footer
+                        // Certificate Footer on Page 1
                         const footerDividerY = 250;
                         doc.setDrawColor(212, 175, 55);
                         doc.setLineWidth(0.35);
@@ -2740,15 +3023,48 @@
                         doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Balikpapan • Malang • Tokyo  •  Issued: ${issueDate}`, 105, footerDividerY + 12, { align: 'center' });
                         doc.text('Official Registry Reference: Series GH-0963-NOIR  •  Registered with EKRAF Kemenparekraf RI', 105, footerDividerY + 16.5, { align: 'center' });
 
+                        // -------------------------------------------------------------
+                        // PAGE 2: STANDALONE CARD FRONT (CARD ONLY, TANPA TEPIAN / ALAS KERTAS)
+                        // Standard ISO/IEC 7810 ID-1: 85.6 mm x 53.98 mm
+                        // -------------------------------------------------------------
+                        doc.addPage([85.6, 53.98], 'landscape');
+                        doc.addImage(frontImgData, 'PNG', 0, 0, 85.6, 53.98);
+
+                        // -------------------------------------------------------------
+                        // PAGE 3: STANDALONE CARD BACK (CARD ONLY, TANPA TEPIAN / ALAS KERTAS)
+                        // Standard ISO/IEC 7810 ID-1: 85.6 mm x 53.98 mm
+                        // -------------------------------------------------------------
+                        doc.addPage([85.6, 53.98], 'landscape');
+                        doc.addImage(backImgData, 'PNG', 0, 0, 85.6, 53.98);
+
+                        // File Naming & Safe Multi-Platform Download
                         const cleanSerial = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
                         const filename = `Gray_Hansen_Membership_Card_${cleanSerial}.pdf`;
 
-                        doc.save(filename);
-                        showToast(`PDF downloaded: ${filename}`);
+                        try {
+                            doc.save(filename);
+                            showToast(`PDF downloaded: ${filename} (3 Pages: Dossier + 2 Standalone Cards)`);
+                        } catch (saveErr) {
+                            console.warn('doc.save intercepted, applying direct Blob download link fallback:', saveErr);
+                            const blob = doc.output('blob');
+                            const blobUrl = URL.createObjectURL(blob);
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = blobUrl;
+                            downloadLink.download = filename;
+                            document.body.appendChild(downloadLink);
+                            downloadLink.click();
+                            setTimeout(() => {
+                                document.body.removeChild(downloadLink);
+                                URL.revokeObjectURL(blobUrl);
+                            }, 1200);
+                            showToast(`PDF downloaded: ${filename} (3 Pages)`);
+                        }
 
                     } catch (err) {
                         console.error('PDF Generation Error:', err);
-                        showToast('Error generating PDF. Please ensure browser permits downloads.');
+                        // Show precise error message rather than generic message
+                        const errMsg = (err && err.message) ? err.message : 'Please ensure browser permits downloads.';
+                        showToast(`PDF Error: ${errMsg}`);
                     } finally {
                         downloadPassBtn.disabled = false;
                         downloadPassBtn.innerHTML = originalBtnContent;
