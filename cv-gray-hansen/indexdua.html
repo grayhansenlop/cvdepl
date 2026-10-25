@@ -331,9 +331,9 @@
         /* Card Serial Number (Embossed Gold) */
         .card-number-display {
             font-family: "Courier New", Courier, "SF Mono", Monaco, Consolas, monospace;
-            font-size: clamp(0.92rem, 1.4vw, 1.24rem);
+            font-size: clamp(1.12rem, 1.95vw, 1.58rem);
             font-weight: 700;
-            letter-spacing: clamp(0.06em, 0.16vw, 0.13em);
+            letter-spacing: clamp(0.08em, 0.22vw, 0.14em);
             color: #ebd08d;
             text-shadow:
                 0 1px 1px rgba(255, 255, 255, 0.4),
@@ -352,8 +352,8 @@
 
         @media (max-width: 520px) {
             .card-number-display {
-                font-size: clamp(0.78rem, 2.5vw, 0.92rem);
-                letter-spacing: 0.06em;
+                font-size: clamp(0.82rem, 2.8vw, 1.05rem);
+                letter-spacing: clamp(0.05em, 0.18vw, 0.08em);
             }
         }
 
@@ -389,9 +389,11 @@
             color: #ffffff;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
             max-width: 280px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            overflow: visible;
             white-space: nowrap;
+            line-height: 1.35;
+            padding-bottom: 2px;
+            box-sizing: border-box;
         }
 
         .card-validity-group {
@@ -2587,9 +2589,17 @@
                             throw new Error('Card elements not found');
                         }
 
-                        const memberName = (document.getElementById('cardHolderNameDisplay')?.textContent || 'ALEXANDRE DE VANCE').trim();
-                        const memberSerial = (document.getElementById('cardNumberDisplay')?.textContent || '4892 • 7710 • 8421 • 0963').trim();
-                        const validDate = (document.querySelector('.card-valid-date')?.textContent || '12 / 29').trim();
+                        if (document.fonts && document.fonts.ready) {
+                            await document.fonts.ready;
+                        }
+
+                        const rawName = document.getElementById('cardHolderNameDisplay')?.textContent || 'ALEXANDRE DE VANCE';
+                        const rawSerial = document.getElementById('cardNumberDisplay')?.textContent || '4892 • 7710 • 8421 • 0963';
+                        const rawValid = document.querySelector('.card-valid-date')?.textContent || '12 / 29';
+
+                        const memberName = rawName.replace(/\s+/g, ' ').trim();
+                        const memberSerial = rawSerial.replace(/\s+/g, ' ').trim();
+                        const validDate = rawValid.replace(/\s+/g, ' ').trim();
 
                         // Isolated off-screen flat staging container
                         const offscreen = document.createElement('div');
@@ -2598,9 +2608,23 @@
 
                         // 1. Capture Front (Recto)
                         const frontClone = cardFrontEl.cloneNode(true);
-                        frontClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;-webkit-transform:none !important;backface-visibility:visible !important;-webkit-backface-visibility:visible !important;border-radius:18px !important;margin:0 !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
+                        frontClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;-webkit-transform:none !important;backface-visibility:visible !important;-webkit-backface-visibility:visible !important;border-radius:18px !important;margin:0 !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;padding:22px 26px 20px 26px !important;';
                         const glareEl = frontClone.querySelector('.card-glare');
                         if (glareEl) glareEl.style.display = 'none';
+
+                        // Ensure name and numbers do not clip inside html2canvas
+                        const cloneNameEl = frontClone.querySelector('.card-holder-name');
+                        if (cloneNameEl) {
+                            cloneNameEl.style.cssText += 'overflow:visible !important;line-height:1.4 !important;padding-bottom:4px !important;height:auto !important;max-height:none !important;';
+                        }
+                        const cloneNumEl = frontClone.querySelector('.card-number-display');
+                        if (cloneNumEl) {
+                            cloneNumEl.style.cssText += 'overflow:visible !important;line-height:1.25 !important;';
+                        }
+                        const cloneBotRow = frontClone.querySelector('.card-bottom-row');
+                        if (cloneBotRow) {
+                            cloneBotRow.style.cssText += 'overflow:visible !important;align-items:flex-end !important;';
+                        }
 
                         offscreen.appendChild(frontClone);
                         const frontCanvas = await html2canvas(frontClone, {
@@ -2649,25 +2673,25 @@
                         doc.setLineWidth(0.2);
                         doc.rect(12, 12, 186, 273);
 
-                        // Header Metadata
+                        // Header Metadata (Properly spaced, no overlaps)
                         doc.setFont('helvetica', 'bold');
-                        doc.setFontSize(7.5);
-                        doc.setTextColor(170, 130, 40); // Gold tone
-                        doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL MEMBER CARD DOSSIER', 105, 20, { align: 'center' });
+                        doc.setFontSize(8);
+                        doc.setTextColor(170, 130, 40); // Champagne Gold tone
+                        doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL MEMBER PASS', 105, 22, { align: 'center' });
 
                         doc.setFont('times', 'bold');
-                        doc.setFontSize(17);
+                        doc.setFontSize(18);
                         doc.setTextColor(20, 22, 28); // Deep Obsidian
-                        doc.text('The Card of Honour • Official Pass', 105, 27, { align: 'center' });
+                        doc.text('The Card of Honour • Official Pass', 105, 30, { align: 'center' });
 
                         doc.setFont('helvetica', 'normal');
                         doc.setFontSize(8);
                         doc.setTextColor(100, 105, 115);
-                        doc.text(`Cardholder: ${memberName}   •   Serial: ${memberSerial}   •   Tier: Noir Elite   •   Valid: ${validDate}`, 105, 32.5, { align: 'center' });
+                        doc.text(`Cardholder: ${memberName}   •   Serial: ${memberSerial}   •   Tier: Noir Elite   •   Valid: ${validDate}`, 105, 36.5, { align: 'center' });
 
                         doc.setDrawColor(212, 175, 55);
-                        doc.setLineWidth(0.3);
-                        doc.line(32, 35.5, 178, 35.5);
+                        doc.setLineWidth(0.35);
+                        doc.line(33, 41.5, 177, 41.5);
 
                         // Card Placement Geometry (Aspect ratio 1.586)
                         const cardW = 144; // mm
@@ -2675,11 +2699,11 @@
                         const cardX = (210 - cardW) / 2; // 33 mm (centered)
 
                         // 1. RECTO (FRONT VIEW)
-                        const frontY = 41;
+                        const frontY = 50.5;
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, frontY - 2);
+                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, frontY - 3);
 
                         // Subtle shadow behind card
                         doc.setFillColor(224, 220, 210);
@@ -2687,11 +2711,11 @@
                         doc.addImage(frontImgData, 'PNG', cardX, frontY, cardW, cardH);
 
                         // 2. VERSO (BACK VIEW)
-                        const backY = frontY + cardH + 13;
+                        const backY = 151.5;
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 2);
+                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 3);
 
                         // Subtle shadow behind card
                         doc.setFillColor(224, 220, 210);
@@ -2699,22 +2723,22 @@
                         doc.addImage(backImgData, 'PNG', cardX, backY, cardW, cardH);
 
                         // Certificate Footer
-                        const footerY = backY + cardH + 10;
+                        const footerDividerY = 250;
                         doc.setDrawColor(212, 175, 55);
-                        doc.setLineWidth(0.3);
-                        doc.line(32, footerY, 178, footerY);
+                        doc.setLineWidth(0.35);
+                        doc.line(33, footerDividerY, 177, footerDividerY);
 
                         doc.setFont('times', 'italic');
-                        doc.setFontSize(8);
+                        doc.setFontSize(8.5);
                         doc.setTextColor(70, 75, 85);
-                        doc.text('“Capturing the dignity of posture through the refinement of classical chiaroscuro.”', 105, footerY + 5, { align: 'center' });
+                        doc.text('“Capturing the dignity of posture through the refinement of classical chiaroscuro.”', 105, footerDividerY + 6, { align: 'center' });
 
                         doc.setFont('helvetica', 'normal');
-                        doc.setFontSize(7);
+                        doc.setFontSize(7.2);
                         doc.setTextColor(115, 120, 130);
                         const issueDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro (林福勝)  •  Balikpapan • Malang • Tokyo  •  Date: ${issueDate}`, 105, footerY + 10.5, { align: 'center' });
-                        doc.text('Official Registry Reference: Series GH-0963-NOIR  •  Registered with EKRAF Kemenparekraf RI', 105, footerY + 14.5, { align: 'center' });
+                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Balikpapan • Malang • Tokyo  •  Issued: ${issueDate}`, 105, footerDividerY + 12, { align: 'center' });
+                        doc.text('Official Registry Reference: Series GH-0963-NOIR  •  Registered with EKRAF Kemenparekraf RI', 105, footerDividerY + 16.5, { align: 'center' });
 
                         const cleanSerial = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
                         const filename = `Gray_Hansen_Membership_Card_${cleanSerial}.pdf`;
