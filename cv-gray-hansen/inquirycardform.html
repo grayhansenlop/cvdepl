@@ -125,6 +125,72 @@
             box-shadow: 0 0 0 2px var(--gold-glow);
         }
 
+        /* SERIAL RECOMMENDATIONS & REAL-TIME VALIDATION */
+        .serial-rec-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-medium);
+            border-radius: var(--radius-xs);
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--ink-pure);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 0.04em;
+        }
+
+        .serial-rec-chip:hover {
+            border-color: var(--gold-400);
+            background: var(--bg-surface);
+            color: var(--gold-500);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .serial-rec-chip.active {
+            border-color: var(--gold-500);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.06) 100%);
+            color: var(--gold-500);
+            box-shadow: 0 0 0 1px var(--gold-400), 0 3px 8px rgba(212, 175, 55, 0.15);
+        }
+
+        .serial-rec-chip .chip-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 4px #10b981;
+        }
+
+        .serial-validation-msg {
+            display: none;
+            font-size: 0.72rem;
+            margin-top: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-xs);
+            line-height: 1.45;
+            transition: all 0.2s ease;
+        }
+
+        .serial-validation-msg.available {
+            display: block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #059669;
+        }
+
+        .serial-validation-msg.taken {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.45);
+            color: #dc2626;
+        }
+
         /* VIP SUCCESS MODAL */
         .vip-modal-backdrop {
             position: fixed;
@@ -250,6 +316,14 @@
             border-color: rgba(235, 185, 70, 0.65) !important;
         }
 
+        .card-front.theme-bleu {
+            background:
+                radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.28) 0%, transparent 42%),
+                radial-gradient(circle at 15% 85%, rgba(30, 90, 220, 0.45) 0%, transparent 50%),
+                linear-gradient(135deg, #091e42 0%, #061530 48%, #020817 100%) !important;
+            border-color: rgba(130, 190, 255, 0.65) !important;
+        }
+
         .card-back {
             transform: rotateY(180deg);
             background:
@@ -258,6 +332,301 @@
             color: #f7f5ed;
             padding: 0;
             justify-content: flex-start;
+        }
+
+        .card-back.theme-maroon,
+        .card-back.theme-rouge,
+        #card3D.theme-rouge .card-back,
+        #card3D.theme-maroon .card-back {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255, 215, 0, 0.16) 0%, transparent 40%),
+                linear-gradient(135deg, #38060a 0%, #1c0204 100%) !important;
+            border-color: rgba(235, 185, 70, 0.65) !important;
+        }
+
+        .card-back.theme-bleu,
+        #card3D.theme-bleu .card-back {
+            background:
+                radial-gradient(circle at 15% 15%, rgba(96, 165, 250, 0.18) 0%, transparent 40%),
+                linear-gradient(135deg, #071733 0%, #030a17 100%) !important;
+            border-color: rgba(130, 190, 255, 0.65) !important;
+        }
+
+        /* ROUGE IMPÉRIAL / THEME-MAROON THEME OVERRIDES (MATCHING INDEXDUA.HTML) */
+        .card-front.theme-maroon,
+        .card-front.theme-rouge,
+        #card3D.theme-rouge .card-front,
+        #card3D.theme-maroon .card-front {
+            background: radial-gradient(circle at 85% 15%, rgba(255, 195, 75, 0.24) 0%, transparent 42%),
+                radial-gradient(circle at 15% 85%, rgba(210, 25, 40, 0.45) 0%, transparent 50%),
+                linear-gradient(135deg, #44090e 0%, #2b0407 48%, #160103 100%) !important;
+            border-color: rgba(235, 185, 70, 0.65) !important;
+            color: #fff8f0 !important;
+        }
+
+        .card-front.theme-maroon .card-hanko-seal,
+        .card-front.theme-rouge .card-hanko-seal,
+        #card3D.theme-rouge .card-hanko-seal,
+        #card3D.theme-maroon .card-hanko-seal {
+            border-color: #ffd700 !important;
+            background: rgba(255, 215, 0, 0.18) !important;
+            color: #ffd700 !important;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4) !important;
+        }
+
+        .card-front.theme-maroon .card-brand-name,
+        .card-front.theme-rouge .card-brand-name,
+        #card3D.theme-rouge .card-brand-name,
+        #card3D.theme-maroon .card-brand-name {
+            background: linear-gradient(135deg, #fff2cc 0%, #e6be60 50%, #ffd978 100%) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        .card-front.theme-maroon .card-brand-sub,
+        .card-front.theme-rouge .card-brand-sub,
+        #card3D.theme-rouge .card-brand-sub,
+        #card3D.theme-maroon .card-brand-sub {
+            color: rgba(255, 235, 200, 0.75) !important;
+        }
+
+        .card-front.theme-maroon .card-nfc-wave,
+        .card-front.theme-rouge .card-nfc-wave,
+        #card3D.theme-rouge .card-nfc-wave,
+        #card3D.theme-maroon .card-nfc-wave {
+            color: #ffd700 !important;
+        }
+
+        .card-front.theme-maroon .emv-chip,
+        .card-front.theme-rouge .emv-chip,
+        #card3D.theme-rouge .emv-chip,
+        #card3D.theme-maroon .emv-chip {
+            background: linear-gradient(135deg, #ffe082 0%, #d4af37 45%, #ffd54f 70%, #aa820a 100%) !important;
+            border-color: #ffd700 !important;
+        }
+
+        .card-front.theme-maroon .card-hologram-seal,
+        .card-front.theme-rouge .card-hologram-seal,
+        #card3D.theme-rouge .card-hologram-seal,
+        #card3D.theme-maroon .card-hologram-seal {
+            background: linear-gradient(135deg, #ffd700 0%, #c41829 45%, #ffd7a8 75%, #8c101b 100%) !important;
+            border-color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .card-front.theme-maroon .card-meta-label,
+        .card-front.theme-rouge .card-meta-label,
+        #card3D.theme-rouge .card-meta-label,
+        #card3D.theme-maroon .card-meta-label {
+            color: rgba(255, 220, 180, 0.65) !important;
+        }
+
+        .card-front.theme-maroon .card-number-display,
+        .card-front.theme-rouge .card-number-display,
+        #card3D.theme-rouge .card-number-display,
+        #card3D.theme-maroon .card-number-display {
+            color: #ffebaa !important;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.9) !important;
+        }
+
+        .card-front.theme-maroon .card-holder-name,
+        .card-front.theme-rouge .card-holder-name,
+        #card3D.theme-rouge .card-holder-name,
+        #card3D.theme-maroon .card-holder-name {
+            color: #fff8eb !important;
+        }
+
+        .card-front.theme-maroon .card-valid-date,
+        .card-front.theme-rouge .card-valid-date,
+        #card3D.theme-rouge .card-valid-date,
+        #card3D.theme-maroon .card-valid-date {
+            color: #ffd778 !important;
+        }
+
+        .card-front.theme-maroon .card-tier-pill,
+        .card-front.theme-rouge .card-tier-pill,
+        #card3D.theme-rouge .card-tier-pill,
+        #card3D.theme-maroon .card-tier-pill {
+            background: linear-gradient(135deg, rgba(200, 35, 50, 0.6) 0%, rgba(120, 15, 25, 0.4) 100%) !important;
+            border-color: rgba(255, 215, 0, 0.85) !important;
+            color: #ffe6a3 !important;
+        }
+
+        .card-front.theme-maroon .card-tier-pill::before,
+        .card-front.theme-rouge .card-tier-pill::before,
+        #card3D.theme-rouge .card-tier-pill::before,
+        #card3D.theme-maroon .card-tier-pill::before {
+            background-color: #ffd700 !important;
+            box-shadow: 0 0 5px #ffd700 !important;
+        }
+
+        .card-back.theme-maroon .card-mag-stripe,
+        .card-back.theme-rouge .card-mag-stripe,
+        #card3D.theme-rouge .card-mag-stripe,
+        #card3D.theme-maroon .card-mag-stripe {
+            background: linear-gradient(180deg, #423010 0%, #1a1205 50%, #3a2808 100%) !important;
+            border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .card-back.theme-maroon .card-sig-panel,
+        .card-back.theme-rouge .card-sig-panel,
+        #card3D.theme-rouge .card-sig-panel,
+        #card3D.theme-maroon .card-sig-panel {
+            background: #fffcf0 !important;
+            border-color: #ffd700 !important;
+        }
+
+        .card-back.theme-maroon .card-sig-cursive,
+        .card-back.theme-rouge .card-sig-cursive,
+        #card3D.theme-rouge .card-sig-cursive,
+        #card3D.theme-maroon .card-sig-cursive {
+            color: #2e0407 !important;
+        }
+
+        .card-back.theme-maroon .card-cvv-box,
+        .card-back.theme-rouge .card-cvv-box,
+        #card3D.theme-rouge .card-cvv-box,
+        #card3D.theme-maroon .card-cvv-box {
+            background: #fff2cc !important;
+            color: #87141a !important;
+            border-radius: 2px !important;
+            padding: 1px 4px !important;
+        }
+
+        .card-back.theme-maroon .card-qr-box,
+        .card-back.theme-rouge .card-qr-box,
+        #card3D.theme-rouge .card-qr-box,
+        #card3D.theme-maroon .card-qr-box {
+            border-color: #ffd700 !important;
+        }
+
+        .card-back.theme-maroon .card-back-footer,
+        .card-back.theme-rouge .card-back-footer,
+        #card3D.theme-rouge .card-back-footer,
+        #card3D.theme-maroon .card-back-footer {
+            color: #ffd700 !important;
+            border-color: rgba(255, 215, 0, 0.2) !important;
+        }
+
+        /* BLEU SAPHIR / THEME-BLEU THEME OVERRIDES (MATCHING INDEXDUA.HTML) */
+        .card-front.theme-bleu,
+        #card3D.theme-bleu .card-front {
+            background: radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.28) 0%, transparent 42%),
+                radial-gradient(circle at 15% 85%, rgba(30, 90, 220, 0.45) 0%, transparent 50%),
+                linear-gradient(135deg, #091e42 0%, #061530 48%, #020817 100%) !important;
+            border-color: rgba(130, 190, 255, 0.65) !important;
+            color: #f0f6ff !important;
+        }
+
+        .card-front.theme-bleu .card-hanko-seal,
+        #card3D.theme-bleu .card-hanko-seal {
+            border-color: #60a5fa !important;
+            background: rgba(96, 165, 250, 0.18) !important;
+            color: #93c5fd !important;
+            box-shadow: 0 0 12px rgba(96, 165, 250, 0.4) !important;
+        }
+
+        .card-front.theme-bleu .card-brand-name,
+        #card3D.theme-bleu .card-brand-name {
+            background: linear-gradient(135deg, #e0f2fe 0%, #93c5fd 50%, #60a5fa 100%) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+
+        .card-front.theme-bleu .card-brand-sub,
+        #card3D.theme-bleu .card-brand-sub {
+            color: rgba(224, 242, 254, 0.75) !important;
+        }
+
+        .card-front.theme-bleu .card-nfc-wave,
+        #card3D.theme-bleu .card-nfc-wave {
+            color: #60a5fa !important;
+        }
+
+        .card-front.theme-bleu .emv-chip,
+        #card3D.theme-bleu .emv-chip {
+            background: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 45%, #93c5fd 70%, #1e40af 100%) !important;
+            border-color: #60a5fa !important;
+        }
+
+        .card-front.theme-bleu .card-hologram-seal,
+        #card3D.theme-bleu .card-hologram-seal {
+            background: linear-gradient(135deg, #93c5fd 0%, #1e40af 45%, #bfdbfe 75%, #1e3a8a 100%) !important;
+            border-color: rgba(255, 255, 255, 0.85) !important;
+            box-shadow: 0 0 12px rgba(96, 165, 250, 0.4) !important;
+        }
+
+        .card-front.theme-bleu .card-meta-label,
+        #card3D.theme-bleu .card-meta-label {
+            color: rgba(191, 219, 254, 0.7) !important;
+        }
+
+        .card-front.theme-bleu .card-number-display,
+        #card3D.theme-bleu .card-number-display {
+            color: #dbeafe !important;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.9) !important;
+        }
+
+        .card-front.theme-bleu .card-holder-name,
+        #card3D.theme-bleu .card-holder-name {
+            color: #ffffff !important;
+        }
+
+        .card-front.theme-bleu .card-valid-date,
+        #card3D.theme-bleu .card-valid-date {
+            color: #93c5fd !important;
+        }
+
+        .card-front.theme-bleu .card-tier-pill,
+        #card3D.theme-bleu .card-tier-pill {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.6) 0%, rgba(30, 58, 138, 0.4) 100%) !important;
+            border-color: rgba(96, 165, 250, 0.85) !important;
+            color: #bfdbfe !important;
+        }
+
+        .card-front.theme-bleu .card-tier-pill::before,
+        #card3D.theme-bleu .card-tier-pill::before {
+            background-color: #60a5fa !important;
+            box-shadow: 0 0 5px #60a5fa !important;
+        }
+
+        .card-back.theme-bleu .card-mag-stripe,
+        #card3D.theme-bleu .card-mag-stripe {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 50%, #1e293b 100%) !important;
+            border-top: 1px solid rgba(96, 165, 250, 0.3) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .card-back.theme-bleu .card-sig-panel,
+        #card3D.theme-bleu .card-sig-panel {
+            background: #f0f6ff !important;
+            border-color: #60a5fa !important;
+        }
+
+        .card-back.theme-bleu .card-sig-cursive,
+        #card3D.theme-bleu .card-sig-cursive {
+            color: #0c1a30 !important;
+        }
+
+        .card-back.theme-bleu .card-cvv-box,
+        #card3D.theme-bleu .card-cvv-box {
+            background: #dbeafe !important;
+            color: #1e40af !important;
+            border-radius: 2px !important;
+            padding: 1px 4px !important;
+        }
+
+        .card-back.theme-bleu .card-qr-box,
+        #card3D.theme-bleu .card-qr-box {
+            border-color: #60a5fa !important;
+        }
+
+        .card-back.theme-bleu .card-back-footer,
+        #card3D.theme-bleu .card-back-footer {
+            color: #93c5fd !important;
+            border-color: rgba(96, 165, 250, 0.25) !important;
         }
 
         .card-guilloche-pattern {
@@ -797,13 +1166,16 @@
                                             <div class="card-guilloche-pattern"></div>
                                             <div class="card-top-row">
                                                 <div class="card-brand-group">
-                                                    <div class="card-hanko-seal" id="atelierHanko">
-                                                        <span>林</span><span>勝</span>
+                                                    <div class="card-hanko-seal" id="atelierHanko"
+                                                        title="Official Sovereign Hanko Seal of Gray Hansen Limantoro">
+                                                        <span>林</span>
+                                                        <span>福</span>
+                                                        <span>勝</span>
                                                     </div>
                                                     <div class="card-brand-titles">
                                                         <span class="card-brand-name">Gray Hansen Limantoro</span>
-                                                        <span class="card-brand-sub" id="atelierBrandSub">Creative
-                                                            Atelier &bull; Tokyo</span>
+                                                        <span class="card-brand-sub" id="atelierBrandSub">Art, Arch
+                                                            &amp; Academia &bull; Expertise Society</span>
                                                     </div>
                                                 </div>
                                                 <div class="card-nfc-wave">
@@ -830,7 +1202,8 @@
 
                                             <div class="card-bottom-row">
                                                 <div class="card-meta-block">
-                                                    <div class="card-meta-label">Cardholder Name (Privilege Member)
+                                                    <div class="card-meta-label" id="atelierHolderLabel">Cardholder Name
+                                                        (Privilege Member)
                                                     </div>
                                                     <div class="card-holder-name" id="atelierCardNameDisplay">ALEXANDRE
                                                         DE VANCE</div>
@@ -861,16 +1234,19 @@
                                                 </div>
 
                                                 <div class="card-back-meta">
-                                                    <div class="card-legal-disclaimer">
+                                                    <div class="card-legal-disclaimer" id="atelierLegalDisclaimer">
                                                         This card is the exclusive property of Maison Gray Hansen
-                                                        Limantoro (林福勝). Certified membership in the Circle of Honour.
+                                                        Limantoro (林福勝). Certified membership in the Circle of Honour
+                                                        and grants priority concierge access.
                                                         <br><br>
-                                                        <strong>Concierge:</strong> concierge@grayhansen.com &bull;
-                                                        Tokyo
+                                                        <strong>Direct Concierge:</strong> concierge@grayhansen.com
+                                                        &bull;
+                                                        Balikpapan &bull; Tokyo
                                                     </div>
                                                     <div class="card-qr-box">
-                                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
-                                                            stroke="#0e0f12" stroke-width="1.8" stroke-linecap="square">
+                                                        <svg id="atelierQrSvg" width="40" height="40"
+                                                            viewBox="0 0 24 24" fill="none" stroke="#0e0f12"
+                                                            stroke-width="1.8" stroke-linecap="square">
                                                             <rect x="2" y="2" width="8" height="8" rx="1" />
                                                             <rect x="4" y="4" width="4" height="4" fill="#0e0f12" />
                                                             <rect x="14" y="2" width="8" height="8" rx="1" />
@@ -885,7 +1261,8 @@
                                                 </div>
 
                                                 <div class="card-back-footer">
-                                                    <span>Creative Atelier &bull; Registered EKRAF</span>
+                                                    <span id="atelierFooterTierText">Creative Atelier &bull; EKRAF
+                                                        Registered</span>
                                                     <span id="atelierSeriesText">Series GH-0963-NOIR</span>
                                                 </div>
                                             </div>
@@ -900,16 +1277,22 @@
                                 <div>
                                     <label class="app-label" style="display: flex; justify-content: space-between;">
                                         <span>Select Physical Card Edition</span>
-                                        <span style="color: var(--gold-500); font-weight: 600;">Dual Tier Palette</span>
+                                        <span style="color: var(--gold-500); font-weight: 600;">Triple Tier
+                                            Palette</span>
                                     </label>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;">
                                         <button type="button" class="btn btn-secondary btn-sm tier-select-toggle active"
                                             id="toggleTierNoir" style="justify-content: center;">
-                                            <span>Noir Obsidian (Black)</span>
+                                            <span>Noir Obsidian</span>
                                         </button>
                                         <button type="button" class="btn btn-secondary btn-sm tier-select-toggle"
                                             id="toggleTierMaroon" style="justify-content: center;">
-                                            <span>Rouge Impérial (Maroon)</span>
+                                            <span>Rouge Impérial</span>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btn-sm tier-select-toggle"
+                                            id="toggleTierBleu" style="justify-content: center;">
+                                            <span>Bleu Saphir</span>
                                         </button>
                                     </div>
                                 </div>
@@ -927,16 +1310,47 @@
 
                                 <div>
                                     <label for="customCardNumInput" class="app-label"
-                                        style="display: flex; justify-content: space-between;">
+                                        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
                                         <span>Custom Distinction Serial</span>
-                                        <button type="button" id="randomizeSerialAtelierBtn"
-                                            style="background: none; border: none; color: var(--gold-500); font-size: 0.68rem; font-weight: 700; cursor: pointer; text-decoration: underline;">
-                                            🎲 Randomize Serial
-                                        </button>
+                                        <div style="display: flex; gap: 8px; align-items: center;">
+                                            <button type="button" id="refreshSerialRecsBtn"
+                                                class="serial-rec-btn-refresh"
+                                                title="Acak pilihan nomor rekomendasi baru"
+                                                style="background: none; border: 1px solid rgba(212, 175, 55, 0.4); color: var(--gold-500); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; cursor: pointer; transition: all 0.2s ease;">
+                                                🔄 Rekomendasi Baru
+                                            </button>
+                                            <button type="button" id="randomizeSerialAtelierBtn"
+                                                style="background: none; border: none; color: var(--gold-500); font-size: 0.68rem; font-weight: 700; cursor: pointer; text-decoration: underline;">
+                                                🎲 Randomize Serial
+                                            </button>
+                                        </div>
                                     </label>
                                     <input type="text" id="customCardNumInput" class="app-input"
-                                        value="4892 • 7710 • 8421 • 0963" maxlength="25"
-                                        placeholder="4892 • 7710 • 8421 • 0963">
+                                        list="serialRecommendationsDatalist" value="4892 • 7710 • 8421 • 0963"
+                                        maxlength="25" placeholder="4892 • 7710 • 8421 • 0963" autocomplete="off">
+                                    <datalist id="serialRecommendationsDatalist"></datalist>
+
+                                    <!-- Real-time Database Collision Validation Message -->
+                                    <div id="serialValidationFeedback" class="serial-validation-msg"></div>
+
+                                    <!-- Quick-Pick Recommendations Container -->
+                                    <div style="margin-top: 10px;">
+                                        <div
+                                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                            <span
+                                                style="font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);">
+                                                Pilihan Nomor Tersedia (Terverifikasi Unik)
+                                            </span>
+                                            <span id="recsSyncStatus"
+                                                style="font-size: 0.6rem; color: #10b981; font-weight: 600;">
+                                                ● Sinkron Database Live
+                                            </span>
+                                        </div>
+                                        <div id="serialRecommendationsChips"
+                                            style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                            <!-- Dynamically populated chips -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -969,8 +1383,8 @@
                                         <label for="formField" class="app-label">Field of Activity /
                                             Organization</label>
                                         <select id="formField" class="app-select">
-                                            <option value="Art Direction & Luxury Industry">Art Direction, Fashion &
-                                                Luxury Industry</option>
+                                            <option value="Art Direction & Luxury Industry">Art Direction, Premium
+                                                Marketing Industry</option>
                                             <option value="Executive Leadership & Business">Executive Leadership &
                                                 Business</option>
                                             <option value="Scholarly Research & Academia">Scholarly Research, University
@@ -986,16 +1400,30 @@
                                         <label for="formInterest" class="app-label">Primary Interest in the
                                             Circle</label>
                                         <select id="formInterest" class="app-select">
-                                            <option value="Full Privilege Access (Noir Elite Tier)">Full Privilege
-                                                Access & Concierge (Noir Tier)</option>
-                                            <option value="Grand Patron & Advisory (Rouge Impérial Tier)">Grand Patron &
-                                                Advisory (Rouge Impérial Tier)</option>
-                                            <option value="Portraits of Honour & VIP Private Studio">Portraits of Honour
-                                                & VIP Private Studio</option>
-                                            <option value="Brand Identity & Typographic Direction">Brand Identity
-                                                Creation & Typographic Direction</option>
-                                            <option value="Rare Monographs & Scholarly Publications">Access to Rare
-                                                Monographs & Scholarly Publications</option>
+                                            <option
+                                                value="Priority Recognition - Receive distinguished consideration &amp; attention within the circle.">
+                                                Receive
+                                                distinguished consideration &amp; attention within the circle.</option>
+                                            <option
+                                                value="Exclusive Invitations - Gain access to private gatherings &amp; invitation-only occasions.">
+                                                Gain access to
+                                                private gatherings &amp; invitation-only occasions.</option>
+                                            <option
+                                                value="Personal Introductions - Enjoy introductions to distinguished individuals &amp; influential connections.">
+                                                Enjoy introductions to distinguished individuals &amp; influential
+                                                connections.</option>
+                                            <option
+                                                value="Scholar &amp; Cultural Engagement - Participate in selected cultural, artistic, &amp; intellectual experiences.">
+                                                Participate in selected cultural, artistic, &amp; intellectual
+                                                experiences.</option>
+                                            <option
+                                                value="Collaborative Opportunities - Explore potential partnerships, ventures, &amp; creative collaborations.">
+                                                Explore potential partnerships, ventures, &amp; creative collaborations.
+                                            </option>
+                                            <option
+                                                value="Private Networking - Build meaningful relationships within a carefully curated circle.">
+                                                Private Networking - Build meaningful relationships within a carefully
+                                                curated circle</option>
                                         </select>
                                     </div>
 
@@ -1039,7 +1467,7 @@
                                                 style="background: var(--bg-surface-elevated); border: 1px solid var(--border-hairline); border-radius: var(--radius-xs); padding: 4px 8px; font-size: 0.7rem; color: var(--ink-secondary); cursor: pointer;"
                                                 title="Configure Google Apps Script Endpoint">
                                                 ⚙ Endpoint
-                                                https://script.google.com/macros/s/AKfycbw4AierL9IGdmVICNVlHvh3mB5TFZ7T02CW7_2-htTMWNcL0UZRbOYpCd7ly-K4jS_z/exec
+                                                https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec
                                             </button>
                                         </div>
                                     </div>
@@ -1474,7 +1902,7 @@
             <div style="margin-bottom: 16px;">
                 <label for="gasEndpointInput" class="app-label">Google Apps Script Web App URL</label>
                 <input type="url" id="gasEndpointInput" class="app-input"
-                    placeholder="https://script.google.com/macros/s/.../exec">
+                    placeholder="https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec">
                 <div style="font-size: 0.72rem; color: var(--ink-muted); margin-top: 6px; line-height: 1.45;">
                     Obtain this URL by deploying <code>google_sheet_card_apply_bridge.gs</code> in your Google
                     Spreadsheet (Extensions &gt; Apps Script &gt; Deploy &gt; Web app with access: Anyone).
@@ -1612,7 +2040,7 @@
 
             // Google Sheets Sync Configuration
             // Target Spreadsheet: https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit
-            const DEFAULT_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzHmJGSzC-RMN_sqkj4dVMqItijcNB95jDMsfVvZ4XNVGDgpiQ7NIx3r4bBMf94fXXW/exec';
+            const DEFAULT_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec';
             const SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/edit?usp=sharing';
 
             function getGasEndpoint() {
@@ -1628,11 +2056,19 @@
             const atelierCardBack = document.getElementById('atelierCardBack');
             const toggleTierNoir = document.getElementById('toggleTierNoir');
             const toggleTierMaroon = document.getElementById('toggleTierMaroon');
+            const toggleTierBleu = document.getElementById('toggleTierBleu');
             const customCardNameInput = document.getElementById('customCardNameInput');
             const customCardNumInput = document.getElementById('customCardNumInput');
             const randomizeSerialAtelierBtn = document.getElementById('randomizeSerialAtelierBtn');
             const formFullName = document.getElementById('formFullName');
             const formInterest = document.getElementById('formInterest');
+
+            const atelierBrandSub = document.getElementById('atelierBrandSub');
+            const atelierNumberLabel = document.getElementById('atelierNumberLabel');
+            const atelierHolderLabel = document.getElementById('atelierHolderLabel');
+            const atelierLegalDisclaimer = document.getElementById('atelierLegalDisclaimer');
+            const atelierQrSvg = document.getElementById('atelierQrSvg');
+            const atelierFooterTierText = document.getElementById('atelierFooterTierText');
 
             const atelierCardNameDisplay = document.getElementById('atelierCardNameDisplay');
             const atelierSigDisplay = document.getElementById('atelierSigDisplay');
@@ -1645,22 +2081,71 @@
 
             function setCardTier(tier) {
                 currentTier = tier;
-                if (tier === 'maroon') {
-                    atelierCardFront?.classList.add('theme-maroon');
-                    atelierCardBack?.classList.add('theme-maroon');
+                const card3D = document.getElementById('card3D');
+                card3D?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu');
+                atelierCardFront?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu');
+                atelierCardBack?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu');
+                toggleTierNoir?.classList.remove('active');
+                toggleTierMaroon?.classList.remove('active');
+                toggleTierBleu?.classList.remove('active');
+
+                let defaultSerial = '4892 • 7710 • 8421 • 0963';
+
+                if (tier === 'maroon' || tier === 'rouge') {
+                    card3D?.classList.add('theme-maroon', 'theme-rouge');
+                    atelierCardFront?.classList.add('theme-maroon', 'theme-rouge');
+                    atelierCardBack?.classList.add('theme-maroon', 'theme-rouge');
                     toggleTierMaroon?.classList.add('active');
-                    toggleTierNoir?.classList.remove('active');
                     if (atelierTierPill) atelierTierPill.textContent = 'Rouge Impérial';
-                    if (formInterest) formInterest.value = 'Grand Patron & Advisory (Rouge Impérial Tier)';
+                    if (atelierBrandSub) atelierBrandSub.innerHTML = 'EXCLUSIVELY APPOINTED &bull; Honoured';
+                    if (atelierNumberLabel) atelierNumberLabel.textContent = 'Grand Patron Series • Master Distinction Code';
+                    if (atelierHolderLabel) atelierHolderLabel.textContent = 'Cardholder Name (Sole Recipient • Grand Patron)';
+                    if (atelierLegalDisclaimer) {
+                        atelierLegalDisclaimer.innerHTML = 'This card is the exclusive property of Maison Gray Hansen Limantoro (林福勝). Membership in the Imperial Grand Patron Tier confers supreme atelier privileges.<br><br><strong>Imperial Concierge:</strong> patron@grayhansen.com &bull; Tokyo &bull; Balikpapan';
+                    }
+                    if (atelierFooterTierText) atelierFooterTierText.textContent = 'Imperial Grand Patron • EKRAF Registered';
+                    if (atelierQrSvg) atelierQrSvg.setAttribute('stroke', '#ffd700');
+                    defaultSerial = '1080 • 9942 • 7701 • 0108';
+                } else if (tier === 'bleu' || tier === 'blue') {
+                    card3D?.classList.add('theme-bleu');
+                    atelierCardFront?.classList.add('theme-bleu');
+                    atelierCardBack?.classList.add('theme-bleu');
+                    toggleTierBleu?.classList.add('active');
+                    if (atelierTierPill) atelierTierPill.textContent = 'Bleu Saphir';
+                    if (atelierBrandSub) atelierBrandSub.innerHTML = 'Venture CAPITAL &bull; Investments';
+                    if (atelierNumberLabel) atelierNumberLabel.textContent = 'Official Member Number • Sovereign Distinction Series';
+                    if (atelierHolderLabel) atelierHolderLabel.textContent = 'Cardholder Name (Sovereign Fellow)';
+                    if (atelierLegalDisclaimer) {
+                        atelierLegalDisclaimer.innerHTML = 'This card is the exclusive property of Maison Gray Hansen Limantoro (林福勝). Proprietary capital accreditation confers institutional priority and bespoke advisory privileges.<br><br><strong>Venture Desk:</strong> capital@grayhansen.com &bull; Tokyo &bull; Balikpapan';
+                    }
+                    if (atelierFooterTierText) atelierFooterTierText.textContent = 'Capital & Venture • EKRAF Registered';
+                    if (atelierQrSvg) atelierQrSvg.setAttribute('stroke', '#60a5fa');
+                    defaultSerial = '7730 • 5519 • 4208 • 0386';
                 } else {
-                    atelierCardFront?.classList.remove('theme-maroon');
-                    atelierCardBack?.classList.remove('theme-maroon');
                     toggleTierNoir?.classList.add('active');
-                    toggleTierMaroon?.classList.remove('active');
                     if (atelierTierPill) atelierTierPill.textContent = 'Private Noir';
-                    if (formInterest) formInterest.value = 'Full Privilege Access (Noir Elite Tier)';
+                    if (atelierBrandSub) atelierBrandSub.innerHTML = 'Art, Arch &amp; Academia &bull; Expertise Society';
+                    if (atelierNumberLabel) atelierNumberLabel.textContent = 'Official Member Number • Elite Distinction Series';
+                    if (atelierHolderLabel) atelierHolderLabel.textContent = 'Cardholder Name (Privilege Member)';
+                    if (atelierLegalDisclaimer) {
+                        atelierLegalDisclaimer.innerHTML = 'This card is the exclusive property of Maison Gray Hansen Limantoro (林福勝). Certified membership in the Circle of Honour and grants priority concierge access.<br><br><strong>Direct Concierge:</strong> concierge@grayhansen.com &bull; Balikpapan &bull; Tokyo';
+                    }
+                    if (atelierFooterTierText) atelierFooterTierText.textContent = 'Creative Atelier • EKRAF Registered';
+                    if (atelierQrSvg) atelierQrSvg.setAttribute('stroke', '#0e0f12');
+                    defaultSerial = '4892 • 7710 • 8421 • 0963';
                 }
-                updateCardNumberDisplay(customCardNumInput?.value || '4892 • 7710 • 8421 • 0963');
+
+                if (customCardNumInput) {
+                    const currentVal = customCardNumInput.value.trim();
+                    const knownDefaults = ['5770 • 7710 • 8421 • 0963', '5770 • 9942 • 7701 • 0108', '5770 • 5519 • 4208 • 0386', '5770 • 3302 • 7741 • 0108'];
+                    if (!currentVal || knownDefaults.includes(currentVal)) {
+                        customCardNumInput.value = defaultSerial;
+                    }
+                }
+                updateCardNumberDisplay(customCardNumInput?.value || defaultSerial);
+                if (typeof validateCurrentSerialInput === 'function') {
+                    validateCurrentSerialInput();
+                }
             }
 
             if (toggleTierNoir) {
@@ -1669,12 +2154,17 @@
             if (toggleTierMaroon) {
                 toggleTierMaroon.addEventListener('click', () => setCardTier('maroon'));
             }
+            if (toggleTierBleu) {
+                toggleTierBleu.addEventListener('click', () => setCardTier('bleu'));
+            }
 
-            // Sync with URL query parameter (?tier=maroon or ?tier=noir)
+            // Sync with URL query parameter (?tier=maroon, ?tier=bleu, or ?tier=noir)
             const urlParams = new URLSearchParams(window.location.search);
             const tierParam = urlParams.get('tier');
             if (tierParam === 'maroon' || tierParam === 'rouge') {
                 setCardTier('maroon');
+            } else if (tierParam === 'bleu' || tierParam === 'blue') {
+                setCardTier('bleu');
             } else if (tierParam === 'noir' || tierParam === 'black') {
                 setCardTier('noir');
             }
@@ -1704,39 +2194,321 @@
                 });
             }
 
-            // Custom Number & Randomizer
-            function generateRandomSerial() {
-                const p1 = Math.floor(1000 + Math.random() * 9000);
-                const p2 = Math.floor(1000 + Math.random() * 9000);
-                const p3 = Math.floor(1000 + Math.random() * 9000);
-                const p4 = Math.floor(1000 + Math.random() * 9000);
-                return `${p1} • ${p2} • ${p3} • ${p4}`;
+            // =======================================================
+            // SERIAL REGISTRY & COLLISION-FREE RECOMMENDATION SYSTEM
+            // =======================================================
+            const serialRecommendationsDatalist = document.getElementById('serialRecommendationsDatalist');
+            const serialRecommendationsChips = document.getElementById('serialRecommendationsChips');
+            const serialValidationFeedback = document.getElementById('serialValidationFeedback');
+            const recsSyncStatus = document.getElementById('recsSyncStatus');
+            const refreshSerialRecsBtn = document.getElementById('refreshSerialRecsBtn');
+
+            // Memory Map: clean digit string (e.g., '1080994277010108') -> registered member info
+            const databaseRegisteredSerials = new Map();
+
+            function cleanSerialDigits(str) {
+                return String(str || '').replace(/\D/g, '');
             }
 
             function updateCardNumberDisplay(numStr) {
                 if (atelierCardNumberDisplay) atelierCardNumberDisplay.textContent = numStr;
-                const digitsOnly = numStr.replace(/\D/g, '');
+                const digitsOnly = cleanSerialDigits(numStr);
                 const last4 = digitsOnly.slice(-4) || '0963';
-                const cvv = last4.slice(0, 3) || '892';
+                let cvv = '892';
+                let suffix = 'NOIR';
+                if (currentTier === 'maroon' || currentTier === 'rouge') {
+                    cvv = (numStr === '1080 • 9942 • 7701 • 0108') ? '108' : (last4.slice(0, 3) || '108');
+                    suffix = 'ROUGE';
+                } else if (currentTier === 'bleu' || currentTier === 'blue') {
+                    cvv = (numStr === '7730 • 5519 • 4208 • 0386') ? '386' : (last4.slice(0, 3) || '386');
+                    suffix = 'BLEU';
+                } else {
+                    cvv = (numStr === '4892 • 7710 • 8421 • 0963') ? '892' : (last4.slice(0, 3) || '892');
+                    suffix = 'NOIR';
+                }
                 if (atelierCvvDisplay) atelierCvvDisplay.textContent = `CVV: ${cvv}`;
                 if (atelierSeriesText) {
-                    atelierSeriesText.textContent = `Series GH-${last4}-${currentTier === 'maroon' ? 'ROUGE' : 'NOIR'}`;
+                    atelierSeriesText.textContent = `Series GH-${last4}-${suffix}`;
                 }
             }
 
+            // Generate 1 random serial formatted as 'XXXX • XXXX • XXXX • XXXX'
+            // strictly guaranteed NOT to exist in databaseRegisteredSerials
+            function generateRandomSerial() {
+                let candidate = '';
+                let clean = '';
+                let attempts = 0;
+                do {
+                    const p1 = Math.floor(1000 + Math.random() * 9000);
+                    const p2 = Math.floor(1000 + Math.random() * 9000);
+                    const p3 = Math.floor(1000 + Math.random() * 9000);
+                    const p4 = Math.floor(1000 + Math.random() * 9000);
+                    candidate = `${p1} • ${p2} • ${p3} • ${p4}`;
+                    clean = cleanSerialDigits(candidate);
+                    attempts++;
+                } while (databaseRegisteredSerials.has(clean) && attempts < 200);
+                return candidate;
+            }
+
+            // Generate a batch of unique random serial numbers that do NOT exist in the database
+            function generateBatchAvailableSerials(count = 6) {
+                const results = [];
+                const seenInBatch = new Set();
+                let attempts = 0;
+                while (results.length < count && attempts < 300) {
+                    attempts++;
+                    const serial = generateRandomSerial();
+                    const clean = cleanSerialDigits(serial);
+                    if (!databaseRegisteredSerials.has(clean) && !seenInBatch.has(clean)) {
+                        seenInBatch.add(clean);
+                        results.push(serial);
+                    }
+                }
+                return results;
+            }
+
+            // Render recommendation chips & autocomplete datalist
+            function renderSerialRecommendations(serialsList) {
+                const list = serialsList || generateBatchAvailableSerials(6);
+
+                // 1. Populate autocomplete datalist
+                if (serialRecommendationsDatalist) {
+                    serialRecommendationsDatalist.innerHTML = '';
+                    list.forEach(s => {
+                        const opt = document.createElement('option');
+                        opt.value = s;
+                        opt.label = 'Nomor Tersedia • Terverifikasi Unik';
+                        serialRecommendationsDatalist.appendChild(opt);
+                    });
+                }
+
+                // 2. Populate luxury clickable chips
+                if (serialRecommendationsChips) {
+                    serialRecommendationsChips.innerHTML = '';
+                    const currentClean = cleanSerialDigits(customCardNumInput?.value || '');
+
+                    list.forEach(serial => {
+                        const chip = document.createElement('button');
+                        chip.type = 'button';
+                        chip.className = 'serial-rec-chip';
+                        const isCurrent = cleanSerialDigits(serial) === currentClean;
+                        if (isCurrent) chip.classList.add('active');
+
+                        chip.innerHTML = `<span class="chip-dot"></span><span>${serial}</span>`;
+                        chip.title = 'Pilih nomor terverifikasi unik ini';
+
+                        chip.addEventListener('click', () => {
+                            if (customCardNumInput) {
+                                customCardNumInput.value = serial;
+                            }
+                            updateCardNumberDisplay(serial);
+                            validateCurrentSerialInput();
+
+                            // Update active states
+                            document.querySelectorAll('.serial-rec-chip').forEach(c => c.classList.remove('active'));
+                            chip.classList.add('active');
+                            showToast(`Nomor seri pilihan "${serial}" diterapkan.`);
+                        });
+
+                        serialRecommendationsChips.appendChild(chip);
+                    });
+                }
+            }
+
+            // Real-time validation against registered database
+            function validateCurrentSerialInput() {
+                if (!customCardNumInput) return;
+                const rawVal = customCardNumInput.value.trim();
+                const clean = cleanSerialDigits(rawVal);
+                const submitBtn = membershipForm ? membershipForm.querySelector('button[type="submit"]') : null;
+
+                if (!clean) {
+                    if (serialValidationFeedback) {
+                        serialValidationFeedback.style.display = 'none';
+                        serialValidationFeedback.className = 'serial-validation-msg';
+                        serialValidationFeedback.innerHTML = '';
+                    }
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                        submitBtn.removeAttribute('title');
+                    }
+                    return;
+                }
+
+                if (databaseRegisteredSerials.has(clean)) {
+                    // COLLISION: Number already registered in database!
+                    const member = databaseRegisteredSerials.get(clean);
+                    const memberName = member.cardDisplayName || member.fullName || 'Member Terdaftar';
+                    const dossierRef = member.dossierRef || 'Official Registry';
+                    const tier = member.tier || 'Privilege';
+
+                    if (serialValidationFeedback) {
+                        serialValidationFeedback.style.display = 'block';
+                        serialValidationFeedback.className = 'serial-validation-msg taken';
+                        serialValidationFeedback.innerHTML = `
+                            <div style="display: flex; gap: 8px; align-items: flex-start;">
+                                <span style="font-size: 1.15rem; line-height: 1;">⚠️</span>
+                                <div>
+                                    <strong style="color: #ef4444; font-size: 0.74rem;">NOMOR SUDAH TERDAFTAR DI DATABASE</strong>
+                                    <div style="font-size: 0.7rem; color: #fca5a5; margin-top: 2px; line-height: 1.35;">
+                                        Nomor ini telah dialokasikan untuk identitas <strong>${memberName}</strong> (${tier} &bull; ${dossierRef}).
+                                        Nomor tidak dapat digunakan ganda. Silakan pilih nomor rekomendasi di bawah atau klik <em>Rekomendasi Baru</em>.
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.style.opacity = '0.5';
+                        submitBtn.title = 'Nomor kartu ini sudah terdaftar di database. Silakan pilih nomor rekomendasi lain.';
+                    }
+
+                    // Remove active from any chips matching the taken number
+                    document.querySelectorAll('.serial-rec-chip').forEach(c => {
+                        if (cleanSerialDigits(c.textContent) === clean) {
+                            c.classList.remove('active');
+                            c.style.opacity = '0.35';
+                            c.style.textDecoration = 'line-through';
+                        }
+                    });
+                } else {
+                    // AVAILABLE & UNIQUE
+                    if (serialValidationFeedback) {
+                        serialValidationFeedback.style.display = 'block';
+                        serialValidationFeedback.className = 'serial-validation-msg available';
+                        serialValidationFeedback.innerHTML = `
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span style="font-size: 1.05rem; line-height: 1; color: #10b981;">✓</span>
+                                <div style="font-size: 0.72rem; color: #10b981; font-weight: 600;">
+                                    Nomor Tersedia & Belum Terdaftar di Database (Dapat Digunakan).
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                        submitBtn.removeAttribute('title');
+                    }
+
+                    // Update active chip highlight
+                    document.querySelectorAll('.serial-rec-chip').forEach(c => {
+                        const chipClean = cleanSerialDigits(c.textContent);
+                        if (chipClean === clean) {
+                            c.classList.add('active');
+                        } else {
+                            c.classList.remove('active');
+                        }
+                    });
+                }
+            }
+
+            // Input listener
             if (customCardNumInput) {
                 customCardNumInput.addEventListener('input', (e) => {
                     updateCardNumberDisplay(e.target.value);
+                    validateCurrentSerialInput();
+                });
+                customCardNumInput.addEventListener('change', (e) => {
+                    validateCurrentSerialInput();
                 });
             }
 
+            // Button: generate single random serial
             if (randomizeSerialAtelierBtn) {
                 randomizeSerialAtelierBtn.addEventListener('click', () => {
                     const newSerial = generateRandomSerial();
                     if (customCardNumInput) customCardNumInput.value = newSerial;
                     updateCardNumberDisplay(newSerial);
-                    showToast('Randomized custom distinction serial generated.');
+                    validateCurrentSerialInput();
+                    showToast('Randomized distinction serial generated (terverifikasi unik).');
                 });
+            }
+
+            // Button: generate fresh batch of recommendations
+            if (refreshSerialRecsBtn) {
+                refreshSerialRecsBtn.addEventListener('click', () => {
+                    const newBatch = generateBatchAvailableSerials(6);
+                    renderSerialRecommendations(newBatch);
+                    showToast('Pilihan nomor rekomendasi acak baru diperbaharui.');
+                });
+            }
+
+            // Sync database serials from Google Sheet and local records
+            async function syncDatabaseSerials() {
+                if (recsSyncStatus) {
+                    recsSyncStatus.innerHTML = '● Memeriksa Database Live...';
+                    recsSyncStatus.style.color = '#f59e0b';
+                }
+
+                // 1. Load from local backup storage first
+                try {
+                    const localDossiers = JSON.parse(localStorage.getItem('gh-membership-dossiers') || '[]');
+                    localDossiers.forEach(d => {
+                        const s = d.serial || d.nomorKartu || d.customCardNumber;
+                        if (s) {
+                            const c = cleanSerialDigits(s);
+                            if (c) {
+                                databaseRegisteredSerials.set(c, {
+                                    fullName: d.fullName || 'Member',
+                                    cardDisplayName: d.cardDisplayName || d.fullName || 'Member',
+                                    serial: s,
+                                    dossierRef: d.dossierRef || 'Local Offline Record',
+                                    tier: d.cardType || 'Noir Obsidian'
+                                });
+                            }
+                        }
+                    });
+                } catch (e) { }
+
+                // 2. Fetch live rows from Google Sheets
+                try {
+                    const rows = await fetchLiveSheetRows();
+                    rows.forEach(r => {
+                        const s = r['Serial'] || r['Custom Card Number'] || r['Serial Number'] || r['nomorKartu'];
+                        if (s) {
+                            const c = cleanSerialDigits(s);
+                            if (c) {
+                                databaseRegisteredSerials.set(c, {
+                                    fullName: r['Full Name'] || r['FullName'] || '',
+                                    cardDisplayName: r['Card Name Display'] || r['Card Display Name'] || r['Full Name'] || '',
+                                    serial: s,
+                                    dossierRef: r['Dossier Reference'] || r['DossierRef'] || '',
+                                    tier: r['Card Type'] || r['Jenis Kartu'] || '',
+                                    email: r['Email'] || ''
+                                });
+                            }
+                        }
+                    });
+
+                    if (recsSyncStatus) {
+                        recsSyncStatus.innerHTML = `● Terhubung (${databaseRegisteredSerials.size} Nomor Terdaftar)`;
+                        recsSyncStatus.style.color = '#10b981';
+                    }
+                } catch (err) {
+                    console.warn('Google Sheets live registry sync warning:', err);
+                    if (recsSyncStatus) {
+                        recsSyncStatus.innerHTML = `● Sinkron Lokal (${databaseRegisteredSerials.size} Nomor)`;
+                        recsSyncStatus.style.color = '#94a3b8';
+                    }
+                }
+
+                // 3. If initial input is already registered in database, replace it with an available number
+                const initialVal = customCardNumInput ? customCardNumInput.value.trim() : '';
+                const initialClean = cleanSerialDigits(initialVal);
+                if (databaseRegisteredSerials.has(initialClean)) {
+                    const freshAvailable = generateRandomSerial();
+                    if (customCardNumInput) customCardNumInput.value = freshAvailable;
+                    updateCardNumberDisplay(freshAvailable);
+                }
+
+                // 4. Render recommendations and run validation
+                renderSerialRecommendations();
+                validateCurrentSerialInput();
             }
 
             // Flip 3D Card
@@ -1849,23 +2621,44 @@
 
                     const customCardNumber = customCardNumInput ? customCardNumInput.value.trim() : '4892 • 7710 • 8421 • 0963';
                     const cardDisplayName = customCardNameInput ? customCardNameInput.value.trim().toUpperCase() : fullName.toUpperCase();
-                    const tierName = currentTier === 'maroon' ? 'Rouge Impérial' : 'Noir Obsidian';
+                    const tierName = (currentTier === 'maroon' || currentTier === 'rouge') ? 'Rouge Impérial' : ((currentTier === 'bleu' || currentTier === 'blue') ? 'Bleu Saphir' : 'Noir Obsidian');
+
+                    // STRICT COLLISION CHECK: Prevent submission of already-registered number
+                    const cleanSerialCheck = cleanSerialDigits(customCardNumber);
+                    if (databaseRegisteredSerials.has(cleanSerialCheck)) {
+                        const regInfo = databaseRegisteredSerials.get(cleanSerialCheck);
+                        const assignedTo = regInfo.cardDisplayName || regInfo.fullName || 'Member Terdaftar';
+                        showToast(`⚠️ Nomor kartu ini sudah terdaftar untuk ${assignedTo}. Silakan pilih nomor rekomendasi lain.`);
+                        validateCurrentSerialInput();
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            submitBtn.innerHTML = originalBtnContent;
+                        }
+                        customCardNumInput?.focus();
+                        return;
+                    }
 
                     const payload = {
                         timestamp: timestamp,
                         dossierRef: dossierRef,
                         fullName: fullName,
-                        cardDisplayName: cardDisplayName,
-                        customCardNumber: customCardNumber,
-                        cardTier: tierName,
-                        jenisKartu: tierName,
-                        cardNameDisplay: cardDisplayName,
-                        serial: customCardNumber,
                         email: email,
-                        phone: phone,
-                        field: field,
+                        cardNameDisplay: cardDisplayName,
+                        cardDisplayName: cardDisplayName,
+                        primaryInterest: interest,
                         interest: interest,
+                        cardType: tierName,
+                        jenisKartu: tierName,
+                        cardTier: tierName,
+                        phone: phone,
+                        whatsapp: phone,
+                        field: field,
+                        fieldOfActivity: field,
+                        serial: customCardNumber,
+                        nomorKartu: customCardNumber,
+                        customCardNumber: customCardNumber,
                         notes: notes,
+                        additionalNotes: notes,
                         status: 'Pending Induction Review'
                     };
 
@@ -1887,7 +2680,7 @@
                                 method: 'POST',
                                 mode: 'no-cors',
                                 headers: {
-                                    'Content-Type': 'application/json'
+                                    'Content-Type': 'text/plain;charset=utf-8'
                                 },
                                 body: JSON.stringify(payload)
                             });
@@ -1909,6 +2702,23 @@
 
                     if (vipModal) vipModal.classList.add('open');
                     showToast('Application dossier submitted and recorded in registry.');
+
+                    // Immediately register the newly submitted serial in memory
+                    databaseRegisteredSerials.set(cleanSerialCheck, {
+                        fullName: fullName,
+                        cardDisplayName: cardDisplayName,
+                        serial: customCardNumber,
+                        dossierRef: dossierRef,
+                        tier: tierName,
+                        email: email
+                    });
+
+                    // Update UI: refresh recommendations excluding this new serial and assign fresh available serial
+                    const nextAvailableSerial = generateRandomSerial();
+                    if (customCardNumInput) customCardNumInput.value = nextAvailableSerial;
+                    updateCardNumberDisplay(nextAvailableSerial);
+                    renderSerialRecommendations();
+                    validateCurrentSerialInput();
 
                     membershipForm.reset();
                     if (submitBtn) {
@@ -2073,13 +2883,14 @@
                 const fullName = member['Full Name'] || member['FullName'] || 'Alexandre de Vance';
                 const cardDisplayName = member['Card Name Display'] || member['Card Display Name'] || fullName.toUpperCase();
                 const serial = member['Serial'] || member['Custom Card Number'] || member['Serial Number'] || '4892 • 7710 • 8421 • 0963';
-                const tier = member['Jenis Kartu'] || member['Edition Tier'] || member['Tier'] || (String(member['Primary Interest'] || '').includes('Rouge') ? 'Rouge Impérial (Maroon)' : 'Noir Obsidian (Black)');
+                const tier = member['Card Type'] || member['Jenis Kartu'] || member['Edition Tier'] || member['Tier'] || (String(member['Primary Interest'] || '').includes('Rouge') ? 'Rouge Impérial' : (String(member['Primary Interest'] || '').includes('Bleu') ? 'Bleu Saphir' : 'Noir Obsidian'));
                 const dossierRef = member['Dossier Reference'] || member['DossierRef'] || 'DOSSIER-GH-2026-6704';
                 const field = member['Field of Activity'] || member['Field'] || 'Art Direction & Luxury Industry';
-                const status = member['Status'] || 'Pending Induction Review';
+                const status = member['Status'] || 'Certified Membership • Active';
                 const notes = member['Primary Interest'] || member['Additional Notes'] || 'Full Privilege Access (Noir Tier)';
 
                 const isMaroon = tier.toLowerCase().includes('rouge') || tier.toLowerCase().includes('maroon');
+                const isBleu = tier.toLowerCase().includes('bleu') || tier.toLowerCase().includes('blue') || tier.toLowerCase().includes('saphir');
                 const cleanDigits = serial.replace(/\D/g, '');
                 const last4 = cleanDigits.slice(-4) || '0963';
                 const cvv = last4.slice(0, 3) || '892';
@@ -2087,20 +2898,23 @@
                 // Update 3D Example Card to match found member
                 if (searchCardHolderDisplay) searchCardHolderDisplay.textContent = cardDisplayName.toUpperCase();
                 if (searchCardNumDisplay) searchCardNumDisplay.textContent = serial;
-                if (searchCardTierPill) searchCardTierPill.textContent = isMaroon ? 'Rouge Impérial' : 'Private Noir';
+                if (searchCardTierPill) searchCardTierPill.textContent = isMaroon ? 'Rouge Impérial' : (isBleu ? 'Bleu Saphir' : 'Private Noir');
                 if (searchCardSigDisplay) {
                     const titleWords = cardDisplayName.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1));
                     searchCardSigDisplay.textContent = titleWords.join(' ');
                 }
                 if (searchCardCvvDisplay) searchCardCvvDisplay.textContent = `CVV: ${cvv}`;
-                if (searchCardBackSeries) searchCardBackSeries.textContent = `Series GH-${last4}-${isMaroon ? 'ROUGE' : 'NOIR'}`;
+                const searchSuffix = isMaroon ? 'ROUGE' : (isBleu ? 'BLEU' : 'NOIR');
+                if (searchCardBackSeries) searchCardBackSeries.textContent = `Series GH-${last4}-${searchSuffix}`;
 
+                searchCardFrontView?.classList.remove('theme-maroon', 'theme-bleu');
+                searchCardBackView?.classList.remove('theme-maroon', 'theme-bleu');
                 if (isMaroon) {
                     searchCardFrontView?.classList.add('theme-maroon');
                     searchCardBackView?.classList.add('theme-maroon');
-                } else {
-                    searchCardFrontView?.classList.remove('theme-maroon');
-                    searchCardBackView?.classList.remove('theme-maroon');
+                } else if (isBleu) {
+                    searchCardFrontView?.classList.add('theme-bleu');
+                    searchCardBackView?.classList.add('theme-bleu');
                 }
 
                 // Update Dossier Description
@@ -2286,6 +3100,9 @@
                     }
                 });
             }
+
+            // Initialize Live Database Serials Registry & Recommendations on Startup
+            syncDatabaseSerials();
 
         });
     </script>

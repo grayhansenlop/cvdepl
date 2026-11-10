@@ -23,7 +23,7 @@
             window.addEventListener('orientationchange', adjustDesktopViewport);
         })();
     </script>
-    <title>Privilege Membership Card &mdash; Gray Hansen Limantoro, S.Kom. (林福勝)</title>
+    <title>Privilege Society Card &mdash; Gray Hansen Limantoro, S.Kom. (林福勝)</title>
     <meta name="description"
         content="Privilege Membership Card & Exclusive Privileges of Maison Gray Hansen Limantoro. Fine Art Photography, Art Direction, Rare Monographs and Private Concierge.">
     <meta name="author" content="Gray Hansen Limantoro">
@@ -2314,7 +2314,7 @@
             <div class="utility-right">
                 <a href="index.html" class="utility-link" title="Return to Gray Hansen Main Profile">
                     <span style="font-weight: 700; color: var(--gold-500);">&larr; Back to Main Profile
-                        (index.html)</span>
+                    </span>
                 </a>
                 <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
                     rel="noopener noreferrer" class="utility-link"
@@ -2399,8 +2399,8 @@
                     </button>
                 </div>
 
-                <a href="#concierge" class="btn btn-primary btn-sm">
-                    <span>Membership &nearr;</span>
+                <a href=index.html class="btn btn-primary btn-sm">
+                    <span>Home &nearr;</span>
                 </a>
             </div>
 
@@ -2760,7 +2760,7 @@
                                         <polyline points="7 10 12 15 17 10"></polyline>
                                         <line x1="12" y1="15" x2="12" y2="3"></line>
                                     </svg>
-                                    <span>Download PDF (Pass &amp; Cards)</span>
+                                    <span>Download Sample PDF (Pass &amp; Cards)</span>
                                 </button>
                             </div>
                         </div>
@@ -3019,8 +3019,9 @@
                                         data-edition="noir" title="Preview this edition in top 3D simulator">
                                         <span>Preview in Hero &uarr;</span>
                                     </button>
-                                    <a href="inquirycardform.html?tier=noir" class="dock-action-btn secondary"
-                                        title="Apply for Noir edition">
+                                    <a href="#authenticity" class="dock-action-btn secondary dock-inquire-btn"
+                                        data-serial="4892 • 7710 • 8421 • 0963"
+                                        title="Direct to Official Member Verification">
                                         <span>Inquire &nearr;</span>
                                     </a>
                                 </div>
@@ -3170,8 +3171,9 @@
                                         data-edition="rouge" title="Preview this edition in top 3D simulator">
                                         <span>Preview in Hero &uarr;</span>
                                     </button>
-                                    <a href="inquirycardform.html?tier=maroon" class="dock-action-btn secondary"
-                                        title="Apply for Rouge edition">
+                                    <a href="#authenticity" class="dock-action-btn secondary dock-inquire-btn"
+                                        data-serial="1080 • 9942 • 7701 • 0108"
+                                        title="Direct to Official Member Verification">
                                         <span>Inquire &nearr;</span>
                                     </a>
                                 </div>
@@ -3322,8 +3324,9 @@
                                         data-edition="bleu" title="Preview this edition in top 3D simulator">
                                         <span>Preview in Hero &uarr;</span>
                                     </button>
-                                    <a href="inquirycardform.html?tier=bleu" class="dock-action-btn secondary"
-                                        title="Apply for Bleu edition">
+                                    <a href="#authenticity" class="dock-action-btn secondary dock-inquire-btn"
+                                        data-serial="7730 • 5519 • 4208 • 0386"
+                                        title="Direct to Official Member Verification">
                                         <span>Inquire &nearr;</span>
                                     </a>
                                 </div>
@@ -4549,7 +4552,7 @@
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(8);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL MEMBER PASS', 105, 22, { align: 'center' });
+                        doc.text('GRAY RICHE HOLDINGS • GRAY HANSEN LIMANTORO TEAM • OFFICIAL SOCIETY PASS', 105, 22, { align: 'center' });
 
                         doc.setFont('times', 'bold');
                         doc.setFontSize(18);
@@ -4575,7 +4578,7 @@
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, frontY - 3);
+                        doc.text('RECTO • CARD FRONT (DIGITAL IDENTITY, EMV CHIP & HANKO SEAL)', 33, frontY - 3);
 
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, frontY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
@@ -4586,7 +4589,7 @@
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 3);
+                        doc.text('VERSO • CARD BACK (SIGNATURE PANEL & VERIFICATION QR)', 33, backY - 3);
 
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, backY + 1.2, cardW, cardH, 3.5, 3.5, 'F');
@@ -5292,6 +5295,30 @@
                     e.stopPropagation();
                     const edition = btn.getAttribute('data-edition');
                     applyEditionToHero(edition);
+                });
+            });
+
+            // Inquire Button -> Redirect smoothly to Official Member Verification (#authenticity)
+            document.querySelectorAll('.dock-inquire-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const authSection = document.getElementById('authenticity');
+                    if (authSection) {
+                        authSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    const serial = btn.getAttribute('data-serial');
+                    if (serial && verifyInput) {
+                        verifyInput.value = serial;
+                    }
+                    playLuxuryDockSound('select');
+                    showToast('Redirection vers Official Member Verification...');
+                    setTimeout(() => {
+                        if (verifyInput) {
+                            verifyInput.focus();
+                            verifyInput.select();
+                        }
+                    }, 650);
                 });
             });
 
