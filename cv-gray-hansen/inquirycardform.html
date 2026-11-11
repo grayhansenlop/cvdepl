@@ -1522,6 +1522,33 @@
                     </div>
                 </div>
 
+                <!-- NOT FOUND STATE BOX (Shown only when query is not found) -->
+                <div id="searchNotFoundBox"
+                    style="display: none; margin-top: 24px; padding: 48px 24px; background: var(--bg-surface); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: var(--radius-sm); text-align: center; box-shadow: var(--shadow-elevated);">
+                    <div
+                        style="width: 64px; height: 64px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); border: 1.5px solid rgba(239, 68, 68, 0.3); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div
+                        style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ef4444; margin-bottom: 8px;">
+                        STATUS: DATA NOT FOUND</div>
+                    <h3
+                        style="font-family: var(--font-display); font-size: clamp(1.8rem, 2.6vw, 2.4rem); color: #ef4444; margin-bottom: 10px; font-weight: 700;">
+                        Data not Found</h3>
+                    <p id="searchNotFoundMsg"
+                        style="color: var(--ink-secondary); font-size: 0.95rem; max-width: 520px; margin: 0 auto 24px; line-height: 1.7;">
+                        Nomor kartu atau identitas yang Anda cari tidak terdaftar dalam database resmi Google Sheets.
+                    </p>
+                    <a href="#membership-atelier-section" class="btn btn-gold btn-sm">
+                        <span>Personalize &amp; Apply for New Card Induction &nearr;</span>
+                    </a>
+                </div>
+
                 <!-- AUTHENTICATED & VERIFIED ACCREDITATION CONTAINER -->
                 <div id="verifiedResultBox"
                     style="background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: clamp(24px, 4vw, 42px); box-shadow: var(--shadow-elevated);">
@@ -2869,8 +2896,70 @@
                 return records;
             }
 
-            // Fetch live rows from Google Sheets
+            // Fetch live rows from Google Sheets (Universal CORS-free JSONP)
             async function fetchLiveSheetRows() {
+                try {
+                    const jsonpRows = await new Promise((resolve) => {
+                        let done = false;
+                        const cbName = 'ghInquiryCallback_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+
+                        function cleanup() {
+                            try {
+                                delete window[cbName];
+                                const s = document.getElementById(cbName);
+                                if (s && s.parentNode) s.parentNode.removeChild(s);
+                            } catch (e) { }
+                        }
+
+                        window[cbName] = function (json) {
+                            if (done) return;
+                            done = true;
+                            cleanup();
+                            try {
+                                const rows = json?.table?.rows || [];
+                                if (!rows.length) return resolve([]);
+                                let headers = (json.table.cols || []).map(c => (c && c.label) ? c.label.trim() : '');
+                                let startRow = 0;
+                                if (!headers.some(h => h.length > 0)) {
+                                    headers = (rows[0].c || []).map(cell => cell ? String(cell.f != null ? cell.f : (cell.v != null ? cell.v : '')).trim() : '');
+                                    startRow = 1;
+                                }
+                                const records = [];
+                                for (let i = startRow; i < rows.length; i++) {
+                                    const r = rows[i];
+                                    if (!r || !r.c) continue;
+                                    const obj = {};
+                                    let hasVal = false;
+                                    headers.forEach((h, idx) => {
+                                        if (h && r.c[idx]) {
+                                            const v = String(r.c[idx].f != null ? r.c[idx].f : (r.c[idx].v != null ? r.c[idx].v : '')).trim();
+                                            obj[h] = v;
+                                            if (v) hasVal = true;
+                                        }
+                                    });
+                                    if (hasVal) records.push(obj);
+                                }
+                                resolve(records);
+                            } catch (e) {
+                                resolve([]);
+                            }
+                        };
+
+                        const script = document.createElement('script');
+                        script.id = cbName;
+                        script.src = `https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/gviz/tq?tqx=responseHandler:${cbName}&t=${Date.now()}`;
+                        script.onerror = () => { if (!done) { done = true; cleanup(); resolve([]); } };
+                        document.head.appendChild(script);
+
+                        setTimeout(() => { if (!done) { done = true; cleanup(); resolve([]); } }, 3500);
+                    });
+
+                    if (jsonpRows && jsonpRows.length > 0) return jsonpRows;
+                } catch (e) {
+                    console.warn('JSONP inquiry fetch error:', e);
+                }
+
+                // Fallback CSV fetch
                 const csvUrl = 'https://docs.google.com/spreadsheets/d/13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw/gviz/tq?tqx=out:csv&t=' + Date.now();
                 const res = await fetch(csvUrl);
                 if (!res.ok) throw new Error('Failed to fetch Google Sheet data');
@@ -2959,10 +3048,20 @@
 
                         if (found) {
                             applyFoundMemberData(found);
+                            if (document.getElementById('verifiedResultBox')) document.getElementById('verifiedResultBox').style.display = 'block';
+                            if (document.getElementById('searchNotFoundBox')) document.getElementById('searchNotFoundBox').style.display = 'none';
                             showToast(`Card record verified for ${found['Full Name'] || found['Card Name Display'] || query}!`);
                             document.getElementById('verifiedResultBox')?.scrollIntoView({ behavior: 'smooth' });
                         } else {
-                            showToast(`No registered card matching "${query}" in official Google Sheet.`);
+                            if (document.getElementById('verifiedResultBox')) document.getElementById('verifiedResultBox').style.display = 'none';
+                            const notFoundBox = document.getElementById('searchNotFoundBox');
+                            if (notFoundBox) {
+                                notFoundBox.style.display = 'block';
+                                const msg = document.getElementById('searchNotFoundMsg');
+                                if (msg) msg.innerHTML = `Nomor kartu atau identitas <strong>"${query}"</strong> tidak terdaftar dalam database resmi Google Sheets.`;
+                                notFoundBox.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            showToast('Data not Found');
                         }
                     } catch (err) {
                         console.error('Google Sheet search error:', err);
