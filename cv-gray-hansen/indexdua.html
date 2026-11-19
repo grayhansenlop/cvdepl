@@ -4649,6 +4649,7 @@
 
             // 10. Verification Simulator (Google Sheets Live Cryptographic Registry)
             const SPREADSHEET_ID = '13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw';
+            const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec';
             const verifyBtn = document.getElementById('verifyBtn');
             // verifyInput is already declared above
             const verifyResultBadge = document.getElementById('verifyResultBadge');
@@ -4878,7 +4879,26 @@
             }
 
             if (verifyBtn && verifyInput) {
-                verifyBtn.addEventListener('click', async () => {
+                            // Query Live Google Sheets Registry directly via official Google Apps Script endpoint
+            async function queryGASRegistry(query) {
+                if (!query) return null;
+                // Query serial and search parameter to GAS
+                const qClean = query.trim();
+                const url = GAS_ENDPOINT + '?serial=' + encodeURIComponent(qClean) + '&search=' + encodeURIComponent(qClean);
+                try {
+                    const res = await fetch(url, { mode: 'cors' });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const json = await res.json();
+                    if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+                        return json.data[0];
+                    }
+                } catch (err) {
+                    console.warn('GAS registry query error:', err);
+                }
+                return null;
+            }
+
+            verifyBtn.addEventListener('click', async () => {
                     const val = verifyInput.value.trim();
                     if (!val) {
                         showToast('Masukkan nomor anggota, serial, atau dossier.');
@@ -4890,8 +4910,14 @@
                     verifyBtn.innerHTML = '<span>Checking Registry...</span>';
 
                     try {
-                        const records = await fetchLiveGoogleSheetMembers();
-                        const found = searchMemberRecord(records, val);
+                        // 1. Primary: Direct high-speed query via official GAS Endpoint
+                        let found = await queryGASRegistry(val);
+
+                        // 2. Fallback: Secondary lookup via live sheet members table if GAS returns empty
+                        if (!found) {
+                            const records = await fetchLiveGoogleSheetMembers();
+                            found = searchMemberRecord(records, val);
+                        }
 
                         if (found) {
                             // Ekstrak data tersedia dari spreadsheet
