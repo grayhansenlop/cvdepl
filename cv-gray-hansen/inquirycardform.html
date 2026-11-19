@@ -1586,7 +1586,8 @@
                             </div>
 
                             <div class="card-stage-container">
-                                <div class="card-3d-wrapper" id="searchCard3D" style="max-width: 480px; margin: 0 auto;">
+                                <div class="card-3d-wrapper" id="searchCard3D"
+                                    style="max-width: 480px; margin: 0 auto;">
                                     <div class="card-flipper" id="searchCardFlipper">
                                         <!-- FRONT FACE -->
                                         <div class="card-face card-front" id="searchCardFrontView">
@@ -3121,38 +3122,112 @@
                     try {
                         const cardFrontEl = document.getElementById('searchCardFrontView');
                         const cardBackEl = document.getElementById('searchCardBackView');
+                        const searchCard3DEl = document.getElementById('searchCard3D');
                         if (!cardFrontEl || !cardBackEl) throw new Error('Card elements missing');
 
                         if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
-                        const memberName = document.getElementById('searchDossierName')?.textContent.trim() || 'ALEXANDRE DE VANCE';
-                        const cardDisplayName = document.getElementById('searchDossierDisplayName')?.textContent.trim() || memberName;
-                        const serialNum = document.getElementById('searchDossierSerial')?.textContent.trim() || '4892 • 7710 • 8421 • 0963';
-                        const tier = document.getElementById('searchDossierTier')?.textContent.trim() || 'Noir Obsidian (Black)';
-                        const dossierRef = document.getElementById('searchDossierRef')?.textContent.trim() || 'DOSSIER-GH-2026-6704';
+                        const memberName = (document.getElementById('searchDossierName')?.textContent || 'MEMBER').trim();
+                        const cardDisplayName = (document.getElementById('searchDossierDisplayName')?.textContent || memberName).trim();
+                        const serialNum = (document.getElementById('searchDossierSerial')?.textContent || '0000 • 0000 • 0000 • 0000').trim();
+                        const tierPillText = (document.querySelector('#searchCardFrontView .card-tier-pill')?.textContent || document.getElementById('searchDossierTier')?.textContent || 'Noir Obsidian').trim();
+                        const dossierRef = (document.getElementById('searchDossierRef')?.textContent || 'DOSSIER-GH-2026').trim();
+                        const validThru = (document.querySelector('#searchCardFrontView .card-valid-date')?.textContent || '12 / 29').trim();
 
-                        // Isolated off-screen rendering
+                        // Detect active theme
+                        let activeTheme = 'theme-noir';
+                        let tierLabel = 'NOIR', tierFull = 'Noir Obsidian';
+                        let standardSub = 'Art, Arch & Academia \u2022 Expertise Society';
+
+                        const tierLower = tierPillText.toLowerCase();
+                        if (searchCard3DEl?.classList.contains('theme-rouge') || tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('imp')) {
+                            activeTheme = 'theme-rouge';
+                            tierLabel = 'ROUGE';
+                            tierFull = 'Rouge Imp\u00e9rial';
+                            standardSub = 'EXCLUSIVELY APPOINTED \u2022 Honoured';
+                        } else if (searchCard3DEl?.classList.contains('theme-bleu') || tierLower.includes('bleu') || tierLower.includes('saph') || tierLower.includes('blue')) {
+                            activeTheme = 'theme-bleu';
+                            tierLabel = 'BLEU';
+                            tierFull = 'Bleu Saphir';
+                            standardSub = 'Venture CAPITAL \u2022 Investments';
+                        }
+
+                        // Off-screen staging container
                         const offscreen = document.createElement('div');
                         offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:530px;height:334px;z-index:-9999;overflow:hidden;background:transparent;';
                         document.body.appendChild(offscreen);
 
-                        const frontClone = cardFrontEl.cloneNode(true);
-                        frontClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;padding:22px 26px 20px 26px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
-                        offscreen.appendChild(frontClone);
-                        const frontCanvas = await html2canvas(frontClone, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
-                        offscreen.removeChild(frontClone);
+                        // Clone helper with theme, brand fix, bottom row fix
+                        function prepareSearchClone(originalEl, isBack) {
+                            const wrapper = document.createElement('div');
+                            wrapper.id = 'searchCard3D';
+                            wrapper.className = 'card-3d-wrapper ' + activeTheme;
+                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;';
 
-                        const backClone = cardBackEl.cloneNode(true);
-                        backClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;';
-                        offscreen.appendChild(backClone);
-                        const backCanvas = await html2canvas(backClone, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
-                        offscreen.removeChild(backClone);
+                            const clone = originalEl.cloneNode(true);
+                            clone.className = originalEl.className + ' ' + activeTheme;
+                            clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;' + (isBack ? 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;' : 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;');
+
+                            const glare = clone.querySelector('.card-glare, .card-dock-glare');
+                            if (glare) glare.style.display = 'none';
+
+                            // Eliminate html2canvas gold rectangle bug
+                            const brandName = clone.querySelector('.card-brand-name');
+                            if (brandName) {
+                                const brandNameText = brandName.textContent.trim() || 'Gray Hansen Limantoro';
+                                const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
+                                const flatSpan = document.createElement('span');
+                                flatSpan.textContent = brandNameText;
+                                flatSpan.style.cssText = 'font-family: var(--font-display), "Cinzel", Georgia, serif !important; font-size: 0.86rem !important; font-weight: 700 !important; letter-spacing: 0.24em !important; text-transform: uppercase !important; color: ' + goldColor + ' !important; background: transparent !important; background-image: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: ' + goldColor + ' !important; line-height: 1.2 !important; white-space: nowrap !important; text-shadow: 0 1px 2px rgba(0,0,0,0.85) !important; display: inline-block !important;';
+                                brandName.replaceWith(flatSpan);
+                            }
+
+                            // Correct brand sub
+                            const cloneBrandSub = clone.querySelector('.card-brand-sub');
+                            if (cloneBrandSub) cloneBrandSub.textContent = standardSub;
+
+                            // Sync tier pill
+                            const cloneTierPill = clone.querySelector('.card-tier-pill');
+                            if (cloneTierPill) {
+                                cloneTierPill.textContent = tierPillText;
+                                cloneTierPill.style.cssText += 'display: inline-flex !important; align-items: center !important; margin: 0 !important; vertical-align: middle !important;';
+                            }
+
+                            // Perfect bottom row alignment
+                            const cloneBotRow = clone.querySelector('.card-bottom-row');
+                            if (cloneBotRow) {
+                                cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
+                            }
+                            const cloneValGroup = clone.querySelector('.card-validity-group');
+                            if (cloneValGroup) {
+                                cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
+                            }
+                            const cloneName = clone.querySelector('.card-holder-name');
+                            if (cloneName) {
+                                cloneName.style.cssText += 'overflow: visible !important; line-height: 1.2 !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important;';
+                            }
+
+                            wrapper.appendChild(clone);
+                            return wrapper;
+                        }
+
+                        // 1. Capture Front
+                        const frontWrapper = prepareSearchClone(cardFrontEl, false);
+                        offscreen.appendChild(frontWrapper);
+                        const frontCanvas = await html2canvas(frontWrapper, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
+                        offscreen.removeChild(frontWrapper);
+
+                        // 2. Capture Back
+                        const backWrapper = prepareSearchClone(cardBackEl, true);
+                        offscreen.appendChild(backWrapper);
+                        const backCanvas = await html2canvas(backWrapper, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
+                        offscreen.removeChild(backWrapper);
                         document.body.removeChild(offscreen);
 
                         const { jsPDF } = window.jspdf;
-                        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-                        // PAGE 1: A4 Luxury Dossier
+                        // --- PAGE 1: A4 Luxury Dossier ---
+                        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
                         doc.setFillColor(14, 15, 18);
                         doc.rect(0, 0, 210, 297, 'F');
                         doc.setDrawColor(212, 175, 55);
@@ -3161,53 +3236,75 @@
                         doc.setDrawColor(180, 140, 40);
                         doc.rect(12, 12, 186, 273);
 
+                        // Header
                         doc.setTextColor(212, 175, 55);
                         doc.setFont('times', 'bold');
-                        doc.setFontSize(19);
-                        doc.text('MAISON GRAY HANSEN LIMANTORO', 105, 28, { align: 'center' });
-                        doc.setFontSize(10);
+                        doc.setFontSize(8);
+                        doc.text('MAISON GRAY HANSEN LIMANTORO \u2022 OFFICIAL AFFILIATION PASS', 105, 22, { align: 'center' });
+                        doc.setFontSize(20);
+                        doc.text('The Card of Honour \u2022 Official Pass', 105, 32, { align: 'center' });
+                        doc.setFontSize(9);
                         doc.setFont('times', 'italic');
                         doc.setTextColor(200, 200, 200);
-                        doc.text('CREATIVE ATELIER  •  BALIKPAPAN  •  MALANG  •  TOKYO', 105, 35, { align: 'center' });
+                        doc.text('Cardholder: ' + memberName.toUpperCase() + '  \u2022  Serial: ' + serialNum + '  \u2022  Valid: ' + validThru, 105, 39, { align: 'center' });
 
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.3);
+                        doc.line(20, 43, 190, 43);
+
+                        // RECTO label
                         doc.setTextColor(212, 175, 55);
                         doc.setFont('times', 'bold');
-                        doc.setFontSize(13);
-                        doc.text('OFFICIAL PRIVILEGE CIRCLE PASS & ACCREDITATION', 105, 47, { align: 'center' });
+                        doc.setFontSize(7);
+                        doc.text('RECTO \u2022 CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 20, 50);
 
-                        // Front & Back Cards on Page 1
+                        // Front card image
                         const frontData = frontCanvas.toDataURL('image/png');
                         const backData = backCanvas.toDataURL('image/png');
-                        doc.addImage(frontData, 'PNG', 45, 58, 120, 75.6);
-                        doc.addImage(backData, 'PNG', 45, 140, 120, 75.6);
+                        doc.addImage(frontData, 'PNG', 33, 53, 144, 90.72);
 
-                        // Dossier summary box
-                        doc.setFillColor(22, 24, 30);
-                        doc.rect(20, 224, 170, 50, 'F');
-                        doc.setDrawColor(212, 175, 55);
-                        doc.rect(20, 224, 170, 50);
-
+                        // VERSO label
                         doc.setTextColor(212, 175, 55);
                         doc.setFont('times', 'bold');
-                        doc.setFontSize(11);
-                        doc.text(`CARDHOLDER: ${memberName.toUpperCase()}`, 26, 234);
-                        doc.setFontSize(9);
-                        doc.setTextColor(230, 230, 230);
-                        doc.text(`Stamped Display Name: ${cardDisplayName.toUpperCase()}`, 26, 241);
-                        doc.text(`Distinction Serial: ${serialNum}`, 26, 248);
-                        doc.text(`Privilege Tier: ${tier}`, 26, 255);
-                        doc.text(`Reference: ${dossierRef}`, 26, 262);
+                        doc.setFontSize(7);
+                        doc.text('VERSO \u2022 CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 20, 150);
 
-                        // PAGE 2: Card Front Standalone (ISO 7810 ID-1: 85.6mm x 53.98mm)
+                        // Back card image
+                        doc.addImage(backData, 'PNG', 33, 153, 144, 90.72);
+
+                        // Footer dossier info
+                        doc.setFillColor(22, 24, 30);
+                        doc.rect(20, 252, 170, 32, 'F');
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.3);
+                        doc.rect(20, 252, 170, 32);
+                        doc.setTextColor(212, 175, 55);
+                        doc.setFont('times', 'bold');
+                        doc.setFontSize(7);
+                        doc.text('CREATIVE ATELIER \u2022 REGISTERED WITH KEMENPAREKRAF EKRAF', 26, 260);
+                        doc.setTextColor(180, 180, 180);
+                        doc.setFont('times', 'normal');
+                        doc.setFontSize(7);
+                        doc.text('SERIES GH-' + serialNum.replace(/\s*\u2022\s*/g, '-').replace(/\u2022/g, '-').split(/\s+/).pop() + '-' + tierLabel, 26, 266);
+                        doc.setTextColor(212, 175, 55);
+                        doc.setFont('times', 'bold');
+                        doc.text(dossierRef + ' \u2022 ' + tierFull, 190, 266, { align: 'right' });
+                        doc.setTextColor(180, 180, 180);
+                        doc.setFont('times', 'normal');
+                        doc.setFontSize(6.5);
+                        doc.text('This document is an official affiliation pass issued by Maison Gray Hansen Limantoro. For authentication, contact registry@grayhansen.id', 105, 278, { align: 'center' });
+
+                        // --- PAGE 2: Card Front CR80 ---
                         doc.addPage([85.6, 53.98], 'landscape');
                         doc.addImage(frontData, 'PNG', 0, 0, 85.6, 53.98);
 
-                        // PAGE 3: Card Back Standalone (ISO 7810 ID-1: 85.6mm x 53.98mm)
+                        // --- PAGE 3: Card Back CR80 ---
                         doc.addPage([85.6, 53.98], 'landscape');
                         doc.addImage(backData, 'PNG', 0, 0, 85.6, 53.98);
 
-                        // Safe Download Trigger
-                        const fileName = `GrayHansen_MemberPass_${memberName.replace(/\s+/g, '_')}.pdf`;
+                        // Download
+                        const cleanNum = serialNum.replace(/\s*\u2022\s*/g, '_').replace(/\s+/g, '');
+                        const fileName = 'Gray_Hansen_Membership_Card_' + cleanNum + '_' + tierLabel + '.pdf';
                         try {
                             doc.save(fileName);
                         } catch (saveErr) {
@@ -3218,16 +3315,13 @@
                             a.download = fileName;
                             document.body.appendChild(a);
                             a.click();
-                            setTimeout(() => {
-                                document.body.removeChild(a);
-                                URL.revokeObjectURL(blobUrl);
-                            }, 1000);
+                            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(blobUrl); }, 1000);
                         }
 
-                        showToast(`Downloaded verified 3-page pass for ${memberName}`);
+                        showToast('Downloaded 3-page pass for ' + memberName);
                     } catch (err) {
                         console.error('PDF generation error:', err);
-                        showToast('Error generating PDF. Please ensure browser permissions allow downloads.');
+                        showToast('Error generating PDF. Please try again.');
                     } finally {
                         searchDownloadPdfBtn.disabled = false;
                         searchDownloadPdfBtn.innerHTML = originalBtnContent;
