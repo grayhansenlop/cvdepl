@@ -1586,7 +1586,7 @@
                             </div>
 
                             <div class="card-stage-container">
-                                <div class="card-3d-wrapper" style="max-width: 480px; margin: 0 auto;">
+                                <div class="card-3d-wrapper" id="searchCard3D" style="max-width: 480px; margin: 0 auto;">
                                     <div class="card-flipper" id="searchCardFlipper">
                                         <!-- FRONT FACE -->
                                         <div class="card-face card-front" id="searchCardFrontView">
@@ -2969,7 +2969,7 @@
 
             // Update Card & Description Display with Found Member Data
             function applyFoundMemberData(member) {
-                const fullName = member['Full Name'] || member['FullName'] || 'Alexandre de Vance';
+                const fullName = member['Full Name'] || member['FullName'] || member['Card Name Display'] || 'Alexandre de Vance';
                 const cardDisplayName = member['Card Name Display'] || member['Card Display Name'] || fullName.toUpperCase();
                 const serial = member['Serial'] || member['Custom Card Number'] || member['Serial Number'] || '4892 • 7710 • 8421 • 0963';
                 const tier = member['Card Type'] || member['Jenis Kartu'] || member['Edition Tier'] || member['Tier'] || (String(member['Primary Interest'] || '').includes('Rouge') ? 'Rouge Impérial' : (String(member['Primary Interest'] || '').includes('Bleu') ? 'Bleu Saphir' : 'Noir Obsidian'));
@@ -2978,8 +2978,8 @@
                 const status = member['Status'] || 'Certified Membership • Active';
                 const notes = member['Primary Interest'] || member['Additional Notes'] || 'Full Privilege Access (Noir Tier)';
 
-                const isMaroon = tier.toLowerCase().includes('rouge') || tier.toLowerCase().includes('maroon');
-                const isBleu = tier.toLowerCase().includes('bleu') || tier.toLowerCase().includes('blue') || tier.toLowerCase().includes('saphir');
+                const isMaroon = tier.toLowerCase().includes('rouge') || tier.toLowerCase().includes('maroon') || tier.toLowerCase().includes('imp');
+                const isBleu = tier.toLowerCase().includes('bleu') || tier.toLowerCase().includes('blue') || tier.toLowerCase().includes('saph');
                 const cleanDigits = serial.replace(/\D/g, '');
                 const last4 = cleanDigits.slice(-4) || '0963';
                 const cvv = last4.slice(0, 3) || '892';
@@ -2996,17 +2996,27 @@
                 const searchSuffix = isMaroon ? 'ROUGE' : (isBleu ? 'BLEU' : 'NOIR');
                 if (searchCardBackSeries) searchCardBackSeries.textContent = `Series GH-${last4}-${searchSuffix}`;
 
-                searchCardFrontView?.classList.remove('theme-maroon', 'theme-bleu');
-                searchCardBackView?.classList.remove('theme-maroon', 'theme-bleu');
+                // Apply dynamic theme classes to wrapper and both card faces
+                const searchCard3D = document.getElementById('searchCard3D');
+                searchCard3D?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
+                searchCardFrontView?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
+                searchCardBackView?.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
+
                 if (isMaroon) {
-                    searchCardFrontView?.classList.add('theme-maroon');
-                    searchCardBackView?.classList.add('theme-maroon');
+                    searchCard3D?.classList.add('theme-rouge', 'theme-maroon');
+                    searchCardFrontView?.classList.add('theme-rouge', 'theme-maroon');
+                    searchCardBackView?.classList.add('theme-rouge', 'theme-maroon');
                 } else if (isBleu) {
+                    searchCard3D?.classList.add('theme-bleu');
                     searchCardFrontView?.classList.add('theme-bleu');
                     searchCardBackView?.classList.add('theme-bleu');
+                } else {
+                    searchCard3D?.classList.add('theme-noir');
+                    searchCardFrontView?.classList.add('theme-noir');
+                    searchCardBackView?.classList.add('theme-noir');
                 }
 
-                // Update Dossier Description
+                // Update Dossier Description (Identitas di bawah)
                 if (searchDossierName) searchDossierName.textContent = fullName;
                 if (searchDossierTier) searchDossierTier.textContent = tier;
                 if (searchDossierDisplayName) searchDossierDisplayName.textContent = cardDisplayName.toUpperCase();
@@ -3015,6 +3025,25 @@
                 if (searchDossierField) searchDossierField.textContent = field;
                 if (searchDossierStatus) searchDossierStatus.textContent = status;
                 if (searchDossierNotes) searchDossierNotes.textContent = notes;
+            }
+
+            // Query Live Google Sheets Registry via official Google Apps Script endpoint
+            async function queryGASSearch(query) {
+                if (!query) return null;
+                const endpoint = typeof getGasEndpoint === 'function' ? getGasEndpoint() : 'https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec';
+                const qClean = query.trim();
+                const url = endpoint + '?serial=' + encodeURIComponent(qClean) + '&search=' + encodeURIComponent(qClean);
+                try {
+                    const res = await fetch(url, { mode: 'cors' });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const json = await res.json();
+                    if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+                        return json.data[0];
+                    }
+                } catch (err) {
+                    console.warn('GAS query error:', err);
+                }
+                return null;
             }
 
             // Search Submission Handler
@@ -3031,20 +3060,26 @@
                     }
 
                     try {
-                        const rows = await fetchLiveSheetRows();
-                        const cleanQuery = query.toLowerCase().replace(/[\s\-\•]/g, '');
+                        // 1. Primary: Direct high-speed search via official Google Apps Script endpoint
+                        let found = await queryGASSearch(query);
 
-                        // Match against all columns
-                        const found = rows.find(r => {
-                            for (let key in r) {
-                                const val = String(r[key] || '').toLowerCase();
-                                const cleanVal = val.replace(/[\s\-\•]/g, '');
-                                if (cleanVal.includes(cleanQuery) || val.includes(query.toLowerCase())) {
-                                    return true;
+                        // 2. Fallback: Secondary search via sheet rows if GAS endpoint returns empty
+                        if (!found) {
+                            const rows = await fetchLiveSheetRows();
+                            const cleanQuery = query.toLowerCase().replace(/[\s\-\•]/g, '');
+
+                            // Match against all columns (support both name and serial)
+                            found = rows.find(r => {
+                                for (let key in r) {
+                                    const val = String(r[key] || '').toLowerCase();
+                                    const cleanVal = val.replace(/[\s\-\•]/g, '');
+                                    if (cleanVal.includes(cleanQuery) || val.includes(query.toLowerCase())) {
+                                        return true;
+                                    }
                                 }
-                            }
-                            return false;
-                        });
+                                return false;
+                            });
+                        }
 
                         if (found) {
                             applyFoundMemberData(found);
