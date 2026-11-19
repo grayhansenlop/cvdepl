@@ -2110,7 +2110,7 @@
                         const validDate = document.getElementById('portalValidDisplay')?.textContent.trim() || '12 / 29';
                         const tierPillText = (document.getElementById('portalTierPill')?.textContent || 'Private Noir').trim();
                         const dossierRef = (document.getElementById('panelDossierText')?.textContent || 'DOSSIER-GH-2026').trim();
-                        
+
                         // Detect active theme directly from card3D or tier text
                         let activeTheme = 'theme-noir';
                         let tierLabel = 'NOIR', tierFull = 'Noir Obsidian';
@@ -2139,52 +2139,157 @@
                             const wrapper = document.createElement('div');
                             wrapper.id = 'card3D';
                             wrapper.className = 'card-3d-wrapper ' + activeTheme;
-                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;';
+                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;overflow:visible;';
 
                             const clone = originalEl.cloneNode(true);
                             clone.className = originalEl.className + ' ' + activeTheme;
-                            clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;' + (isBack ? 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;' : 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;');
 
-                            // Hide glare in clone to avoid washed-out capture
-                            const glare = clone.querySelector('.card-glare, .card-dock-glare');
-                            if (glare) glare.style.display = 'none';
+                            if (!isBack) {
+                                // FRONT FACE (RECTO)
+                                clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;padding:22px 28px 20px 28px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;overflow:hidden !important;';
 
-                            // 100% ELIMINATE html2canvas gold box: replace .card-brand-name with clean inline text span
-                            const brandName = clone.querySelector('.card-brand-name');
-                            if (brandName) {
-                                const brandNameText = brandName.textContent.trim() || 'Gray Hansen Limantoro';
+                                const glare = clone.querySelector('.card-glare, .card-dock-glare');
+                                if (glare) glare.style.display = 'none';
+
+                                // 3-KANJI Hanko Seal
+                                const hanko = clone.querySelector('.card-hanko-seal');
+                                if (hanko) {
+                                    hanko.innerHTML = '<span>林</span><span>福</span><span>勝</span>';
+                                    hanko.style.cssText = 'width:38px !important;height:38px !important;border:1.5px solid #c22d2d !important;border-radius:3px !important;background:rgba(194, 45, 45, 0.12) !important;color:#e04343 !important;display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;font-size:0.75rem !important;font-weight:700 !important;line-height:1 !important;letter-spacing:0.05em !important;flex-shrink:0 !important;box-shadow:0 0 10px rgba(224, 67, 67, 0.25) !important;';
+                                }
+
+                                // Brand Name (Solid Gold Cinzel - Eliminates html2canvas box bug)
+                                const brandName = clone.querySelector('.card-brand-name');
                                 const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
-                                const flatSpan = document.createElement('span');
-                                flatSpan.textContent = brandNameText;
-                                flatSpan.style.cssText = 'font-family: var(--font-display), "Cinzel", Georgia, serif !important; font-size: 0.86rem !important; font-weight: 700 !important; letter-spacing: 0.24em !important; text-transform: uppercase !important; color: ' + goldColor + ' !important; background: transparent !important; background-image: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: ' + goldColor + ' !important; line-height: 1.2 !important; white-space: nowrap !important; text-shadow: 0 1px 2px rgba(0,0,0,0.85) !important; display: inline-block !important;';
-                                brandName.replaceWith(flatSpan);
-                            }
+                                if (brandName) {
+                                    const flatSpan = document.createElement('span');
+                                    flatSpan.textContent = 'GRAY HANSEN LIMANTORO';
+                                    flatSpan.style.cssText = 'font-family:"Cinzel", Georgia, serif !important;font-size:0.86rem !important;font-weight:700 !important;letter-spacing:0.22em !important;text-transform:uppercase !important;color:' + goldColor + ' !important;line-height:1.2 !important;white-space:nowrap !important;display:inline-block !important;text-shadow:0 1px 2px rgba(0,0,0,0.85) !important;';
+                                    brandName.replaceWith(flatSpan);
+                                }
 
-                            // Keep accurate sub brand according to tier standard from indexdua.html
-                            const cloneBrandSub = clone.querySelector('.card-brand-sub');
-                            if (cloneBrandSub) cloneBrandSub.textContent = standardSub;
+                                // Brand Subtitle according to Tier
+                                const cloneBrandSub = clone.querySelector('.card-brand-sub');
+                                if (cloneBrandSub) {
+                                    cloneBrandSub.textContent = standardSub;
+                                    cloneBrandSub.style.cssText = 'font-size:0.58rem !important;letter-spacing:0.20em !important;text-transform:uppercase !important;color:rgba(255,255,255,0.7) !important;margin-top:2px !important;white-space:nowrap !important;display:block !important;';
+                                }
 
-                            // Keep uniform tier pill
-                            const cloneTierPill = clone.querySelector('.card-tier-pill');
-                            if (cloneTierPill) {
-                                cloneTierPill.textContent = tierPillText;
-                                cloneTierPill.style.cssText += 'display: inline-flex !important; align-items: center !important; margin: 0 !important; vertical-align: middle !important;';
-                            }
+                                // Contactless Wave Icon (Safe from corner curve)
+                                const nfc = clone.querySelector('.card-nfc-wave');
+                                if (nfc) {
+                                    nfc.style.cssText = 'display:flex !important;align-items:center !important;color:' + (activeTheme === 'theme-rouge' ? '#ffd700' : (activeTheme === 'theme-bleu' ? '#93c5fd' : '#ebd08d')) + ' !important;opacity:0.9 !important;margin-right:2px !important;';
+                                }
 
-                            // PERFECT BOTTOM ROW ALIGNMENT (no drops or clipped names)
-                            const cloneBotRow = clone.querySelector('.card-bottom-row');
-                            if (cloneBotRow) {
-                                cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
-                            }
+                                // EMV Chip & Hologram Row
+                                const chipRow = clone.querySelector('.card-chip-row');
+                                if (chipRow) {
+                                    chipRow.style.cssText = 'display:flex !important;align-items:center !important;justify-content:space-between !important;position:relative !important;z-index:3 !important;margin-top:10px !important;margin-bottom:8px !important;';
+                                }
 
-                            const cloneValGroup = clone.querySelector('.card-validity-group');
-                            if (cloneValGroup) {
-                                cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
-                            }
+                                const emvChip = clone.querySelector('.emv-chip');
+                                if (emvChip) {
+                                    emvChip.style.cssText = 'width:52px !important;height:40px !important;border-radius:6px !important;border:1px solid #785a1a !important;box-shadow:inset 0 1px 2px rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.4) !important;flex-shrink:0 !important;';
+                                }
 
-                            const cloneName = clone.querySelector('.card-holder-name');
-                            if (cloneName) {
-                                cloneName.style.cssText += 'overflow: visible !important; line-height: 1.2 !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important;';
+                                const holo = clone.querySelector('.card-hologram-seal');
+                                if (holo) {
+                                    holo.style.cssText = 'width:46px !important;height:46px !important;border-radius:50% !important;display:flex !important;align-items:center !important;justify-content:center !important;margin-right:2px !important;flex-shrink:0 !important;box-shadow:0 0 14px rgba(224,195,252,0.35) !important;border:1px solid rgba(255,255,255,0.5) !important;overflow:hidden !important;';
+                                }
+
+                                // Serial Meta Label
+                                const metaLabels = clone.querySelectorAll('.card-meta-label');
+                                if (metaLabels.length > 0) {
+                                    metaLabels[0].textContent = 'OFFICIAL AFFILIATION NUMBER • ELITE DISTINCTION SERIES';
+                                    metaLabels[0].style.cssText = 'font-size:0.52rem !important;letter-spacing:0.20em !important;text-transform:uppercase !important;color:rgba(255,255,255,0.5) !important;margin-bottom:2px !important;font-weight:600 !important;display:block !important;';
+                                }
+
+                                // Card Number Display (Safe letter spacing so it never overflows)
+                                const cloneNum = clone.querySelector('.card-number-display');
+                                if (cloneNum) {
+                                    cloneNum.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-size:1.30rem !important;font-weight:700 !important;letter-spacing:0.11em !important;color:#ebd08d !important;margin:4px 0 !important;white-space:nowrap !important;overflow:visible !important;display:block !important;text-shadow:0 1px 2px rgba(0,0,0,0.9) !important;';
+                                }
+
+                                // Bottom Row (Flex-End Baseline Alignment)
+                                const cloneBotRow = clone.querySelector('.card-bottom-row');
+                                if (cloneBotRow) {
+                                    cloneBotRow.style.cssText = 'display:flex !important;align-items:flex-end !important;justify-content:space-between !important;margin-top:auto !important;padding-bottom:2px !important;position:relative !important;z-index:3 !important;';
+                                }
+
+                                const cloneName = clone.querySelector('.card-holder-name');
+                                if (cloneName) {
+                                    cloneName.style.cssText = 'font-family:"Cinzel", Georgia, serif !important;font-size:0.95rem !important;font-weight:700 !important;letter-spacing:0.16em !important;text-transform:uppercase !important;color:#ffffff !important;line-height:1.35 !important;white-space:nowrap !important;max-width:270px !important;overflow:visible !important;margin:0 !important;padding:0 0 2px 0 !important;text-shadow:0 1px 2px rgba(0,0,0,0.9) !important;';
+                                }
+
+                                const cloneValGroup = clone.querySelector('.card-validity-group');
+                                if (cloneValGroup) {
+                                    cloneValGroup.style.cssText = 'display:flex !important;align-items:center !important;gap:14px !important;';
+                                }
+
+                                const cloneValDate = clone.querySelector('.card-valid-date');
+                                if (cloneValDate) {
+                                    cloneValDate.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-size:0.84rem !important;font-weight:700 !important;letter-spacing:0.12em !important;color:#ebd08d !important;white-space:nowrap !important;';
+                                }
+
+                                const cloneTierPill = clone.querySelector('.card-tier-pill');
+                                if (cloneTierPill) {
+                                    cloneTierPill.textContent = tierPillText;
+                                    cloneTierPill.style.cssText = 'display:inline-flex !important;align-items:center !important;padding:4px 10px !important;border-radius:999px !important;font-size:0.56rem !important;letter-spacing:0.16em !important;text-transform:uppercase !important;font-weight:700 !important;color:#faebc3 !important;border:1px solid rgba(212,175,55,0.55) !important;background:linear-gradient(135deg, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0.08) 100%) !important;white-space:nowrap !important;box-shadow:0 2px 8px rgba(0,0,0,0.3) !important;';
+                                }
+
+                            } else {
+                                // BACK FACE (VERSO) - 0 padding on wrapper so stripe runs full edge-to-edge
+                                clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;padding:0 !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;overflow:hidden !important;';
+
+                                const magStripe = clone.querySelector('.card-mag-stripe');
+                                if (magStripe) {
+                                    magStripe.style.cssText = 'width:100% !important;height:46px !important;margin:0 !important;border-radius:17px 17px 0 0 !important;background:linear-gradient(180deg, #222 0%, #0d0e12 50%, #1a1b22 100%) !important;border-bottom:1px solid rgba(0,0,0,0.9) !important;flex-shrink:0 !important;';
+                                }
+
+                                const backBody = clone.querySelector('.card-back-body');
+                                if (backBody) {
+                                    backBody.style.cssText = 'padding:14px 28px 16px 28px !important;display:flex !important;flex-direction:column !important;flex:1 !important;justify-content:space-between !important;box-sizing:border-box !important;';
+                                }
+
+                                const sigRow = clone.querySelector('.card-signature-row');
+                                if (sigRow) {
+                                    sigRow.style.cssText = 'display:flex !important;margin-top:2px !important;';
+                                }
+
+                                const sigPanel = clone.querySelector('.card-sig-panel');
+                                if (sigPanel) {
+                                    sigPanel.style.cssText = 'background:#f4f3ed !important;border:1px solid #d5cfc0 !important;border-radius:4px !important;height:34px !important;display:flex !important;align-items:center !important;justify-content:space-between !important;padding:0 14px !important;flex:1 !important;box-shadow:inset 0 1px 3px rgba(0,0,0,0.15) !important;';
+                                }
+
+                                const sigDisplay = clone.querySelector('.card-sig-cursive, #searchCardSigDisplay, #cardSigDisplay');
+                                if (sigDisplay) {
+                                    sigDisplay.style.cssText = 'font-family:"Playfair Display", Georgia, serif !important;font-style:italic !important;font-size:1.05rem !important;color:#18191c !important;letter-spacing:0.04em !important;';
+                                }
+
+                                const cvvBox = clone.querySelector('.card-cvv-box, #searchCardCvvDisplay');
+                                if (cvvBox) {
+                                    cvvBox.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-weight:700 !important;font-size:0.78rem !important;letter-spacing:0.12em !important;color:#222 !important;';
+                                }
+
+                                const backMeta = clone.querySelector('.card-back-meta');
+                                if (backMeta) {
+                                    backMeta.style.cssText = 'display:grid !important;grid-template-columns:1fr auto !important;align-items:center !important;gap:18px !important;margin-top:4px !important;';
+                                }
+
+                                const disclaimer = clone.querySelector('.card-legal-disclaimer');
+                                if (disclaimer) {
+                                    disclaimer.style.cssText = 'font-size:0.56rem !important;line-height:1.45 !important;color:rgba(255,255,255,0.6) !important;';
+                                }
+
+                                const qrBox = clone.querySelector('.card-qr-box');
+                                if (qrBox) {
+                                    qrBox.style.cssText = 'width:46px !important;height:46px !important;background:#ffffff !important;border-radius:6px !important;display:flex !important;align-items:center !important;justify-content:center !important;box-shadow:0 2px 8px rgba(0,0,0,0.4) !important;flex-shrink:0 !important;padding:4px !important;box-sizing:border-box !important;';
+                                }
+
+                                const backFooter = clone.querySelector('.card-back-footer');
+                                if (backFooter) {
+                                    backFooter.style.cssText = 'display:flex !important;align-items:center !important;justify-content:space-between !important;font-size:0.54rem !important;letter-spacing:0.16em !important;text-transform:uppercase !important;color:#d4af37 !important;border-top:1px solid rgba(212,175,55,0.25) !important;padding-top:6px !important;margin-top:2px !important;';
+                                }
                             }
 
                             wrapper.appendChild(clone);
@@ -2350,7 +2455,7 @@
 
                         const clone = cardFrontEl.cloneNode(true);
                         clone.className = cardFrontEl.className + ' ' + activeTheme;
-                        clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;padding:22px 26px 20px 26px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
+                        clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;padding:22px 28px 20px 28px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
 
                         const glare = clone.querySelector('.card-glare, .card-dock-glare');
                         if (glare) glare.style.display = 'none';
@@ -2376,10 +2481,14 @@
 
                         const cloneBotRow = clone.querySelector('.card-bottom-row');
                         if (cloneBotRow) {
-                            cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
+                            cloneBotRow.style.cssText += 'display: flex !important; align-items: flex-end !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
                         }
 
                         const cloneValGroup = clone.querySelector('.card-validity-group');
+                        const cloneValDate = clone.querySelector('.card-valid-date');
+                        if (cloneValDate) {
+                            cloneValDate.style.cssText += 'white-space: nowrap !important; display: inline-block !important; font-family: "Courier New", Courier, monospace !important; font-size: 0.84rem !important; font-weight: 700 !important; letter-spacing: 0.12em !important; color: #ebd08d !important;';
+                        }
                         if (cloneValGroup) {
                             cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
                         }
