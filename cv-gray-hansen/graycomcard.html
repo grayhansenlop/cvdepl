@@ -1482,10 +1482,12 @@
 
                                     <!-- Front Center: Embossed Foil Card Number -->
                                     <div>
-                                        <div class="card-meta-label" id="portalNumberLabel">Official Affiliation Number &bull; Elite
+                                        <div class="card-meta-label" id="portalNumberLabel">Official Affiliation Number
+                                            &bull; Elite
                                             Distinction
                                             Series</div>
-                                        <div class="card-number-display" id="portalNumberDisplay">4892 &bull; 7710 &bull;
+                                        <div class="card-number-display" id="portalNumberDisplay">4892 &bull; 7710
+                                            &bull;
                                             8421 &bull; 0963</div>
                                     </div>
 
@@ -1640,6 +1642,17 @@
                                 <span>Download Official Pass (3-Page PDF)</span>
                             </button>
 
+                            <button type="button" class="btn btn-secondary" id="portalDownloadJpgBtn"
+                                style="justify-content: center; width: 100%;">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Download Card Image (JPG)</span>
+                            </button>
+
                             <a href="#induction-auth" class="btn btn-secondary btn-locked-induction"
                                 id="personalizeInductionBtn" style="justify-content: center; width: 100%;">
                                 <span>Personalize or Inquire for New Induction &nearr;</span>
@@ -1780,7 +1793,7 @@
             }
 
             // 3D Flip
-                        // 3D Perspective Tilt & Dynamic Glare Effect (Matching indexdua.html)
+            // 3D Perspective Tilt & Dynamic Glare Effect (Matching indexdua.html)
             const card3D = document.getElementById('card3D');
             const cardGlare = document.getElementById('cardGlare');
             if (card3D) {
@@ -1886,16 +1899,23 @@
                 if (cardFront) cardFront.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
                 if (cardBack) cardBack.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
 
+                const uniformSub = customBrandSub || 'Art, Arch & Academia • Expertise Society';
                 if (tier.includes('rouge') || tier.includes('maroon') || tier.includes('impérial') || tier.includes('red')) {
                     card3D.classList.add('theme-rouge');
-                    if (brandSub) brandSub.textContent = customBrandSub || 'EXCLUSIVELY APPOINTED • Honoured';
+                    if (cardFront) cardFront.classList.add('theme-rouge');
+                    if (cardBack) cardBack.classList.add('theme-rouge');
+                    if (brandSub) brandSub.textContent = uniformSub;
                 } else if (tier.includes('bleu') || tier.includes('blue') || tier.includes('saphir') || tier.includes('royal')) {
                     card3D.classList.add('theme-bleu');
-                    if (brandSub) brandSub.textContent = customBrandSub || 'Venture CAPITAL • Investments';
+                    if (cardFront) cardFront.classList.add('theme-bleu');
+                    if (cardBack) cardBack.classList.add('theme-bleu');
+                    if (brandSub) brandSub.textContent = uniformSub;
                 } else {
                     // Default Noir Obsidian (Black Edition)
                     card3D.classList.add('theme-noir');
-                    if (brandSub) brandSub.textContent = customBrandSub || 'Art, Arch & Academia • Expertise Society';
+                    if (cardFront) cardFront.classList.add('theme-noir');
+                    if (cardBack) cardBack.classList.add('theme-noir');
+                    if (brandSub) brandSub.textContent = uniformSub;
                 }
             }
 
@@ -2081,6 +2101,7 @@
                     try {
                         const cardFrontEl = document.getElementById('cardFrontView');
                         const cardBackEl = document.getElementById('cardBackView');
+                        const card3DActual = document.getElementById('card3D');
                         if (!cardFrontEl || !cardBackEl) throw new Error('Card elements missing');
 
                         if (document.fonts && document.fonts.ready) await document.fonts.ready;
@@ -2088,26 +2109,81 @@
                         const memberName = document.getElementById('portalNameDisplay')?.textContent.trim() || 'ALEXANDRE DE VANCE';
                         const memberSerial = document.getElementById('portalNumberDisplay')?.textContent.trim() || '4892 • 7710 • 8421 • 0963';
                         const validDate = document.getElementById('portalValidDisplay')?.textContent.trim() || '12 / 29';
+                        const tierPillText = (document.getElementById('portalTierPill')?.textContent || 'Private Noir').trim();
+                        const brandSubText = (document.getElementById('portalBrandSub')?.textContent || 'Art, Arch & Academia • Expertise Society').trim().replace(/\s+/g, ' ');
+                        const dossierRef = (document.getElementById('panelDossierText')?.textContent || 'DOSSIER-GH-2026').trim();
 
-                        // Isolated off-screen staging
+                        // Detect active theme directly from card3D
+                        let activeTheme = 'theme-noir';
+                        let tierLabel = 'NOIR', tierFull = 'Noir Obsidian';
+                        if (card3DActual?.classList.contains('theme-rouge') || tierPillText.toLowerCase().includes('rouge') || tierPillText.toLowerCase().includes('imp')) {
+                            activeTheme = 'theme-rouge';
+                            tierLabel = 'ROUGE';
+                            tierFull = 'Rouge Impérial';
+                        } else if (card3DActual?.classList.contains('theme-bleu') || tierPillText.toLowerCase().includes('bleu') || tierPillText.toLowerCase().includes('saph')) {
+                            activeTheme = 'theme-bleu';
+                            tierLabel = 'BLEU';
+                            tierFull = 'Bleu Saphir';
+                        }
+
+                        // Off-screen staging container
                         const offscreen = document.createElement('div');
                         offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:530px;height:334px;z-index:-9999;overflow:hidden;background:transparent;';
                         document.body.appendChild(offscreen);
 
-                        const frontClone = cardFrontEl.cloneNode(true);
-                        frontClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;padding:22px 26px 20px 26px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
-                        const cloneName = frontClone.querySelector('.card-holder-name');
-                        if (cloneName) cloneName.style.cssText += 'overflow:visible !important;line-height:1.4 !important;padding-bottom:4px !important;';
+                        // Helper to prepare card clone with matching theme and clean html2canvas rendering
+                        function prepareClone(originalEl, isBack) {
+                            const wrapper = document.createElement('div');
+                            wrapper.id = 'card3D';
+                            wrapper.className = 'card-3d-wrapper ' + activeTheme;
+                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;';
 
-                        offscreen.appendChild(frontClone);
-                        const frontCanvas = await html2canvas(frontClone, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
-                        offscreen.removeChild(frontClone);
+                            const clone = originalEl.cloneNode(true);
+                            clone.className = originalEl.className + ' ' + activeTheme;
+                            clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;' + (isBack ? 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;' : 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;');
 
-                        const backClone = cardBackEl.cloneNode(true);
-                        backClone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;';
-                        offscreen.appendChild(backClone);
-                        const backCanvas = await html2canvas(backClone, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
-                        offscreen.removeChild(backClone);
+                            // Hide glare in clone to avoid washed-out capture
+                            const glare = clone.querySelector('.card-glare, .card-dock-glare');
+                            if (glare) glare.style.display = 'none';
+
+                            // Fix html2canvas background-clip text bug (removes ugly gold box behind text)
+                            const brandName = clone.querySelector('.card-brand-name');
+                            if (brandName) {
+                                brandName.style.setProperty('background', 'none', 'important');
+                                brandName.style.setProperty('-webkit-background-clip', 'border-box', 'important');
+                                brandName.style.setProperty('background-clip', 'border-box', 'important');
+                                const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
+                                brandName.style.setProperty('-webkit-text-fill-color', goldColor, 'important');
+                                brandName.style.setProperty('color', goldColor, 'important');
+                                brandName.style.setProperty('text-shadow', '0 1px 2px rgba(0,0,0,0.85)', 'important');
+                            }
+
+                            // Keep uniform sub brand
+                            const cloneBrandSub = clone.querySelector('.card-brand-sub');
+                            if (cloneBrandSub) cloneBrandSub.textContent = brandSubText;
+
+                            // Keep uniform tier pill
+                            const cloneTierPill = clone.querySelector('.card-tier-pill');
+                            if (cloneTierPill) cloneTierPill.textContent = tierPillText;
+
+                            const cloneName = clone.querySelector('.card-holder-name');
+                            if (cloneName) cloneName.style.cssText += 'overflow:visible !important;line-height:1.4 !important;padding-bottom:4px !important;';
+
+                            wrapper.appendChild(clone);
+                            return wrapper;
+                        }
+
+                        // 1. Capture Front
+                        const frontWrapper = prepareClone(cardFrontEl, false);
+                        offscreen.appendChild(frontWrapper);
+                        const frontCanvas = await html2canvas(frontWrapper, { scale: 3, useCORS: true, allowTaint: false, backgroundColor: null });
+                        offscreen.removeChild(frontWrapper);
+
+                        // 2. Capture Back
+                        const backWrapper = prepareClone(cardBackEl, true);
+                        offscreen.appendChild(backWrapper);
+                        const backCanvas = await html2canvas(backWrapper, { scale: 3, useCORS: true, allowTaint: false, backgroundColor: null });
+                        offscreen.removeChild(backWrapper);
                         document.body.removeChild(offscreen);
 
                         const frontImg = frontCanvas.toDataURL('image/png');
@@ -2153,12 +2229,12 @@
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, 47.5);
+                        doc.text('RECTO • CARD FRONT', 33, 47.5);
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, 51.7, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(frontImg, 'PNG', cardX, 50.5, cardW, cardH);
 
-                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, 148.5);
+                        doc.text('VERSO • CARD BACK', 33, 148.5);
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, 152.7, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(backImg, 'PNG', cardX, 151.5, cardW, cardH);
@@ -2176,8 +2252,8 @@
                         doc.setFontSize(7.2);
                         doc.setTextColor(115, 120, 130);
                         const issueDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Balikpapan • Tokyo  •  Issued: ${issueDate}`, 105, 262, { align: 'center' });
-                        doc.text('Official Registry Reference: Series GH-0963-NOIR  •  Registered with EKRAF Kemenparekraf RI', 105, 266.5, { align: 'center' });
+                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Gray Riche Maison  •  Issued: ${issueDate}`, 105, 262, { align: 'center' });
+                        doc.text(`Official Registry Reference: ${dossierRef}  •  ${tierFull}  •  Enjoy the Full Extent of Your Privileges.`, 105, 266.5, { align: 'center' });
 
                         // PAGE 2: Standalone Card Front Only (85.6mm x 53.98mm)
                         doc.addPage([85.6, 53.98], 'landscape');
@@ -2188,7 +2264,7 @@
                         doc.addImage(backImg, 'PNG', 0, 0, 85.6, 53.98);
 
                         const cleanNum = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
-                        const filename = `Gray_Hansen_Membership_Card_${cleanNum}.pdf`;
+                        const filename = `Gray_Riche_Maison_Society_Card_${cleanNum}_${tierLabel}.pdf`;
 
                         try {
                             doc.save(filename);
@@ -2210,6 +2286,105 @@
                     } finally {
                         downloadBtn.disabled = false;
                         downloadBtn.innerHTML = originalBtnContent;
+                    }
+                });
+            }
+
+            // Download Card as JPG (High Resolution)
+            const downloadJpgBtn = document.getElementById('portalDownloadJpgBtn');
+            if (downloadJpgBtn) {
+                downloadJpgBtn.addEventListener('click', async () => {
+                    const originalContent = downloadJpgBtn.innerHTML;
+                    downloadJpgBtn.disabled = true;
+                    downloadJpgBtn.innerHTML = '<span>Capturing Card Image...</span>';
+                    try {
+                        const cardFrontEl = document.getElementById('cardFrontView');
+                        const card3DActual = document.getElementById('card3D');
+                        if (!cardFrontEl) throw new Error('Card element missing');
+
+                        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
+                        const tierPillText = (document.getElementById('portalTierPill')?.textContent || 'Private Noir').trim();
+                        const brandSubText = (document.getElementById('portalBrandSub')?.textContent || 'Art, Arch & Academia • Expertise Society').trim().replace(/\s+/g, ' ');
+
+                        let activeTheme = 'theme-noir';
+                        let tierLabel = 'NOIR';
+                        if (card3DActual?.classList.contains('theme-rouge') || tierPillText.toLowerCase().includes('rouge') || tierPillText.toLowerCase().includes('imp')) {
+                            activeTheme = 'theme-rouge';
+                            tierLabel = 'ROUGE';
+                        } else if (card3DActual?.classList.contains('theme-bleu') || tierPillText.toLowerCase().includes('bleu') || tierPillText.toLowerCase().includes('saph')) {
+                            activeTheme = 'theme-bleu';
+                            tierLabel = 'BLEU';
+                        }
+
+                        // Staging
+                        const offscreen = document.createElement('div');
+                        offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:530px;height:334px;z-index:-9999;overflow:hidden;background:transparent;';
+                        document.body.appendChild(offscreen);
+
+                        const wrapper = document.createElement('div');
+                        wrapper.id = 'card3D';
+                        wrapper.className = 'card-3d-wrapper ' + activeTheme;
+                        wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;';
+
+                        const clone = cardFrontEl.cloneNode(true);
+                        clone.className = cardFrontEl.className + ' ' + activeTheme;
+                        clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;padding:22px 26px 20px 26px !important;box-sizing:border-box !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;';
+
+                        const glare = clone.querySelector('.card-glare, .card-dock-glare');
+                        if (glare) glare.style.display = 'none';
+
+                        const brandName = clone.querySelector('.card-brand-name');
+                        if (brandName) {
+                            brandName.style.setProperty('background', 'none', 'important');
+                            brandName.style.setProperty('-webkit-background-clip', 'border-box', 'important');
+                            brandName.style.setProperty('background-clip', 'border-box', 'important');
+                            const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
+                            brandName.style.setProperty('-webkit-text-fill-color', goldColor, 'important');
+                            brandName.style.setProperty('color', goldColor, 'important');
+                            brandName.style.setProperty('text-shadow', '0 1px 2px rgba(0,0,0,0.85)', 'important');
+                        }
+
+                        const cloneBrandSub = clone.querySelector('.card-brand-sub');
+                        if (cloneBrandSub) cloneBrandSub.textContent = brandSubText;
+
+                        const cloneTierPill = clone.querySelector('.card-tier-pill');
+                        if (cloneTierPill) cloneTierPill.textContent = tierPillText;
+
+                        wrapper.appendChild(clone);
+                        offscreen.appendChild(wrapper);
+
+                        const canvas = await html2canvas(wrapper, {
+                            scale: 3,
+                            useCORS: true,
+                            allowTaint: false,
+                            backgroundColor: null,
+                            logging: false
+                        });
+
+                        document.body.removeChild(offscreen);
+
+                        const memberName = (document.getElementById('portalNameDisplay')?.textContent || 'member').replace(/\s+/g, '-').toLowerCase();
+                        const memberSerial = (document.getElementById('portalNumberDisplay')?.textContent || '').replace(/[^0-9]/g, '').slice(0, 8) || 'card';
+                        const filename = `GH-Card-${memberName}-${memberSerial}_${tierLabel}.jpg`;
+
+                        canvas.toBlob((blob) => {
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1200);
+                            showToast(`Downloaded: ${filename}`);
+                        }, 'image/jpeg', 0.95);
+
+                    } catch (err) {
+                        console.error('JPG download error:', err);
+                        showToast(`Error: ${err.message || 'Could not capture card'}`);
+                    } finally {
+                        downloadJpgBtn.disabled = false;
+                        downloadJpgBtn.innerHTML = originalContent;
                     }
                 });
             }
