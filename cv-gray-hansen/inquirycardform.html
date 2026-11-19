@@ -1594,13 +1594,13 @@
                                             <div class="card-guilloche-pattern"></div>
                                             <div class="card-top-row">
                                                 <div class="card-brand-group">
-                                                    <div class="card-hanko-seal">
-                                                        <span>林</span><span>勝</span>
+                                                    <div class="card-hanko-seal" id="searchHanko">
+                                                        <span>林</span><span>福</span><span>勝</span>
                                                     </div>
                                                     <div class="card-brand-titles">
                                                         <span class="card-brand-name">Gray Hansen Limantoro</span>
-                                                        <span class="card-brand-sub">Creative Atelier &bull; Balikpapan
-                                                            &bull; Tokyo</span>
+                                                        <span class="card-brand-sub" id="searchBrandSub">Art, Arch &amp;
+                                                            Academia &bull; Expertise Society</span>
                                                     </div>
                                                 </div>
                                                 <div class="card-nfc-wave">
@@ -1621,8 +1621,8 @@
                                             </div>
 
                                             <div>
-                                                <div class="card-meta-label">Official Member Number &bull; Distinction
-                                                    Series</div>
+                                                <div class="card-meta-label">Official Affiliation Number &bull; Elite
+                                                    Distinction Series</div>
                                                 <div class="card-number-display" id="searchCardNumDisplay">4892 &bull;
                                                     7710 &bull; 8421 &bull; 0963</div>
                                             </div>
@@ -2989,6 +2989,10 @@
                 if (searchCardHolderDisplay) searchCardHolderDisplay.textContent = cardDisplayName.toUpperCase();
                 if (searchCardNumDisplay) searchCardNumDisplay.textContent = serial;
                 if (searchCardTierPill) searchCardTierPill.textContent = isMaroon ? 'Rouge Impérial' : (isBleu ? 'Bleu Saphir' : 'Private Noir');
+                const searchBrandSubEl = document.getElementById('searchBrandSub') || document.querySelector('#searchCardFrontView .card-brand-sub');
+                if (searchBrandSubEl) {
+                    searchBrandSubEl.textContent = isMaroon ? 'EXCLUSIVELY APPOINTED • Honoured' : (isBleu ? 'Venture CAPITAL • Investments' : 'Art, Arch & Academia • Expertise Society');
+                }
                 if (searchCardSigDisplay) {
                     const titleWords = cardDisplayName.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1));
                     searchCardSigDisplay.textContent = titleWords.join(' ');
@@ -3117,7 +3121,7 @@
                     const originalBtnContent = searchDownloadPdfBtn.innerHTML;
                     searchDownloadPdfBtn.disabled = true;
                     searchDownloadPdfBtn.innerHTML = '<span>Compiling 3-Page Pass...</span>';
-                    showToast('Generating multi-page accreditation dossier...');
+                    showToast('Generating official 3-page pass...');
 
                     try {
                         const cardFrontEl = document.getElementById('searchCardFrontView');
@@ -3127,29 +3131,28 @@
 
                         if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
-                        const memberName = (document.getElementById('searchDossierName')?.textContent || 'MEMBER').trim();
-                        const cardDisplayName = (document.getElementById('searchDossierDisplayName')?.textContent || memberName).trim();
-                        const serialNum = (document.getElementById('searchDossierSerial')?.textContent || '0000 • 0000 • 0000 • 0000').trim();
-                        const tierPillText = (document.querySelector('#searchCardFrontView .card-tier-pill')?.textContent || document.getElementById('searchDossierTier')?.textContent || 'Noir Obsidian').trim();
+                        const memberName = (document.getElementById('searchDossierName')?.textContent || 'ALEXANDRE DE VANCE').trim();
+                        const memberSerial = (document.getElementById('searchDossierSerial')?.textContent || '4892 • 7710 • 8421 • 0963').trim();
+                        const validDate = (document.querySelector('#searchCardFrontView .card-valid-date')?.textContent || '12 / 29').trim();
+                        const tierPillText = (document.querySelector('#searchCardFrontView .card-tier-pill')?.textContent || document.getElementById('searchDossierTier')?.textContent || 'Private Noir').trim();
                         const dossierRef = (document.getElementById('searchDossierRef')?.textContent || 'DOSSIER-GH-2026').trim();
-                        const validThru = (document.querySelector('#searchCardFrontView .card-valid-date')?.textContent || '12 / 29').trim();
 
                         // Detect active theme
                         let activeTheme = 'theme-noir';
                         let tierLabel = 'NOIR', tierFull = 'Noir Obsidian';
-                        let standardSub = 'Art, Arch & Academia \u2022 Expertise Society';
+                        let standardSub = 'Art, Arch & Academia • Expertise Society';
 
                         const tierLower = tierPillText.toLowerCase();
                         if (searchCard3DEl?.classList.contains('theme-rouge') || tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('imp')) {
                             activeTheme = 'theme-rouge';
                             tierLabel = 'ROUGE';
-                            tierFull = 'Rouge Imp\u00e9rial';
-                            standardSub = 'EXCLUSIVELY APPOINTED \u2022 Honoured';
+                            tierFull = 'Rouge Impérial';
+                            standardSub = 'EXCLUSIVELY APPOINTED • Honoured';
                         } else if (searchCard3DEl?.classList.contains('theme-bleu') || tierLower.includes('bleu') || tierLower.includes('saph') || tierLower.includes('blue')) {
                             activeTheme = 'theme-bleu';
                             tierLabel = 'BLEU';
                             tierFull = 'Bleu Saphir';
-                            standardSub = 'Venture CAPITAL \u2022 Investments';
+                            standardSub = 'Venture CAPITAL • Investments';
                         }
 
                         // Off-screen staging container
@@ -3157,54 +3160,162 @@
                         offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:530px;height:334px;z-index:-9999;overflow:hidden;background:transparent;';
                         document.body.appendChild(offscreen);
 
-                        // Clone helper with theme, brand fix, bottom row fix
-                        function prepareSearchClone(originalEl, isBack) {
+                        // Helper to prepare card clone with matching theme and clean html2canvas rendering
+                        function prepareClone(originalEl, isBack) {
                             const wrapper = document.createElement('div');
-                            wrapper.id = 'searchCard3D';
+                            wrapper.id = 'card3D';
                             wrapper.className = 'card-3d-wrapper ' + activeTheme;
-                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;';
+                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;overflow:visible;';
 
                             const clone = originalEl.cloneNode(true);
                             clone.className = originalEl.className + ' ' + activeTheme;
-                            clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;' + (isBack ? 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;' : 'padding:22px 26px 20px 26px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;');
 
-                            const glare = clone.querySelector('.card-glare, .card-dock-glare');
-                            if (glare) glare.style.display = 'none';
+                            if (!isBack) {
+                                // FRONT FACE (RECTO)
+                                clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;padding:22px 28px 20px 28px !important;display:flex !important;flex-direction:column !important;justify-content:space-between !important;overflow:hidden !important;';
 
-                            // Eliminate html2canvas gold rectangle bug
-                            const brandName = clone.querySelector('.card-brand-name');
-                            if (brandName) {
-                                const brandNameText = brandName.textContent.trim() || 'Gray Hansen Limantoro';
+                                const glare = clone.querySelector('.card-glare, .card-dock-glare');
+                                if (glare) glare.style.display = 'none';
+
+                                // 3-KANJI Hanko Seal
+                                const hanko = clone.querySelector('.card-hanko-seal');
+                                if (hanko) {
+                                    hanko.innerHTML = '<span>林</span><span>福</span><span>勝</span>';
+                                    hanko.style.cssText = 'width:38px !important;height:38px !important;border:1.5px solid #c22d2d !important;border-radius:3px !important;background:rgba(194, 45, 45, 0.12) !important;color:#e04343 !important;display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;font-size:0.75rem !important;font-weight:700 !important;line-height:1 !important;letter-spacing:0.05em !important;flex-shrink:0 !important;box-shadow:0 0 10px rgba(224, 67, 67, 0.25) !important;';
+                                }
+
+                                // Brand Name (Solid Gold Cinzel - Eliminates html2canvas box bug)
+                                const brandName = clone.querySelector('.card-brand-name');
                                 const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
-                                const flatSpan = document.createElement('span');
-                                flatSpan.textContent = brandNameText;
-                                flatSpan.style.cssText = 'font-family: var(--font-display), "Cinzel", Georgia, serif !important; font-size: 0.86rem !important; font-weight: 700 !important; letter-spacing: 0.24em !important; text-transform: uppercase !important; color: ' + goldColor + ' !important; background: transparent !important; background-image: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: ' + goldColor + ' !important; line-height: 1.2 !important; white-space: nowrap !important; text-shadow: 0 1px 2px rgba(0,0,0,0.85) !important; display: inline-block !important;';
-                                brandName.replaceWith(flatSpan);
-                            }
+                                if (brandName) {
+                                    const flatSpan = document.createElement('span');
+                                    flatSpan.textContent = 'GRAY HANSEN LIMANTORO';
+                                    flatSpan.style.cssText = 'font-family:"Cinzel", Georgia, serif !important;font-size:0.86rem !important;font-weight:700 !important;letter-spacing:0.22em !important;text-transform:uppercase !important;color:' + goldColor + ' !important;line-height:1.2 !important;white-space:nowrap !important;display:inline-block !important;text-shadow:0 1px 2px rgba(0,0,0,0.85) !important;';
+                                    brandName.replaceWith(flatSpan);
+                                }
 
-                            // Correct brand sub
-                            const cloneBrandSub = clone.querySelector('.card-brand-sub');
-                            if (cloneBrandSub) cloneBrandSub.textContent = standardSub;
+                                // Brand Subtitle according to Tier
+                                const cloneBrandSub = clone.querySelector('.card-brand-sub');
+                                if (cloneBrandSub) {
+                                    cloneBrandSub.textContent = standardSub;
+                                    cloneBrandSub.style.cssText = 'font-size:0.58rem !important;letter-spacing:0.20em !important;text-transform:uppercase !important;color:rgba(255,255,255,0.7) !important;margin-top:2px !important;white-space:nowrap !important;display:block !important;';
+                                }
 
-                            // Sync tier pill
-                            const cloneTierPill = clone.querySelector('.card-tier-pill');
-                            if (cloneTierPill) {
-                                cloneTierPill.textContent = tierPillText;
-                                cloneTierPill.style.cssText += 'display: inline-flex !important; align-items: center !important; margin: 0 !important; vertical-align: middle !important;';
-                            }
+                                // Contactless Wave Icon (Safe from corner curve)
+                                const nfc = clone.querySelector('.card-nfc-wave');
+                                if (nfc) {
+                                    nfc.style.cssText = 'display:flex !important;align-items:center !important;color:' + (activeTheme === 'theme-rouge' ? '#ffd700' : (activeTheme === 'theme-bleu' ? '#93c5fd' : '#ebd08d')) + ' !important;opacity:0.9 !important;margin-right:2px !important;';
+                                }
 
-                            // Perfect bottom row alignment
-                            const cloneBotRow = clone.querySelector('.card-bottom-row');
-                            if (cloneBotRow) {
-                                cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
-                            }
-                            const cloneValGroup = clone.querySelector('.card-validity-group');
-                            if (cloneValGroup) {
-                                cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
-                            }
-                            const cloneName = clone.querySelector('.card-holder-name');
-                            if (cloneName) {
-                                cloneName.style.cssText += 'overflow: visible !important; line-height: 1.2 !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important;';
+                                // EMV Chip & Hologram Row
+                                const chipRow = clone.querySelector('.card-chip-row');
+                                if (chipRow) {
+                                    chipRow.style.cssText = 'display:flex !important;align-items:center !important;justify-content:space-between !important;position:relative !important;z-index:3 !important;margin-top:10px !important;margin-bottom:8px !important;';
+                                }
+
+                                const emvChip = clone.querySelector('.emv-chip');
+                                if (emvChip) {
+                                    emvChip.style.cssText = 'width:52px !important;height:40px !important;border-radius:6px !important;border:1px solid #785a1a !important;box-shadow:inset 0 1px 2px rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.4) !important;flex-shrink:0 !important;';
+                                }
+
+                                const holo = clone.querySelector('.card-hologram-seal');
+                                if (holo) {
+                                    holo.style.cssText = 'width:46px !important;height:46px !important;border-radius:50% !important;display:flex !important;align-items:center !important;justify-content:center !important;margin-right:2px !important;flex-shrink:0 !important;box-shadow:0 0 14px rgba(224,195,252,0.35) !important;border:1px solid rgba(255,255,255,0.5) !important;overflow:hidden !important;';
+                                }
+
+                                // Serial Meta Label
+                                const metaLabels = clone.querySelectorAll('.card-meta-label');
+                                if (metaLabels.length > 0) {
+                                    metaLabels[0].textContent = 'OFFICIAL AFFILIATION NUMBER • ELITE DISTINCTION SERIES';
+                                    metaLabels[0].style.cssText = 'font-size:0.52rem !important;letter-spacing:0.20em !important;text-transform:uppercase !important;color:rgba(255,255,255,0.5) !important;margin-bottom:2px !important;font-weight:600 !important;display:block !important;';
+                                }
+
+                                // Card Number Display (Safe letter spacing so it never overflows)
+                                const cloneNum = clone.querySelector('.card-number-display');
+                                if (cloneNum) {
+                                    cloneNum.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-size:1.30rem !important;font-weight:700 !important;letter-spacing:0.11em !important;color:#ebd08d !important;margin:4px 0 !important;white-space:nowrap !important;overflow:visible !important;display:block !important;text-shadow:0 1px 2px rgba(0,0,0,0.9) !important;';
+                                }
+
+                                // Bottom Row (Flex-End Baseline Alignment)
+                                const cloneBotRow = clone.querySelector('.card-bottom-row');
+                                if (cloneBotRow) {
+                                    cloneBotRow.style.cssText = 'display:flex !important;align-items:flex-end !important;justify-content:space-between !important;margin-top:auto !important;padding-bottom:2px !important;position:relative !important;z-index:3 !important;';
+                                }
+
+                                const cloneName = clone.querySelector('.card-holder-name');
+                                if (cloneName) {
+                                    cloneName.style.cssText = 'font-family:"Cinzel", Georgia, serif !important;font-size:0.95rem !important;font-weight:700 !important;letter-spacing:0.16em !important;text-transform:uppercase !important;color:#ffffff !important;line-height:1.35 !important;white-space:nowrap !important;max-width:270px !important;overflow:visible !important;margin:0 !important;padding:0 0 2px 0 !important;text-shadow:0 1px 2px rgba(0,0,0,0.9) !important;';
+                                }
+
+                                const cloneValGroup = clone.querySelector('.card-validity-group');
+                                if (cloneValGroup) {
+                                    cloneValGroup.style.cssText = 'display:flex !important;align-items:center !important;gap:14px !important;';
+                                }
+
+                                const cloneValDate = clone.querySelector('.card-valid-date');
+                                if (cloneValDate) {
+                                    cloneValDate.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-size:0.84rem !important;font-weight:700 !important;letter-spacing:0.12em !important;color:#ebd08d !important;white-space:nowrap !important;';
+                                }
+
+                                const cloneTierPill = clone.querySelector('.card-tier-pill');
+                                if (cloneTierPill) {
+                                    cloneTierPill.textContent = tierPillText;
+                                    cloneTierPill.style.cssText = 'display:inline-flex !important;align-items:center !important;padding:4px 10px !important;border-radius:999px !important;font-size:0.56rem !important;letter-spacing:0.16em !important;text-transform:uppercase !important;font-weight:700 !important;color:#faebc3 !important;border:1px solid rgba(212,175,55,0.55) !important;background:linear-gradient(135deg, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0.08) 100%) !important;white-space:nowrap !important;box-shadow:0 2px 8px rgba(0,0,0,0.3) !important;';
+                                }
+
+                            } else {
+                                // BACK FACE (VERSO) - 0 padding on wrapper so stripe runs full edge-to-edge
+                                clone.style.cssText = 'position:relative !important;inset:auto !important;width:530px !important;height:334px !important;transform:none !important;border-radius:18px !important;box-sizing:border-box !important;padding:0 !important;display:flex !important;flex-direction:column !important;justify-content:flex-start !important;overflow:hidden !important;';
+
+                                const magStripe = clone.querySelector('.card-mag-stripe');
+                                if (magStripe) {
+                                    magStripe.style.cssText = 'width:100% !important;height:46px !important;margin:0 !important;border-radius:17px 17px 0 0 !important;background:linear-gradient(180deg, #222 0%, #0d0e12 50%, #1a1b22 100%) !important;border-bottom:1px solid rgba(0,0,0,0.9) !important;flex-shrink:0 !important;';
+                                }
+
+                                const backBody = clone.querySelector('.card-back-body');
+                                if (backBody) {
+                                    backBody.style.cssText = 'padding:14px 28px 16px 28px !important;display:flex !important;flex-direction:column !important;flex:1 !important;justify-content:space-between !important;box-sizing:border-box !important;';
+                                }
+
+                                const sigRow = clone.querySelector('.card-signature-row');
+                                if (sigRow) {
+                                    sigRow.style.cssText = 'display:flex !important;margin-top:2px !important;';
+                                }
+
+                                const sigPanel = clone.querySelector('.card-sig-panel');
+                                if (sigPanel) {
+                                    sigPanel.style.cssText = 'background:#f4f3ed !important;border:1px solid #d5cfc0 !important;border-radius:4px !important;height:34px !important;display:flex !important;align-items:center !important;justify-content:space-between !important;padding:0 14px !important;flex:1 !important;box-shadow:inset 0 1px 3px rgba(0,0,0,0.15) !important;';
+                                }
+
+                                const sigDisplay = clone.querySelector('.card-sig-cursive, #searchCardSigDisplay, #cardSigDisplay');
+                                if (sigDisplay) {
+                                    sigDisplay.style.cssText = 'font-family:"Playfair Display", Georgia, serif !important;font-style:italic !important;font-size:1.05rem !important;color:#18191c !important;letter-spacing:0.04em !important;';
+                                }
+
+                                const cvvBox = clone.querySelector('.card-cvv-box, #searchCardCvvDisplay');
+                                if (cvvBox) {
+                                    cvvBox.style.cssText = 'font-family:"Courier New", Courier, monospace !important;font-weight:700 !important;font-size:0.78rem !important;letter-spacing:0.12em !important;color:#222 !important;';
+                                }
+
+                                const backMeta = clone.querySelector('.card-back-meta');
+                                if (backMeta) {
+                                    backMeta.style.cssText = 'display:grid !important;grid-template-columns:1fr auto !important;align-items:center !important;gap:18px !important;margin-top:4px !important;';
+                                }
+
+                                const disclaimer = clone.querySelector('.card-legal-disclaimer');
+                                if (disclaimer) {
+                                    disclaimer.style.cssText = 'font-size:0.56rem !important;line-height:1.45 !important;color:rgba(255,255,255,0.6) !important;';
+                                }
+
+                                const qrBox = clone.querySelector('.card-qr-box');
+                                if (qrBox) {
+                                    qrBox.style.cssText = 'width:46px !important;height:46px !important;background:#ffffff !important;border-radius:6px !important;display:flex !important;align-items:center !important;justify-content:center !important;box-shadow:0 2px 8px rgba(0,0,0,0.4) !important;flex-shrink:0 !important;padding:4px !important;box-sizing:border-box !important;';
+                                }
+
+                                const backFooter = clone.querySelector('.card-back-footer');
+                                if (backFooter) {
+                                    backFooter.style.cssText = 'display:flex !important;align-items:center !important;justify-content:space-between !important;font-size:0.54rem !important;letter-spacing:0.16em !important;text-transform:uppercase !important;color:#d4af37 !important;border-top:1px solid rgba(212,175,55,0.25) !important;padding-top:6px !important;margin-top:2px !important;';
+                                }
                             }
 
                             wrapper.appendChild(clone);
@@ -3212,113 +3323,112 @@
                         }
 
                         // 1. Capture Front
-                        const frontWrapper = prepareSearchClone(cardFrontEl, false);
+                        const frontWrapper = prepareClone(cardFrontEl, false);
                         offscreen.appendChild(frontWrapper);
                         const frontCanvas = await html2canvas(frontWrapper, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
                         offscreen.removeChild(frontWrapper);
 
                         // 2. Capture Back
-                        const backWrapper = prepareSearchClone(cardBackEl, true);
+                        const backWrapper = prepareClone(cardBackEl, true);
                         offscreen.appendChild(backWrapper);
                         const backCanvas = await html2canvas(backWrapper, { scale: 2.5, useCORS: true, allowTaint: false, backgroundColor: null });
                         offscreen.removeChild(backWrapper);
                         document.body.removeChild(offscreen);
 
-                        const { jsPDF } = window.jspdf;
+                        const jsPDFClass = window.jspdf ? window.jspdf.jsPDF : (typeof jsPDF !== 'undefined' ? jsPDF : null);
+                        if (!jsPDFClass) throw new Error('jsPDF not initialized');
 
-                        // --- PAGE 1: A4 Luxury Dossier ---
-                        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                        doc.setFillColor(14, 15, 18);
+                        const doc = new jsPDFClass({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+                        // PAGE 1: Original Luxury Dossier on Cream Paper
+                        doc.setFillColor(252, 251, 247);
                         doc.rect(0, 0, 210, 297, 'F');
                         doc.setDrawColor(212, 175, 55);
-                        doc.setLineWidth(0.4);
+                        doc.setLineWidth(0.6);
                         doc.rect(10, 10, 190, 277);
-                        doc.setDrawColor(180, 140, 40);
+                        doc.setLineWidth(0.2);
                         doc.rect(12, 12, 186, 273);
 
-                        // Header
-                        doc.setTextColor(212, 175, 55);
-                        doc.setFont('times', 'bold');
+                        doc.setFont('helvetica', 'bold');
                         doc.setFontSize(8);
-                        doc.text('MAISON GRAY HANSEN LIMANTORO \u2022 OFFICIAL AFFILIATION PASS', 105, 22, { align: 'center' });
-                        doc.setFontSize(20);
-                        doc.text('The Card of Honour \u2022 Official Pass', 105, 32, { align: 'center' });
-                        doc.setFontSize(9);
+                        doc.setTextColor(170, 130, 40);
+                        doc.text('MAISON GRAY HANSEN LIMANTORO • OFFICIAL AFFILIATION PASS', 105, 22, { align: 'center' });
+
+                        doc.setFont('times', 'bold');
+                        doc.setFontSize(18);
+                        doc.setTextColor(20, 22, 28);
+                        doc.text('The Card of Honour • Official Pass', 105, 30, { align: 'center' });
+
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(8);
+                        doc.setTextColor(100, 105, 115);
+                        doc.text(`Cardholder: ${memberName}   •   Serial: ${memberSerial}   •   Valid: ${validDate}`, 105, 36.5, { align: 'center' });
+
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.35);
+                        doc.line(33, 41.5, 177, 41.5);
+
+                        const cardW = 144;
+                        const cardH = cardW / 1.586;
+                        const cardX = (210 - cardW) / 2;
+
+                        const frontImg = frontCanvas.toDataURL('image/png');
+                        const backImg = backCanvas.toDataURL('image/png');
+
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(7.5);
+                        doc.setTextColor(170, 130, 40);
+                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, 47.5);
+                        doc.setFillColor(224, 220, 210);
+                        doc.roundedRect(cardX + 1.2, 51.7, cardW, cardH, 3.5, 3.5, 'F');
+                        doc.addImage(frontImg, 'PNG', cardX, 50.5, cardW, cardH);
+
+                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, 148.5);
+                        doc.setFillColor(224, 220, 210);
+                        doc.roundedRect(cardX + 1.2, 152.7, cardW, cardH, 3.5, 3.5, 'F');
+                        doc.addImage(backImg, 'PNG', cardX, 151.5, cardW, cardH);
+
+                        doc.setDrawColor(212, 175, 55);
+                        doc.setLineWidth(0.35);
+                        doc.line(33, 250, 177, 250);
+
                         doc.setFont('times', 'italic');
-                        doc.setTextColor(200, 200, 200);
-                        doc.text('Cardholder: ' + memberName.toUpperCase() + '  \u2022  Serial: ' + serialNum + '  \u2022  Valid: ' + validThru, 105, 39, { align: 'center' });
+                        doc.setFontSize(8.5);
+                        doc.setTextColor(70, 75, 85);
+                        doc.text('“Capturing the dignity of posture through the refinement of classical chiaroscuro.”', 105, 256, { align: 'center' });
 
-                        doc.setDrawColor(212, 175, 55);
-                        doc.setLineWidth(0.3);
-                        doc.line(20, 43, 190, 43);
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(7.2);
+                        doc.setTextColor(115, 120, 130);
+                        const issueDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Balikpapan • Tokyo  •  Issued: ${issueDate}`, 105, 262, { align: 'center' });
+                        doc.text(`Official Registry Reference: ${dossierRef}  •  ${tierFull}  •  Registered with EKRAF Kemenparekraf RI`, 105, 266.5, { align: 'center' });
 
-                        // RECTO label
-                        doc.setTextColor(212, 175, 55);
-                        doc.setFont('times', 'bold');
-                        doc.setFontSize(7);
-                        doc.text('RECTO \u2022 CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 20, 50);
-
-                        // Front card image
-                        const frontData = frontCanvas.toDataURL('image/png');
-                        const backData = backCanvas.toDataURL('image/png');
-                        doc.addImage(frontData, 'PNG', 33, 53, 144, 90.72);
-
-                        // VERSO label
-                        doc.setTextColor(212, 175, 55);
-                        doc.setFont('times', 'bold');
-                        doc.setFontSize(7);
-                        doc.text('VERSO \u2022 CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 20, 150);
-
-                        // Back card image
-                        doc.addImage(backData, 'PNG', 33, 153, 144, 90.72);
-
-                        // Footer dossier info
-                        doc.setFillColor(22, 24, 30);
-                        doc.rect(20, 252, 170, 32, 'F');
-                        doc.setDrawColor(212, 175, 55);
-                        doc.setLineWidth(0.3);
-                        doc.rect(20, 252, 170, 32);
-                        doc.setTextColor(212, 175, 55);
-                        doc.setFont('times', 'bold');
-                        doc.setFontSize(7);
-                        doc.text('CREATIVE ATELIER \u2022 REGISTERED WITH KEMENPAREKRAF EKRAF', 26, 260);
-                        doc.setTextColor(180, 180, 180);
-                        doc.setFont('times', 'normal');
-                        doc.setFontSize(7);
-                        doc.text('SERIES GH-' + serialNum.replace(/\s*\u2022\s*/g, '-').replace(/\u2022/g, '-').split(/\s+/).pop() + '-' + tierLabel, 26, 266);
-                        doc.setTextColor(212, 175, 55);
-                        doc.setFont('times', 'bold');
-                        doc.text(dossierRef + ' \u2022 ' + tierFull, 190, 266, { align: 'right' });
-                        doc.setTextColor(180, 180, 180);
-                        doc.setFont('times', 'normal');
-                        doc.setFontSize(6.5);
-                        doc.text('This document is an official affiliation pass issued by Maison Gray Hansen Limantoro. For authentication, contact registry@grayhansen.id', 105, 278, { align: 'center' });
-
-                        // --- PAGE 2: Card Front CR80 ---
+                        // PAGE 2: Standalone Card Front Only (85.6mm x 53.98mm)
                         doc.addPage([85.6, 53.98], 'landscape');
-                        doc.addImage(frontData, 'PNG', 0, 0, 85.6, 53.98);
+                        doc.addImage(frontImg, 'PNG', 0, 0, 85.6, 53.98);
 
-                        // --- PAGE 3: Card Back CR80 ---
+                        // PAGE 3: Standalone Card Back Only (85.6mm x 53.98mm)
                         doc.addPage([85.6, 53.98], 'landscape');
-                        doc.addImage(backData, 'PNG', 0, 0, 85.6, 53.98);
+                        doc.addImage(backImg, 'PNG', 0, 0, 85.6, 53.98);
 
-                        // Download
-                        const cleanNum = serialNum.replace(/\s*\u2022\s*/g, '_').replace(/\s+/g, '');
-                        const fileName = 'Gray_Hansen_Membership_Card_' + cleanNum + '_' + tierLabel + '.pdf';
+                        const cleanNum = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
+                        const fileName = `Gray_Hansen_Membership_Card_${cleanNum}_${tierLabel}.pdf`;
+
                         try {
                             doc.save(fileName);
                         } catch (saveErr) {
                             const blob = doc.output('blob');
-                            const blobUrl = URL.createObjectURL(blob);
+                            const url = URL.createObjectURL(blob);
                             const a = document.createElement('a');
-                            a.href = blobUrl;
+                            a.href = url;
                             a.download = fileName;
                             document.body.appendChild(a);
                             a.click();
-                            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(blobUrl); }, 1000);
+                            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
                         }
 
-                        showToast('Downloaded 3-page pass for ' + memberName);
+                        showToast(`Downloaded official 3-page pass for ${memberName}`);
                     } catch (err) {
                         console.error('PDF generation error:', err);
                         showToast('Error generating PDF. Please try again.');
