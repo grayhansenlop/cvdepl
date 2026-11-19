@@ -2426,29 +2426,41 @@
             <ul class="menu-nav-list" id="drawerNavList">
                 <li class="menu-nav-item"><a href="index.html#home"><span class="menu-nav-num">01</span><span>La Maison
                             (Accueil)</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#photosessions"><span class="menu-nav-num">02</span><span>PhotoSessions &amp;
+                <li class="menu-nav-item"><a href="index.html#photosessions"><span
+                            class="menu-nav-num">02</span><span>PhotoSessions &amp;
                             Portraits d'Honneur</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#maisons"><span class="menu-nav-num">03</span><span>Les Domaines
+                <li class="menu-nav-item"><a href="index.html#maisons"><span class="menu-nav-num">03</span><span>Les
+                            Domaines
                             d'Excellence</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#portfolio"><span class="menu-nav-num">04</span><span>La Galerie (Design
+                <li class="menu-nav-item"><a href="index.html#portfolio"><span class="menu-nav-num">04</span><span>La
+                            Galerie (Design
                             &amp; Ouvrages)</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#achievements"><span class="menu-nav-num">05</span><span>Palmarès &amp;
+                <li class="menu-nav-item"><a href="index.html#achievements"><span
+                            class="menu-nav-num">05</span><span>Palmarès &amp;
                             Distinctions</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#experience"><span class="menu-nav-num">06</span><span>Parcours &amp;
+                <li class="menu-nav-item"><a href="index.html#experience"><span
+                            class="menu-nav-num">06</span><span>Parcours &amp;
                             Savoir-Faire</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#education"><span class="menu-nav-num">07</span><span>Académie &amp;
+                <li class="menu-nav-item"><a href="index.html#education"><span
+                            class="menu-nav-num">07</span><span>Académie &amp;
                             Certifications</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#research"><span class="menu-nav-num">08</span><span>Bibliothèque
+                <li class="menu-nav-item"><a href="index.html#research"><span
+                            class="menu-nav-num">08</span><span>Bibliothèque
                             Scientifique</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#media"><span class="menu-nav-num">09</span><span>Revue de Presse &amp;
+                <li class="menu-nav-item"><a href="index.html#media"><span class="menu-nav-num">09</span><span>Revue de
+                            Presse &amp;
                             Médias</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#community"><span class="menu-nav-num">10</span><span>Les Cercles &amp;
+                <li class="menu-nav-item"><a href="index.html#community"><span class="menu-nav-num">10</span><span>Les
+                            Cercles &amp;
                             Conférences</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#teamwork"><span class="menu-nav-num">11</span><span>Alliances &amp;
+                <li class="menu-nav-item"><a href="index.html#teamwork"><span
+                            class="menu-nav-num">11</span><span>Alliances &amp;
                             Partenaires</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#articles"><span class="menu-nav-num">12</span><span>Chroniques &amp;
+                <li class="menu-nav-item"><a href="index.html#articles"><span
+                            class="menu-nav-num">12</span><span>Chroniques &amp;
                             Essais</span></a></li>
-                <li class="menu-nav-item"><a href="index.html#contact"><span class="menu-nav-num">13</span><span>Conciergerie Privée &amp;
+                <li class="menu-nav-item"><a href="index.html#contact"><span
+                            class="menu-nav-num">13</span><span>Conciergerie Privée &amp;
                             Contact</span></a></li>
                 <li class="menu-nav-item"><a href="indexdua.html"><span class="menu-nav-num">14</span><span
                             style="color: var(--gold-500);">Carte de Membre (Membership Privilège) &nearr;</span></a>
@@ -3806,14 +3818,15 @@
                             <p
                                 style="color: var(--ink-secondary); font-size: 0.92rem; line-height: 1.65; margin-bottom: 20px;">
                                 Each membership card is indexed in the private registry of Maison Gray Hansen.
-                                Enter the number on the card or your serial code to confirm its
+                                Enter the card serial number or member's full name to confirm its
                                 statutory validity and active privileges.
                             </p>
 
                             <!-- Live Verification Form -->
                             <div class="verify-search-bar">
                                 <input type="text" id="verifyInput" class="verify-input"
-                                    value="4892 • 7710 • 8421 • 0963" placeholder="Enter Member Number...">
+                                    value="4892 • 7710 • 8421 • 0963"
+                                    placeholder="Enter Card Number or Member's Full Name...">
                                 <button type="button" class="btn btn-primary" id="verifyBtn"
                                     style="padding: 12px 22px;">
                                     <span>Verify &nearr;</span>
@@ -4878,13 +4891,12 @@
                 return null;
             }
 
-            if (verifyBtn && verifyInput) {
-                            // Query Live Google Sheets Registry directly via official Google Apps Script endpoint
+            // Query Live Google Sheets Registry directly via official Google Apps Script endpoint
             async function queryGASRegistry(query) {
                 if (!query) return null;
-                // Query serial and search parameter to GAS
                 const qClean = query.trim();
-                const url = GAS_ENDPOINT + '?serial=' + encodeURIComponent(qClean) + '&search=' + encodeURIComponent(qClean);
+                // Send q, serial, and search to ensure matching by both number and name
+                const url = GAS_ENDPOINT + '?q=' + encodeURIComponent(qClean) + '&serial=' + encodeURIComponent(qClean) + '&search=' + encodeURIComponent(qClean);
                 try {
                     const res = await fetch(url, { mode: 'cors' });
                     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -4898,10 +4910,11 @@
                 return null;
             }
 
-            verifyBtn.addEventListener('click', async () => {
+            if (verifyBtn && verifyInput) {
+                verifyBtn.addEventListener('click', async () => {
                     const val = verifyInput.value.trim();
                     if (!val) {
-                        showToast('Masukkan nomor anggota, serial, atau dossier.');
+                        showToast('Masukkan nomor kartu, nama lengkap, atau kode dossier.');
                         return;
                     }
 
@@ -4984,7 +4997,7 @@
                                 verifyResultName.innerHTML = '<span style="color:#e65050;">data tidak ditemukan</span>';
                             }
                             if (verifyResultTier) {
-                                verifyResultTier.textContent = `Nomor "${val}" tidak terdaftar di database`;
+                                verifyResultTier.textContent = `Identitas atau nomor "${val}" tidak terdaftar di database`;
                                 verifyResultTier.style.color = '#e65050';
                             }
                             if (verifyResultDate) verifyResultDate.textContent = '—';
