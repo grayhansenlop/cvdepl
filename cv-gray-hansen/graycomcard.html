@@ -143,7 +143,7 @@
             }
         }
 
-        /* Card 3D Styling */
+        /* Card 3D Styling - Strictly Matching indexdua.html */
         .card-stage-container {
             display: flex;
             flex-direction: column;
@@ -152,7 +152,8 @@
             perspective: 1400px;
         }
 
-        .card-3d-wrapper {
+        .card-3d-wrapper,
+        .dock-card-3d-wrapper {
             width: 100%;
             max-width: 530px;
             aspect-ratio: 1.586 / 1;
@@ -163,21 +164,29 @@
             user-select: none;
         }
 
-        .card-flipper {
+        .card-3d-wrapper:active,
+        .dock-card-3d-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .card-flipper,
+        .dock-card-flipper {
             width: 100%;
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
             border-radius: 18px;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(166, 129, 46, 0.2);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 10px 24px rgba(166, 129, 46, 0.22);
         }
 
-        .card-flipper.is-flipped {
+        .card-flipper.is-flipped,
+        .dock-card-flipper.is-flipped {
             transform: rotateY(180deg);
         }
 
-        .card-face {
+        .card-face,
+        .dock-card-face {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -189,12 +198,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: clamp(20px, 3.2vw, 26px) clamp(20px, 3.5vw, 30px);
+            padding: clamp(18px, 3vw, 26px) clamp(18px, 3.2vw, 28px);
             border: 1px solid rgba(212, 175, 55, 0.45);
             background-color: #0b0c10;
         }
 
-        .card-front {
+        /* FRONT FACE: Matte Obsidian & 24K Gold Hot Foil */
+        .card-front,
+        .dock-card-front {
             background:
                 radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.18) 0%, transparent 40%),
                 radial-gradient(circle at 15% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
@@ -203,24 +214,7 @@
             z-index: 2;
         }
 
-        .card-front.theme-maroon {
-            background:
-                radial-gradient(circle at 85% 15%, rgba(255, 195, 75, 0.24) 0%, transparent 42%),
-                radial-gradient(circle at 15% 85%, rgba(210, 25, 40, 0.45) 0%, transparent 50%),
-                linear-gradient(135deg, #44090e 0%, #2b0407 48%, #160103 100%) !important;
-            border-color: rgba(235, 185, 70, 0.65) !important;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            background:
-                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 40%),
-                linear-gradient(135deg, #121319 0%, #090a0d 100%);
-            color: #f7f5ed;
-            padding: 0;
-            justify-content: flex-start;
-        }
-
+        /* Fine Guilloche & Security Mesh overlay */
         .card-guilloche-pattern {
             position: absolute;
             inset: 0;
@@ -233,6 +227,26 @@
             background-size: 32px 32px, 40px 40px, 40px 40px;
         }
 
+        /* Dynamic Glare Overlay that follows mouse */
+        .card-glare,
+        .card-dock-glare {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 18px;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 65%);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .card-3d-wrapper:hover .card-glare,
+        .dock-card-3d-wrapper:hover .card-dock-glare {
+            opacity: 1;
+        }
+
+        /* Card Front Header Row */
         .card-top-row {
             display: flex;
             align-items: flex-start;
@@ -245,6 +259,36 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        /* CRITICAL: Brand Titles Flex Column prevents horizontal text collision */
+        .card-brand-titles {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-brand-name {
+            font-family: var(--font-display);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .card-brand-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 2px;
+            white-space: nowrap;
         }
 
         .card-hanko-seal {
@@ -267,35 +311,23 @@
             flex-shrink: 0;
         }
 
-        .card-brand-name {
-            font-family: var(--font-display);
-            font-size: 0.86rem;
-            font-weight: 700;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+        .card-nfc-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: var(--gold-400);
+            opacity: 0.85;
         }
 
-        .card-brand-sub {
-            font-size: 0.58rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.65);
-            margin-top: 2px;
-        }
-
+        /* EMV Microchip & Hologram Row */
         .card-chip-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: relative;
             z-index: 3;
-            margin-top: clamp(8px, 1.4vw, 14px);
-            margin-bottom: clamp(6px, 1.2vw, 12px);
+            margin-top: 14px;
+            margin-bottom: 12px;
         }
 
         .emv-chip {
@@ -308,6 +340,27 @@
             box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
             border: 1px solid #785a1a;
             flex-shrink: 0;
+        }
+
+        .emv-chip::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(80, 56, 12, 0.5);
+        }
+
+        .emv-chip::after {
+            content: "";
+            position: absolute;
+            left: 36%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(80, 56, 12, 0.5);
+            box-shadow: 14px 0 0 rgba(80, 56, 12, 0.5);
         }
 
         .card-hologram-seal {
@@ -331,9 +384,28 @@
             font-size: 0.95rem;
             letter-spacing: 0.1em;
             color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
             z-index: 2;
         }
 
+        .card-hologram-shimmer {
+            position: absolute;
+            inset: -50%;
+            background: linear-gradient(45deg, transparent 35%, rgba(255, 255, 255, 0.7) 50%, transparent 65%);
+            animation: holoRotate 4s linear infinite;
+        }
+
+        @keyframes holoRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Card Serial Number (Embossed Gold) */
         .card-number-display {
             font-family: "Courier New", Courier, "SF Mono", Monaco, Consolas, monospace;
             font-size: clamp(1.12rem, 1.95vw, 1.58rem);
@@ -347,6 +419,7 @@
             white-space: nowrap;
         }
 
+        /* Card Bottom Details (Holder Name, Valid Thru, Tier) */
         .card-bottom-row {
             display: flex;
             align-items: flex-end;
@@ -355,6 +428,11 @@
             z-index: 3;
             margin-top: auto;
             padding-bottom: 2px;
+        }
+
+        .card-meta-block {
+            display: flex;
+            flex-direction: column;
         }
 
         .card-meta-label {
@@ -381,6 +459,12 @@
             padding-bottom: 2px;
         }
 
+        .card-validity-group {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
         .card-valid-date {
             font-family: "Courier New", Courier, monospace;
             font-size: 0.84rem;
@@ -404,105 +488,134 @@
             color: #faebc3;
         }
 
-        .card-tier-pill::before {
-            content: "";
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: var(--gold-400);
-            box-shadow: 0 0 6px var(--gold-400);
+        /* BACK FACE: Magnetic Stripe, Signature Strip, QR Code */
+        .card-back,
+        .dock-card-back {
+            transform: rotateY(180deg);
+            background:
+                radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.12) 0%, transparent 40%),
+                linear-gradient(135deg, #121319 0%, #090a0d 100%);
+            color: #f7f5ed;
+            padding: 0;
+            justify-content: flex-start;
         }
 
-        /* CARD BACK */
         .card-mag-stripe {
             width: 100%;
-            height: 48px;
-            background: linear-gradient(180deg, #1b1d24 0%, #000000 50%, #15171d 100%);
-            margin-top: 22px;
-            border-top: 1px solid rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            height: clamp(40px, 6vw, 48px);
+            background: linear-gradient(180deg, #1b1c22 0%, #08090b 50%, #15161b 100%);
+            margin-top: clamp(16px, 2.5vw, 24px);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .card-mag-stripe::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 35%;
+            height: 1px;
+            background: rgba(212, 175, 55, 0.2);
         }
 
         .card-back-body {
-            padding: 16px 26px 22px 26px;
+            padding: 18px clamp(20px, 3.5vw, 30px) clamp(16px, 2.5vw, 24px);
             display: flex;
             flex-direction: column;
+            flex: 1;
             justify-content: space-between;
-            flex-grow: 1;
+        }
+
+        .card-signature-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .card-sig-panel {
-            background: #f7f6f0;
-            border: 1px solid #d0c8b6;
+            flex: 1;
             height: 38px;
+            background: #ededed;
+            background-image: repeating-linear-gradient(45deg, #e4e4e4, #e4e4e4 6px, #ffffff 6px, #ffffff 12px);
             border-radius: 4px;
+            padding: 0 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 14px;
-            color: #111;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .card-sig-cursive {
-            font-family: var(--font-script, cursive);
+            font-family: 'Cormorant Garamond', cursive, serif;
+            font-style: italic;
             font-size: 1.15rem;
-            color: #1a1e28;
-            font-weight: 600;
+            font-weight: 700;
+            color: #121319;
+            letter-spacing: 0.04em;
         }
 
         .card-cvv-box {
             font-family: "Courier New", Courier, monospace;
+            font-size: 0.82rem;
             font-weight: 700;
-            font-size: 0.78rem;
-            letter-spacing: 0.12em;
-            color: #333;
+            color: #1a1a1a;
+            letter-spacing: 0.14em;
         }
 
         .card-back-meta {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto;
             align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-top: 12px;
+            gap: 18px;
+            margin-top: 8px;
         }
 
         .card-legal-disclaimer {
-            font-size: 0.54rem;
-            line-height: 1.45;
+            font-size: 0.58rem;
             color: rgba(255, 255, 255, 0.55);
-            max-width: 340px;
+            line-height: 1.45;
         }
 
         .card-qr-box {
-            width: 52px;
-            height: 52px;
+            width: 58px;
+            height: 58px;
             background: #ffffff;
             border-radius: 6px;
+            padding: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
             flex-shrink: 0;
         }
 
         .card-back-footer {
-            margin-top: 10px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            font-size: 0.5rem;
-            letter-spacing: 0.16em;
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: auto;
         }
 
         /* =======================================================
            THEME OVERRIDES (Strictly matching indexdua.html)
-           Noir Obsidian (Default), Rouge Impérial, Bleu Saphir
+           Noir Obsidian (Default), Rouge Impérial & Bleu Saphir
+           Applicable to #card3D and any other cards rendered
            ======================================================= */
-        /* ROUGE IMPÉRIAL OVERRIDE */
-        #card3D.theme-rouge .card-front {
+
+        /* HERO CARD THEME TOGGLE: ROUGE IMPÉRIAL OVERRIDE */
+        #card3D.theme-rouge .card-front,
+        .card-3d-wrapper.theme-rouge .card-front,
+        .dock-card-front.rouge-face,
+        .card-front.theme-rouge,
+        .card-front.theme-maroon {
             background: radial-gradient(circle at 85% 15%, rgba(255, 195, 75, 0.24) 0%, transparent 42%),
                 radial-gradient(circle at 15% 85%, rgba(210, 25, 40, 0.45) 0%, transparent 50%),
                 linear-gradient(135deg, #44090e 0%, #2b0407 48%, #160103 100%) !important;
@@ -510,99 +623,157 @@
             color: #fff8f0 !important;
         }
 
-        #card3D.theme-rouge .card-hanko-seal {
+        #card3D.theme-rouge .card-hanko-seal,
+        .card-3d-wrapper.theme-rouge .card-hanko-seal,
+        .dock-card-front.rouge-face .card-hanko-seal,
+        .theme-rouge .card-hanko-seal {
             border-color: #ffd700 !important;
             background: rgba(255, 215, 0, 0.18) !important;
             color: #ffd700 !important;
             box-shadow: 0 0 12px rgba(255, 215, 0, 0.4) !important;
         }
 
-        #card3D.theme-rouge .card-tier-pill {
+        #card3D.theme-rouge .card-tier-pill,
+        .card-3d-wrapper.theme-rouge .card-tier-pill,
+        .dock-card-front.rouge-face .card-tier-pill,
+        .theme-rouge .card-tier-pill {
             background: linear-gradient(135deg, rgba(200, 35, 50, 0.6) 0%, rgba(120, 15, 25, 0.4) 100%) !important;
             border-color: rgba(255, 215, 0, 0.85) !important;
             color: #ffe6a3 !important;
         }
 
-        #card3D.theme-rouge .card-back {
+        #card3D.theme-rouge .card-back,
+        .card-3d-wrapper.theme-rouge .card-back,
+        .dock-card-back.rouge-back-face,
+        .card-back.theme-rouge,
+        .card-back.theme-maroon {
             background: radial-gradient(circle at 15% 15%, rgba(255, 215, 0, 0.16) 0%, transparent 40%),
                 linear-gradient(135deg, #38060a 0%, #1c0204 100%) !important;
             border-color: rgba(235, 185, 70, 0.65) !important;
         }
 
-        #card3D.theme-rouge .card-brand-name {
+        #card3D.theme-rouge .card-brand-name,
+        .card-3d-wrapper.theme-rouge .card-brand-name,
+        .dock-card-front.rouge-face .card-brand-name,
+        .theme-rouge .card-brand-name {
             background: linear-gradient(135deg, #fff2cc 0%, #e6be60 50%, #ffd978 100%) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
         }
 
-        #card3D.theme-rouge .card-brand-sub {
+        #card3D.theme-rouge .card-brand-sub,
+        .card-3d-wrapper.theme-rouge .card-brand-sub,
+        .dock-card-front.rouge-face .card-brand-sub,
+        .theme-rouge .card-brand-sub {
             color: rgba(255, 235, 200, 0.75) !important;
         }
 
-        #card3D.theme-rouge .card-nfc-wave {
+        #card3D.theme-rouge .card-nfc-wave,
+        .card-3d-wrapper.theme-rouge .card-nfc-wave,
+        .dock-card-front.rouge-face .card-nfc-wave,
+        .theme-rouge .card-nfc-wave {
             color: #ffd700 !important;
         }
 
-        #card3D.theme-rouge .emv-chip {
+        #card3D.theme-rouge .emv-chip,
+        .card-3d-wrapper.theme-rouge .emv-chip,
+        .dock-card-front.rouge-face .emv-chip,
+        .theme-rouge .emv-chip {
             border-color: #ffd700 !important;
         }
 
-        #card3D.theme-rouge .card-hologram-seal {
+        #card3D.theme-rouge .card-hologram-seal,
+        .card-3d-wrapper.theme-rouge .card-hologram-seal,
+        .dock-card-front.rouge-face .card-hologram-seal,
+        .theme-rouge .card-hologram-seal {
             background: linear-gradient(135deg, #ffd700 0%, #c41829 45%, #ffd7a8 75%, #8c101b 100%) !important;
             border-color: rgba(255, 255, 255, 0.8) !important;
         }
 
-        #card3D.theme-rouge .card-meta-label {
+        #card3D.theme-rouge .card-meta-label,
+        .card-3d-wrapper.theme-rouge .card-meta-label,
+        .dock-card-front.rouge-face .card-meta-label,
+        .theme-rouge .card-meta-label {
             color: rgba(255, 220, 180, 0.65) !important;
         }
 
-        #card3D.theme-rouge .card-number-display {
+        #card3D.theme-rouge .card-number-display,
+        .card-3d-wrapper.theme-rouge .card-number-display,
+        .dock-card-front.rouge-face .card-number-display,
+        .theme-rouge .card-number-display {
             color: #ffebaa !important;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.9) !important;
         }
 
-        #card3D.theme-rouge .card-holder-name {
+        #card3D.theme-rouge .card-holder-name,
+        .card-3d-wrapper.theme-rouge .card-holder-name,
+        .dock-card-front.rouge-face .card-holder-name,
+        .theme-rouge .card-holder-name {
             color: #fff8eb !important;
         }
 
-        #card3D.theme-rouge .card-valid-date {
+        #card3D.theme-rouge .card-valid-date,
+        .card-3d-wrapper.theme-rouge .card-valid-date,
+        .dock-card-front.rouge-face .card-valid-date,
+        .theme-rouge .card-valid-date {
             color: #ffd778 !important;
         }
 
-        #card3D.theme-rouge .card-mag-stripe {
+        #card3D.theme-rouge .card-mag-stripe,
+        .card-3d-wrapper.theme-rouge .card-mag-stripe,
+        .dock-card-back.rouge-back-face .card-mag-stripe,
+        .theme-rouge .card-mag-stripe {
             background: linear-gradient(180deg, #423010 0%, #1a1205 50%, #3a2808 100%) !important;
             border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
             border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
         }
 
-        #card3D.theme-rouge .card-sig-panel {
+        #card3D.theme-rouge .card-sig-panel,
+        .card-3d-wrapper.theme-rouge .card-sig-panel,
+        .dock-card-back.rouge-back-face .card-sig-panel,
+        .theme-rouge .card-sig-panel {
             background: #fffcf0 !important;
             border-color: #ffd700 !important;
         }
 
-        #card3D.theme-rouge .card-sig-cursive {
+        #card3D.theme-rouge .card-sig-cursive,
+        .card-3d-wrapper.theme-rouge .card-sig-cursive,
+        .dock-card-back.rouge-back-face .card-sig-cursive,
+        .theme-rouge .card-sig-cursive {
             color: #2e0407 !important;
         }
 
-        #card3D.theme-rouge .card-cvv-box {
+        #card3D.theme-rouge .card-cvv-box,
+        .card-3d-wrapper.theme-rouge .card-cvv-box,
+        .dock-card-back.rouge-back-face .card-cvv-box,
+        .theme-rouge .card-cvv-box {
             background: #fff2cc !important;
             color: #87141a !important;
             border-radius: 2px !important;
             padding: 1px 4px !important;
         }
 
-        #card3D.theme-rouge .card-qr-box {
+        #card3D.theme-rouge .card-qr-box,
+        .card-3d-wrapper.theme-rouge .card-qr-box,
+        .dock-card-back.rouge-back-face .card-qr-box,
+        .theme-rouge .card-qr-box {
             border-color: #ffd700 !important;
         }
 
-        #card3D.theme-rouge .card-back-footer {
+        #card3D.theme-rouge .card-back-footer,
+        .card-3d-wrapper.theme-rouge .card-back-footer,
+        .dock-card-back.rouge-back-face .card-back-footer,
+        .theme-rouge .card-back-footer {
             color: #ffd700 !important;
             border-color: rgba(255, 215, 0, 0.2) !important;
         }
 
-        /* BLEU SAPHIR OVERRIDE */
-        #card3D.theme-bleu .card-front {
+        /* HERO CARD THEME TOGGLE: BLEU SAPHIR OVERRIDE */
+        #card3D.theme-bleu .card-front,
+        .card-3d-wrapper.theme-bleu .card-front,
+        .dock-card-front.bleu-face,
+        .card-front.theme-bleu {
             background: radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.28) 0%, transparent 42%),
                 radial-gradient(circle at 15% 85%, rgba(30, 90, 220, 0.45) 0%, transparent 50%),
                 linear-gradient(135deg, #091e42 0%, #061530 48%, #020817 100%) !important;
@@ -610,114 +781,150 @@
             color: #f0f6ff !important;
         }
 
-        #card3D.theme-bleu .card-hanko-seal {
+        #card3D.theme-bleu .card-hanko-seal,
+        .card-3d-wrapper.theme-bleu .card-hanko-seal,
+        .dock-card-front.bleu-face .card-hanko-seal,
+        .theme-bleu .card-hanko-seal {
             border-color: #60a5fa !important;
             background: rgba(96, 165, 250, 0.18) !important;
             color: #93c5fd !important;
             box-shadow: 0 0 12px rgba(96, 165, 250, 0.4) !important;
         }
 
-        #card3D.theme-bleu .card-brand-name {
+        #card3D.theme-bleu .card-brand-name,
+        .card-3d-wrapper.theme-bleu .card-brand-name,
+        .dock-card-front.bleu-face .card-brand-name,
+        .theme-bleu .card-brand-name {
             background: linear-gradient(135deg, #e0f2fe 0%, #93c5fd 50%, #60a5fa 100%) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
         }
 
-        #card3D.theme-bleu .card-brand-sub {
+        #card3D.theme-bleu .card-brand-sub,
+        .card-3d-wrapper.theme-bleu .card-brand-sub,
+        .dock-card-front.bleu-face .card-brand-sub,
+        .theme-bleu .card-brand-sub {
             color: rgba(224, 242, 254, 0.75) !important;
         }
 
-        #card3D.theme-bleu .card-nfc-wave {
+        #card3D.theme-bleu .card-nfc-wave,
+        .card-3d-wrapper.theme-bleu .card-nfc-wave,
+        .dock-card-front.bleu-face .card-nfc-wave,
+        .theme-bleu .card-nfc-wave {
             color: #60a5fa !important;
         }
 
-        #card3D.theme-bleu .emv-chip {
+        #card3D.theme-bleu .emv-chip,
+        .card-3d-wrapper.theme-bleu .emv-chip,
+        .dock-card-front.bleu-face .emv-chip,
+        .theme-bleu .emv-chip {
             border-color: #60a5fa !important;
         }
 
-        #card3D.theme-bleu .card-hologram-seal {
+        #card3D.theme-bleu .card-hologram-seal,
+        .card-3d-wrapper.theme-bleu .card-hologram-seal,
+        .dock-card-front.bleu-face .card-hologram-seal,
+        .theme-bleu .card-hologram-seal {
             background: linear-gradient(135deg, #93c5fd 0%, #1e40af 45%, #bfdbfe 75%, #1e3a8a 100%) !important;
             border-color: rgba(255, 255, 255, 0.85) !important;
             box-shadow: 0 0 12px rgba(96, 165, 250, 0.4) !important;
         }
 
-        #card3D.theme-bleu .card-meta-label {
+        #card3D.theme-bleu .card-meta-label,
+        .card-3d-wrapper.theme-bleu .card-meta-label,
+        .dock-card-front.bleu-face .card-meta-label,
+        .theme-bleu .card-meta-label {
             color: rgba(191, 219, 254, 0.7) !important;
         }
 
-        #card3D.theme-bleu .card-number-display {
+        #card3D.theme-bleu .card-number-display,
+        .card-3d-wrapper.theme-bleu .card-number-display,
+        .dock-card-front.bleu-face .card-number-display,
+        .theme-bleu .card-number-display {
             color: #dbeafe !important;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.9) !important;
         }
 
-        #card3D.theme-bleu .card-holder-name {
+        #card3D.theme-bleu .card-holder-name,
+        .card-3d-wrapper.theme-bleu .card-holder-name,
+        .dock-card-front.bleu-face .card-holder-name,
+        .theme-bleu .card-holder-name {
             color: #ffffff !important;
         }
 
-        #card3D.theme-bleu .card-valid-date {
+        #card3D.theme-bleu .card-valid-date,
+        .card-3d-wrapper.theme-bleu .card-valid-date,
+        .dock-card-front.bleu-face .card-valid-date,
+        .theme-bleu .card-valid-date {
             color: #93c5fd !important;
         }
 
-        #card3D.theme-bleu .card-tier-pill {
+        #card3D.theme-bleu .card-tier-pill,
+        .card-3d-wrapper.theme-bleu .card-tier-pill,
+        .dock-card-front.bleu-face .card-tier-pill,
+        .theme-bleu .card-tier-pill {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.6) 0%, rgba(30, 58, 138, 0.4) 100%) !important;
             border-color: rgba(96, 165, 250, 0.85) !important;
             color: #bfdbfe !important;
         }
 
-        #card3D.theme-bleu .card-back {
+        #card3D.theme-bleu .card-back,
+        .card-3d-wrapper.theme-bleu .card-back,
+        .dock-card-back.bleu-back-face,
+        .card-back.theme-bleu {
             background: radial-gradient(circle at 15% 15%, rgba(96, 165, 250, 0.18) 0%, transparent 40%),
                 linear-gradient(135deg, #071733 0%, #030a17 100%) !important;
             border-color: rgba(130, 190, 255, 0.65) !important;
         }
 
-        #card3D.theme-bleu .card-mag-stripe {
+        #card3D.theme-bleu .card-mag-stripe,
+        .card-3d-wrapper.theme-bleu .card-mag-stripe,
+        .dock-card-back.bleu-back-face .card-mag-stripe,
+        .theme-bleu .card-mag-stripe {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 50%, #1e293b 100%) !important;
             border-top: 1px solid rgba(96, 165, 250, 0.3) !important;
             border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
         }
 
-        #card3D.theme-bleu .card-sig-panel {
+        #card3D.theme-bleu .card-sig-panel,
+        .card-3d-wrapper.theme-bleu .card-sig-panel,
+        .dock-card-back.bleu-back-face .card-sig-panel,
+        .theme-bleu .card-sig-panel {
             background: #f0f6ff !important;
             border-color: #60a5fa !important;
         }
 
-        #card3D.theme-bleu .card-sig-cursive {
+        #card3D.theme-bleu .card-sig-cursive,
+        .card-3d-wrapper.theme-bleu .card-sig-cursive,
+        .dock-card-back.bleu-back-face .card-sig-cursive,
+        .theme-bleu .card-sig-cursive {
             color: #0c1a30 !important;
         }
 
-        #card3D.theme-bleu .card-cvv-box {
+        #card3D.theme-bleu .card-cvv-box,
+        .card-3d-wrapper.theme-bleu .card-cvv-box,
+        .dock-card-back.bleu-back-face .card-cvv-box,
+        .theme-bleu .card-cvv-box {
             background: #dbeafe !important;
             color: #1e40af !important;
             border-radius: 2px !important;
             padding: 1px 4px !important;
         }
 
-        #card3D.theme-bleu .card-qr-box {
+        #card3D.theme-bleu .card-qr-box,
+        .card-3d-wrapper.theme-bleu .card-qr-box,
+        .dock-card-back.bleu-back-face .card-qr-box,
+        .theme-bleu .card-qr-box {
             border-color: #60a5fa !important;
         }
 
-        #card3D.theme-bleu .card-back-footer {
+        #card3D.theme-bleu .card-back-footer,
+        .card-3d-wrapper.theme-bleu .card-back-footer,
+        .dock-card-back.bleu-back-face .card-back-footer,
+        .theme-bleu .card-back-footer {
             color: #93c5fd !important;
             border-color: rgba(96, 165, 250, 0.25) !important;
-        }
-
-        /* HOLOGRAM SHIMMER ROTATION */
-        .card-hologram-shimmer {
-            position: absolute;
-            inset: -50%;
-            background: linear-gradient(45deg, transparent 35%, rgba(255, 255, 255, 0.7) 50%, transparent 65%);
-            animation: holoRotate 4s linear infinite;
-        }
-
-        @keyframes holoRotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         /* NOT FOUND STATE PANEL */
@@ -1231,22 +1438,31 @@
                         <div class="card-3d-wrapper" id="card3D">
                             <div class="card-flipper" id="cardFlipper">
 
-                                <!-- FRONT FACE -->
+                                <!-- ================= FRONT FACE (RECTO) ================= -->
                                 <div class="card-face card-front" id="cardFrontView">
                                     <div class="card-guilloche-pattern"></div>
+                                    <div class="card-glare" id="cardGlare"></div>
+
+                                    <!-- Front Top: Maison Monogram, Hanko Seal & Contactless Icon -->
                                     <div class="card-top-row">
                                         <div class="card-brand-group">
-                                            <div class="card-hanko-seal" id="portalHanko" title="Segel Resmi 林福勝">
-                                                <span>林</span><span>福</span><span>勝</span>
+                                            <div class="card-hanko-seal" id="portalHanko"
+                                                title="Official Hanko Seal of Gray Hansen Limantoro">
+                                                <span>林</span>
+                                                <span>福</span>
+                                                <span>勝</span>
                                             </div>
                                             <div class="card-brand-titles">
                                                 <span class="card-brand-name">Gray Hansen Limantoro</span>
-                                                <span class="card-brand-sub" id="portalBrandSub">Creative Atelier &bull;
-                                                    Private Circle & Scholarly Research</span>
+                                                <span class="card-brand-sub" id="portalBrandSub">Art, Arch &amp;
+                                                    Academia &bull;
+                                                    Expertise Society</span>
                                             </div>
                                         </div>
-                                        <div class="card-nfc-wave">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+
+                                        <!-- Contactless NFC Wave -->
+                                        <div class="card-nfc-wave" title="Encrypted Contactless NFC Chip">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                                                 <path d="M8.5 16.5a5 5 0 0 1 0-9" />
                                                 <path d="M12 19a8.5 8.5 0 0 0 0-14" />
@@ -1255,6 +1471,7 @@
                                         </div>
                                     </div>
 
+                                    <!-- Front Middle: EMV Gold Smart Chip & Holographic GH Seal -->
                                     <div class="card-chip-row">
                                         <div class="emv-chip" title="High Security EMV Smart Chip"></div>
                                         <div class="card-hologram-seal" id="portalHolo"
@@ -1263,65 +1480,79 @@
                                         </div>
                                     </div>
 
+                                    <!-- Front Center: Embossed Foil Card Number -->
                                     <div>
-                                        <div class="card-meta-label" id="portalNumberLabel">Official Member Number
-                                            &bull; Elite Distinction Series</div>
-                                        <div class="card-number-display" id="portalNumberDisplay">4892 &bull; 7710
-                                            &bull; 8421 &bull; 0963</div>
+                                        <div class="card-meta-label" id="portalNumberLabel">Official Affiliation Number &bull; Elite
+                                            Distinction
+                                            Series</div>
+                                        <div class="card-number-display" id="portalNumberDisplay">4892 &bull; 7710 &bull;
+                                            8421 &bull; 0963</div>
                                     </div>
 
+                                    <!-- Front Bottom: Cardholder Name, Expiry & Tier Badge -->
                                     <div class="card-bottom-row">
                                         <div class="card-meta-block">
                                             <div class="card-meta-label">Cardholder Name (Privilege Member)</div>
                                             <div class="card-holder-name" id="portalNameDisplay">ALEXANDRE DE VANCE
                                             </div>
                                         </div>
+
                                         <div class="card-validity-group">
                                             <div class="card-meta-block" style="text-align: right;">
                                                 <div class="card-meta-label">Valid Thru</div>
                                                 <div class="card-valid-date" id="portalValidDisplay">12 / 29</div>
                                             </div>
-                                            <div class="card-tier-pill" id="portalTierPill">Private Noir</div>
+
+                                            <div class="card-tier-pill" id="portalTierPill">
+                                                Private Noir
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- BACK FACE -->
+                                <!-- ================= BACK FACE (VERSO) ================= -->
                                 <div class="card-face card-back" id="cardBackView">
+                                    <!-- Magnetic Stripe -->
                                     <div class="card-mag-stripe"></div>
+
                                     <div class="card-back-body">
+                                        <!-- Signature Strip & Security CVV -->
                                         <div>
                                             <div class="card-meta-label" style="margin-bottom: 6px;">Authorized
-                                                Signature &bull; Non-Transferable</div>
-                                            <div class="card-sig-panel">
-                                                <span class="card-sig-cursive" id="portalSigDisplay">Alexandre de
-                                                    Vance</span>
-                                                <span class="card-cvv-box" id="portalCvvDisplay">CVV: 892</span>
+                                                Signature
+                                                &bull; Non-Transferable</div>
+                                            <div class="card-signature-row">
+                                                <div class="card-sig-panel">
+                                                    <span class="card-sig-cursive" id="portalSigDisplay">Alexandre de
+                                                        Vance</span>
+                                                    <span class="card-cvv-box" id="portalCvvDisplay">CVV: 892</span>
+                                                </div>
                                             </div>
                                         </div>
 
+                                        <!-- Card Security Matrix, QR & Legal Fine Print -->
                                         <div class="card-back-meta">
                                             <div class="card-legal-disclaimer">
                                                 This card is the exclusive property of Maison Gray Hansen Limantoro
-                                                (林福勝). It certifies membership in the Circle of Honour and grants
-                                                priority access to the concierge, private viewings, and research
-                                                archives.
-                                                <br><br>
-                                                <strong>Direct Concierge:</strong> concierge@grayhansen.com &bull;
-                                                Balikpapan &bull; Tokyo
+                                                (林福勝). Possession conveys no
+                                                inherent ownership. Use subject to Maison Confidentiality Charter,
+                                                Ekraf Atelier Protocols &amp;
+                                                Kemenparekraf registered identity standards. Return if found to Private
+                                                Office, Balikpapan /
+                                                Tokyo.
                                             </div>
-                                            <div class="card-qr-box">
-                                                <svg width="44" height="44" viewBox="0 0 24 24" fill="none"
-                                                    stroke="#0e0f12" stroke-width="1.8" stroke-linecap="square">
-                                                    <rect x="2" y="2" width="8" height="8" rx="1" />
-                                                    <rect x="4" y="4" width="4" height="4" fill="#0e0f12" />
-                                                    <rect x="14" y="2" width="8" height="8" rx="1" />
-                                                    <rect x="16" y="4" width="4" height="4" fill="#0e0f12" />
-                                                    <rect x="2" y="14" width="8" height="8" rx="1" />
-                                                    <rect x="4" y="16" width="4" height="4" fill="#0e0f12" />
-                                                    <rect x="14" y="14" width="3" height="3" fill="#0e0f12" />
-                                                    <rect x="19" y="14" width="3" height="3" fill="#0e0f12" />
-                                                    <rect x="14" y="19" width="8" height="3" fill="#0e0f12" />
+
+                                            <!-- Dynamic QR Code to Verify Authenticity -->
+                                            <div class="card-qr-box" title="Encrypted Member Verification Matrix">
+                                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                                    stroke="#121319" stroke-width="1.8">
+                                                    <rect x="3" y="3" width="7" height="7" />
+                                                    <rect x="14" y="3" width="7" height="7" />
+                                                    <rect x="3" y="14" width="7" height="7" />
+                                                    <rect x="14" y="14" width="3" height="3" fill="#121319" />
+                                                    <rect x="18" y="18" width="3" height="3" fill="#121319" />
+                                                    <rect x="18" y="14" width="3" height="3" fill="#121319" />
+                                                    <rect x="14" y="18" width="3" height="3" fill="#121319" />
                                                 </svg>
                                             </div>
                                         </div>
@@ -1332,13 +1563,16 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
                         <div style="display: flex; gap: 12px; margin-top: 18px;">
                             <button type="button" class="btn btn-secondary btn-sm" id="flipPortalCardBtn">
-                                <span>Flip Card 3D &bull; Recto / Verso</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                                </svg>
+                                <span>Flip Card (Verso)</span>
                             </button>
                             <button type="button" class="btn btn-secondary btn-sm" id="copyPortalSerialBtn">
                                 <span>Copy Serial ID</span>
@@ -1546,6 +1780,47 @@
             }
 
             // 3D Flip
+                        // 3D Perspective Tilt & Dynamic Glare Effect (Matching indexdua.html)
+            const card3D = document.getElementById('card3D');
+            const cardGlare = document.getElementById('cardGlare');
+            if (card3D) {
+                let isHovered = false;
+
+                card3D.addEventListener('mouseenter', () => {
+                    isHovered = true;
+                    card3D.style.transition = 'transform 0.08s ease-out';
+                });
+
+                card3D.addEventListener('mouseleave', () => {
+                    isHovered = false;
+                    card3D.style.transition = 'transform 0.55s cubic-bezier(0.19, 1, 0.22, 1)';
+                    card3D.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    if (cardGlare) cardGlare.style.opacity = '0';
+                });
+
+                card3D.addEventListener('mousemove', (e) => {
+                    if (!isHovered) return;
+                    const rect = card3D.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Subtle, luxurious tilt (-11deg to +11deg)
+                    const rotateX = ((y - centerY) / centerY) * -11;
+                    const rotateY = ((x - centerX) / centerX) * 11;
+
+                    card3D.style.transform = `perspective(1400px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+
+                    if (cardGlare) {
+                        const glareX = (x / rect.width) * 100;
+                        const glareY = (y / rect.height) * 100;
+                        cardGlare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0) 60%)`;
+                        cardGlare.style.opacity = '1';
+                    }
+                });
+            }
+
             const cardFlipper = document.getElementById('cardFlipper');
             const flipBtn = document.getElementById('flipPortalCardBtn');
             if (flipBtn && cardFlipper) {
@@ -1599,23 +1874,28 @@
                 }
             ];
 
-            function setCardTheme(tierStr) {
+            function setCardTheme(tierStr, customBrandSub) {
                 const card3D = document.getElementById('card3D');
                 const cardFront = document.getElementById('cardFrontView');
                 const cardBack = document.getElementById('cardBackView');
+                const brandSub = document.getElementById('portalBrandSub');
                 const tier = String(tierStr || '').toLowerCase();
                 if (!card3D) return;
 
-                card3D.classList.remove('theme-rouge', 'theme-bleu', 'theme-maroon');
-                if (cardFront) cardFront.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu');
-                if (cardBack) cardBack.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu');
+                card3D.classList.remove('theme-rouge', 'theme-bleu', 'theme-maroon', 'theme-noir');
+                if (cardFront) cardFront.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
+                if (cardBack) cardBack.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
 
                 if (tier.includes('rouge') || tier.includes('maroon') || tier.includes('impérial') || tier.includes('red')) {
                     card3D.classList.add('theme-rouge');
+                    if (brandSub) brandSub.textContent = customBrandSub || 'EXCLUSIVELY APPOINTED • Honoured';
                 } else if (tier.includes('bleu') || tier.includes('blue') || tier.includes('saphir') || tier.includes('royal')) {
                     card3D.classList.add('theme-bleu');
+                    if (brandSub) brandSub.textContent = customBrandSub || 'Venture CAPITAL • Investments';
                 } else {
                     // Default Noir Obsidian (Black Edition)
+                    card3D.classList.add('theme-noir');
+                    if (brandSub) brandSub.textContent = customBrandSub || 'Art, Arch & Academia • Expertise Society';
                 }
             }
 
@@ -1648,146 +1928,31 @@
                 if (panelStatusText) panelStatusText.textContent = `Status: ${data.status || 'Authenticated & Verified'}`;
                 if (backSeries) backSeries.textContent = `Series ${data.series}`;
 
-                setCardTheme(data.tier);
+                setCardTheme(data.tier, data.brandSub || data.affiliation || '');
             }
 
             // Universal CORS-free Google Sheets Loader via JSONP script injection
             const SPREADSHEET_ID = '13SW-NHy2Dth92t7OJyRmc0IlZEV2Zm5Fk7qhERT0dmw';
+            const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOaImeYuyOWOPJ819DDqHXCKk6Fbev4U-gYFEEJm6YGHO2KV1s66tkg8rKEi4LyKI/exec';
 
-            function fetchGoogleSheetRecords() {
-                return new Promise((resolve) => {
-                    let isResolved = false;
-                    const callbackName = 'ghSheetCallback_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
-
-                    function finish(records) {
-                        if (!isResolved) {
-                            isResolved = true;
-                            cleanup();
-                            resolve(records || []);
-                        }
+            // Query GAS endpoint directly (clean JSON keys, correct data)
+            async function fetchFromGAS(serialQuery, nameQuery) {
+                const params = new URLSearchParams();
+                if (serialQuery) params.set('serial', serialQuery);
+                if (nameQuery) params.set('search', nameQuery);
+                const url = GAS_ENDPOINT + '?' + params.toString();
+                try {
+                    const res = await fetch(url, { mode: 'cors' });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const json = await res.json();
+                    if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+                        return json.data; // Array of row objects with clean keys
                     }
-
-                    function cleanup() {
-                        try {
-                            delete window[callbackName];
-                            const s = document.getElementById(callbackName);
-                            if (s && s.parentNode) s.parentNode.removeChild(s);
-                        } catch (e) { }
-                    }
-
-                    // 1. JSONP Callback Function
-                    window[callbackName] = function (json) {
-                        try {
-                            if (!json || !json.table || !json.table.rows) {
-                                finish([]);
-                                return;
-                            }
-                            const rows = json.table.rows;
-                            if (!rows.length) {
-                                finish([]);
-                                return;
-                            }
-
-                            let headers = (json.table.cols || []).map(c => (c && c.label) ? c.label.trim() : '');
-                            let startRow = 0;
-                            if (!headers.some(h => h.length > 0)) {
-                                headers = (rows[0].c || []).map(cell => {
-                                    if (!cell) return '';
-                                    return String(cell.f != null ? cell.f : (cell.v != null ? cell.v : '')).trim();
-                                });
-                                startRow = 1;
-                            }
-
-                            const records = [];
-                            for (let i = startRow; i < rows.length; i++) {
-                                const r = rows[i];
-                                if (!r || !r.c) continue;
-                                const obj = {};
-                                let hasVal = false;
-                                headers.forEach((h, idx) => {
-                                    if (h && r.c[idx]) {
-                                        const val = String(r.c[idx].f != null ? r.c[idx].f : (r.c[idx].v != null ? r.c[idx].v : '')).trim();
-                                        obj[h] = val;
-                                        if (val) hasVal = true;
-                                    }
-                                });
-                                if (hasVal) records.push(obj);
-                            }
-                            finish(records);
-                        } catch (err) {
-                            console.warn('JSONP parse error:', err);
-                            finish([]);
-                        }
-                    };
-
-                    // 2. Inject script tag (bypasses browser CORS restrictions completely)
-                    const script = document.createElement('script');
-                    script.id = callbackName;
-                    script.src = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=responseHandler:${callbackName}&t=${Date.now()}`;
-                    script.onerror = function () {
-                        console.warn('JSONP script error, trying CSV fetch fallback...');
-                        fallbackFetchCsv().then(finish);
-                    };
-                    document.head.appendChild(script);
-
-                    // 3. Fallback timeout after 3.5s
-                    setTimeout(() => {
-                        if (!isResolved) {
-                            console.warn('JSONP timeout, trying fallback...');
-                            fallbackFetchCsv().then(finish);
-                        }
-                    }, 3500);
-
-                    async function fallbackFetchCsv() {
-                        try {
-                            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&t=${Date.now()}`);
-                            if (res.ok) {
-                                const csvText = await res.text();
-                                const lines = csvText.split(/\r?\n/).filter(l => l.trim().length > 0);
-                                if (lines.length > 1) {
-                                    const parseLine = (l) => {
-                                        const r = [];
-                                        let inQuotes = false, c = '';
-                                        for (let i = 0; i < l.length; i++) {
-                                            const ch = l[i];
-                                            if (ch === '"') {
-                                                if (inQuotes && l[i + 1] === '"') { c += '"'; i++; }
-                                                else inQuotes = !inQuotes;
-                                            } else if (ch === ',' && !inQuotes) {
-                                                r.push(c.replace(/^"|"$/g, '').trim());
-                                                c = '';
-                                            } else {
-                                                c += ch;
-                                            }
-                                        }
-                                        r.push(c.replace(/^"|"$/g, '').trim());
-                                        return r;
-                                    };
-                                    const hdrs = parseLine(lines[0]);
-                                    const recs = [];
-                                    for (let i = 1; i < lines.length; i++) {
-                                        const vals = parseLine(lines[i]);
-                                        const obj = {};
-                                        let hasAny = false;
-                                        hdrs.forEach((h, idx) => {
-                                            const col = (h || '').trim();
-                                            if (col) {
-                                                const val = (vals[idx] || '').trim();
-                                                obj[col] = val;
-                                                if (val) hasAny = true;
-                                            }
-                                        });
-                                        if (hasAny) recs.push(obj);
-                                    }
-                                    return recs;
-                                }
-                            }
-                        } catch (e) {
-                            console.warn('CSV fallback error:', e);
-                        }
-                        return [];
-                    }
-                });
+                    return [];
+                } catch (err) {
+                    console.warn('GAS fetch error:', err);
+                    return [];
+                }
             }
 
             // Reset Search Button in Not Found Box
@@ -1828,94 +1993,49 @@
 
                     let sheetMatch = null;
                     try {
-                        // Fetch records live from Google Sheets
-                        const records = await fetchGoogleSheetRecords();
+                        // Query GAS endpoint directly — returns clean, correctly-keyed JSON
+                        const rows = await fetchFromGAS(rawNumInput, rawNameInput);
 
-                        if (records && records.length > 0) {
-                            for (const row of records) {
-                                const rowName = String(row['Full Name'] || '').toLowerCase();
-                                const rowDisplayName = String(row['Card Name Display'] || '').toLowerCase();
-                                const rowEmail = String(row['Email'] || '').toLowerCase();
-                                const rowSerial = String(row['Serial'] || row['nomorKartu'] || row['Custom Card Number'] || '');
-                                const rowSerialClean = rowSerial.toLowerCase().replace(/[\s\-\•\.\,\/]/g, '');
-                                const rowDigits = rowSerial.replace(/\D/g, '');
-                                const rowDossier = String(row['Dossier Reference'] || row['dossierRef'] || '').toLowerCase().replace(/[\s\-\•\.\,\/]/g, '');
+                        if (rows && rows.length > 0) {
+                            const row = rows[0]; // GAS already returns matched record(s)
 
-                                let numMatch = false;
-                                let nameMatch = false;
+                            const tierRaw = row['Card Type'] || row['Jenis Kartu'] || row['Edition Tier'] || '';
+                            const tierLower = tierRaw.toLowerCase();
+                            let tierNormalized = 'Noir Obsidian';
+                            let isMaroon = false;
+                            let isBleu = false;
+                            let tierSuffix = 'NOIR';
 
-                                if (rawNumInput) {
-                                    if (queryDigits && queryDigits.length >= 4) {
-                                        if (rowDigits === queryDigits || rowDigits.includes(queryDigits)) {
-                                            numMatch = true;
-                                        }
-                                    }
-                                    if (queryNumClean && queryNumClean.length >= 4) {
-                                        if (rowSerialClean.includes(queryNumClean) || rowDossier.includes(queryNumClean)) {
-                                            numMatch = true;
-                                        }
-                                    }
-                                }
-
-                                if (rawNameInput && queryNameClean.length >= 2) {
-                                    if (rowName.includes(queryNameClean) || rowDisplayName.includes(queryNameClean) || rowEmail.includes(queryNameClean)) {
-                                        nameMatch = true;
-                                    }
-                                }
-
-                                let isMatch = false;
-                                if (rawNumInput && rawNameInput) {
-                                    isMatch = numMatch || nameMatch;
-                                } else if (rawNumInput) {
-                                    isMatch = numMatch;
-                                } else if (rawNameInput) {
-                                    isMatch = nameMatch;
-                                }
-
-                                if (isMatch) {
-                                    const tierRaw = row['Card Type'] || row['Jenis Kartu'] || row['Edition Tier'] || (String(row['Primary Interest'] || '').includes('Rouge') ? 'Rouge Impérial' : (String(row['Primary Interest'] || '').includes('Bleu') ? 'Bleu Saphir' : 'Noir Obsidian'));
-                                    const tierLower = tierRaw.toLowerCase();
-                                    let tierNormalized = 'Noir Obsidian';
-                                    let isMaroon = false;
-                                    let isBleu = false;
-                                    let tierSuffix = 'NOIR';
-
-                                    if (tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('impérial') || tierLower.includes('red')) {
-                                        tierNormalized = 'Rouge Impérial';
-                                        isMaroon = true;
-                                        tierSuffix = 'ROUGE';
-                                    } else if (tierLower.includes('bleu') || tierLower.includes('blue') || tierLower.includes('saphir') || tierLower.includes('royal')) {
-                                        tierNormalized = 'Bleu Saphir';
-                                        isBleu = true;
-                                        tierSuffix = 'BLEU';
-                                    } else {
-                                        tierNormalized = 'Noir Obsidian';
-                                        tierSuffix = 'NOIR';
-                                    }
-
-                                    const cleanSerial = row['Serial'] || row['nomorKartu'] || row['Custom Card Number'] || rawNumInput;
-                                    const digitsOnly = cleanSerial.replace(/\D/g, '') || '0963';
-                                    const last4 = digitsOnly.slice(-4) || '0963';
-
-                                    sheetMatch = {
-                                        name: (row['Card Name Display'] || row['Full Name'] || 'Member').toUpperCase(),
-                                        number: cleanSerial,
-                                        tier: tierNormalized,
-                                        status: row['Status'] || 'Certified Membership • Active',
-                                        dossierRef: row['Dossier Reference'] || row['dossierRef'] || 'DOSSIER-GH-2026',
-                                        valid: "12 / 29",
-                                        expiration: "December 2029",
-                                        cvv: digitsOnly.slice(0, 3) || '892',
-                                        isMaroon: isMaroon,
-                                        isBleu: isBleu,
-                                        series: `GH-${last4}-${tierSuffix}`
-                                    };
-                                    break;
-                                }
+                            if (tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('impérial') || tierLower.includes('red')) {
+                                tierNormalized = 'Rouge Impérial';
+                                isMaroon = true;
+                                tierSuffix = 'ROUGE';
+                            } else if (tierLower.includes('bleu') || tierLower.includes('blue') || tierLower.includes('saphir') || tierLower.includes('royal')) {
+                                tierNormalized = 'Bleu Saphir';
+                                isBleu = true;
+                                tierSuffix = 'BLEU';
                             }
+
+                            const cleanSerial = row['Serial'] || row['nomorKartu'] || row['Custom Card Number'] || rawNumInput;
+                            const digitsOnly = cleanSerial.replace(/\D/g, '') || '0963';
+                            const last4 = digitsOnly.slice(-4) || '0963';
+
+                            sheetMatch = {
+                                name: (row['Card Name Display'] || row['Full Name'] || 'Member').toUpperCase(),
+                                number: cleanSerial,
+                                tier: tierNormalized,
+                                status: row['Status'] || 'Certified Membership • Active',
+                                dossierRef: row['Dossier Reference'] || row['dossierRef'] || 'DOSSIER-GH-2026',
+                                valid: "12 / 29",
+                                expiration: "December 2029",
+                                cvv: digitsOnly.slice(0, 3) || '892',
+                                isMaroon: isMaroon,
+                                isBleu: isBleu,
+                                series: `GH-${last4}-${tierSuffix}`
+                            };
                         }
                     } catch (netErr) {
-                        console.warn('Live Google Sheet fetch error:', netErr);
+                        console.warn('GAS lookup error:', netErr);
                     } finally {
                         if (submitBtn) {
                             submitBtn.disabled = false;
