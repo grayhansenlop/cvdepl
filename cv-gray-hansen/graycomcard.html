@@ -461,7 +461,7 @@
 
         .card-validity-group {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             gap: 16px;
         }
 
@@ -1899,23 +1899,22 @@
                 if (cardFront) cardFront.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
                 if (cardBack) cardBack.classList.remove('theme-maroon', 'theme-rouge', 'theme-bleu', 'theme-noir');
 
-                const uniformSub = customBrandSub || 'Art, Arch & Academia • Expertise Society';
                 if (tier.includes('rouge') || tier.includes('maroon') || tier.includes('impérial') || tier.includes('red')) {
                     card3D.classList.add('theme-rouge');
                     if (cardFront) cardFront.classList.add('theme-rouge');
                     if (cardBack) cardBack.classList.add('theme-rouge');
-                    if (brandSub) brandSub.textContent = uniformSub;
+                    if (brandSub) brandSub.textContent = customBrandSub || 'EXCLUSIVELY APPOINTED • Honoured';
                 } else if (tier.includes('bleu') || tier.includes('blue') || tier.includes('saphir') || tier.includes('royal')) {
                     card3D.classList.add('theme-bleu');
                     if (cardFront) cardFront.classList.add('theme-bleu');
                     if (cardBack) cardBack.classList.add('theme-bleu');
-                    if (brandSub) brandSub.textContent = uniformSub;
+                    if (brandSub) brandSub.textContent = customBrandSub || 'Venture CAPITAL • Investments';
                 } else {
                     // Default Noir Obsidian (Black Edition)
                     card3D.classList.add('theme-noir');
                     if (cardFront) cardFront.classList.add('theme-noir');
                     if (cardBack) cardBack.classList.add('theme-noir');
-                    if (brandSub) brandSub.textContent = uniformSub;
+                    if (brandSub) brandSub.textContent = customBrandSub || 'Art, Arch & Academia • Expertise Society';
                 }
             }
 
@@ -2110,20 +2109,24 @@
                         const memberSerial = document.getElementById('portalNumberDisplay')?.textContent.trim() || '4892 • 7710 • 8421 • 0963';
                         const validDate = document.getElementById('portalValidDisplay')?.textContent.trim() || '12 / 29';
                         const tierPillText = (document.getElementById('portalTierPill')?.textContent || 'Private Noir').trim();
-                        const brandSubText = (document.getElementById('portalBrandSub')?.textContent || 'Art, Arch & Academia • Expertise Society').trim().replace(/\s+/g, ' ');
                         const dossierRef = (document.getElementById('panelDossierText')?.textContent || 'DOSSIER-GH-2026').trim();
-
-                        // Detect active theme directly from card3D
+                        
+                        // Detect active theme directly from card3D or tier text
                         let activeTheme = 'theme-noir';
                         let tierLabel = 'NOIR', tierFull = 'Noir Obsidian';
-                        if (card3DActual?.classList.contains('theme-rouge') || tierPillText.toLowerCase().includes('rouge') || tierPillText.toLowerCase().includes('imp')) {
+                        let standardSub = 'Art, Arch & Academia • Expertise Society';
+
+                        const tierLower = tierPillText.toLowerCase();
+                        if (card3DActual?.classList.contains('theme-rouge') || tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('imp')) {
                             activeTheme = 'theme-rouge';
                             tierLabel = 'ROUGE';
                             tierFull = 'Rouge Impérial';
-                        } else if (card3DActual?.classList.contains('theme-bleu') || tierPillText.toLowerCase().includes('bleu') || tierPillText.toLowerCase().includes('saph')) {
+                            standardSub = 'EXCLUSIVELY APPOINTED • Honoured';
+                        } else if (card3DActual?.classList.contains('theme-bleu') || tierLower.includes('bleu') || tierLower.includes('saph') || tierLower.includes('blue')) {
                             activeTheme = 'theme-bleu';
                             tierLabel = 'BLEU';
                             tierFull = 'Bleu Saphir';
+                            standardSub = 'Venture CAPITAL • Investments';
                         }
 
                         // Off-screen staging container
@@ -2136,7 +2139,7 @@
                             const wrapper = document.createElement('div');
                             wrapper.id = 'card3D';
                             wrapper.className = 'card-3d-wrapper ' + activeTheme;
-                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;';
+                            wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;';
 
                             const clone = originalEl.cloneNode(true);
                             clone.className = originalEl.className + ' ' + activeTheme;
@@ -2146,28 +2149,43 @@
                             const glare = clone.querySelector('.card-glare, .card-dock-glare');
                             if (glare) glare.style.display = 'none';
 
-                            // Fix html2canvas background-clip text bug (removes ugly gold box behind text)
+                            // 100% ELIMINATE html2canvas gold box: replace .card-brand-name with clean inline text span
                             const brandName = clone.querySelector('.card-brand-name');
                             if (brandName) {
-                                brandName.style.setProperty('background', 'none', 'important');
-                                brandName.style.setProperty('-webkit-background-clip', 'border-box', 'important');
-                                brandName.style.setProperty('background-clip', 'border-box', 'important');
+                                const brandNameText = brandName.textContent.trim() || 'Gray Hansen Limantoro';
                                 const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
-                                brandName.style.setProperty('-webkit-text-fill-color', goldColor, 'important');
-                                brandName.style.setProperty('color', goldColor, 'important');
-                                brandName.style.setProperty('text-shadow', '0 1px 2px rgba(0,0,0,0.85)', 'important');
+                                const flatSpan = document.createElement('span');
+                                flatSpan.textContent = brandNameText;
+                                flatSpan.style.cssText = 'font-family: var(--font-display), "Cinzel", Georgia, serif !important; font-size: 0.86rem !important; font-weight: 700 !important; letter-spacing: 0.24em !important; text-transform: uppercase !important; color: ' + goldColor + ' !important; background: transparent !important; background-image: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: ' + goldColor + ' !important; line-height: 1.2 !important; white-space: nowrap !important; text-shadow: 0 1px 2px rgba(0,0,0,0.85) !important; display: inline-block !important;';
+                                brandName.replaceWith(flatSpan);
                             }
 
-                            // Keep uniform sub brand
+                            // Keep accurate sub brand according to tier standard from indexdua.html
                             const cloneBrandSub = clone.querySelector('.card-brand-sub');
-                            if (cloneBrandSub) cloneBrandSub.textContent = brandSubText;
+                            if (cloneBrandSub) cloneBrandSub.textContent = standardSub;
 
                             // Keep uniform tier pill
                             const cloneTierPill = clone.querySelector('.card-tier-pill');
-                            if (cloneTierPill) cloneTierPill.textContent = tierPillText;
+                            if (cloneTierPill) {
+                                cloneTierPill.textContent = tierPillText;
+                                cloneTierPill.style.cssText += 'display: inline-flex !important; align-items: center !important; margin: 0 !important; vertical-align: middle !important;';
+                            }
+
+                            // PERFECT BOTTOM ROW ALIGNMENT (no drops or clipped names)
+                            const cloneBotRow = clone.querySelector('.card-bottom-row');
+                            if (cloneBotRow) {
+                                cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
+                            }
+
+                            const cloneValGroup = clone.querySelector('.card-validity-group');
+                            if (cloneValGroup) {
+                                cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
+                            }
 
                             const cloneName = clone.querySelector('.card-holder-name');
-                            if (cloneName) cloneName.style.cssText += 'overflow:visible !important;line-height:1.4 !important;padding-bottom:4px !important;';
+                            if (cloneName) {
+                                cloneName.style.cssText += 'overflow: visible !important; line-height: 1.2 !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important;';
+                            }
 
                             wrapper.appendChild(clone);
                             return wrapper;
@@ -2229,12 +2247,12 @@
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(7.5);
                         doc.setTextColor(170, 130, 40);
-                        doc.text('RECTO • CARD FRONT', 33, 47.5);
+                        doc.text('RECTO • CARD FRONT (24K GOLD HOT FOIL, EMV CHIP & HANKO SEAL)', 33, 47.5);
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, 51.7, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(frontImg, 'PNG', cardX, 50.5, cardW, cardH);
 
-                        doc.text('VERSO • CARD BACK', 33, 148.5);
+                        doc.text('VERSO • CARD BACK (MAGNETIC STRIPE, SIGNATURE PANEL & VERIFICATION QR)', 33, 148.5);
                         doc.setFillColor(224, 220, 210);
                         doc.roundedRect(cardX + 1.2, 152.7, cardW, cardH, 3.5, 3.5, 'F');
                         doc.addImage(backImg, 'PNG', cardX, 151.5, cardW, cardH);
@@ -2252,8 +2270,8 @@
                         doc.setFontSize(7.2);
                         doc.setTextColor(115, 120, 130);
                         const issueDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Gray Riche Maison  •  Issued: ${issueDate}`, 105, 262, { align: 'center' });
-                        doc.text(`Official Registry Reference: ${dossierRef}  •  ${tierFull}  •  Enjoy the Full Extent of Your Privileges.`, 105, 266.5, { align: 'center' });
+                        doc.text(`Official Pass issued by Maison Gray Hansen Limantoro  •  Balikpapan • Tokyo  •  Issued: ${issueDate}`, 105, 262, { align: 'center' });
+                        doc.text(`Official Registry Reference: ${dossierRef}  •  ${tierFull}  •  Registered with EKRAF Kemenparekraf RI`, 105, 266.5, { align: 'center' });
 
                         // PAGE 2: Standalone Card Front Only (85.6mm x 53.98mm)
                         doc.addPage([85.6, 53.98], 'landscape');
@@ -2264,7 +2282,7 @@
                         doc.addImage(backImg, 'PNG', 0, 0, 85.6, 53.98);
 
                         const cleanNum = memberSerial.replace(/[^0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || '0963';
-                        const filename = `Gray_Riche_Maison_Society_Card_${cleanNum}_${tierLabel}.pdf`;
+                        const filename = `Gray_Hansen_Membership_Card_${cleanNum}_${tierLabel}.pdf`;
 
                         try {
                             doc.save(filename);
@@ -2305,16 +2323,19 @@
                         if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
                         const tierPillText = (document.getElementById('portalTierPill')?.textContent || 'Private Noir').trim();
-                        const brandSubText = (document.getElementById('portalBrandSub')?.textContent || 'Art, Arch & Academia • Expertise Society').trim().replace(/\s+/g, ' ');
-
                         let activeTheme = 'theme-noir';
                         let tierLabel = 'NOIR';
-                        if (card3DActual?.classList.contains('theme-rouge') || tierPillText.toLowerCase().includes('rouge') || tierPillText.toLowerCase().includes('imp')) {
+                        let standardSub = 'Art, Arch & Academia • Expertise Society';
+
+                        const tierLower = tierPillText.toLowerCase();
+                        if (card3DActual?.classList.contains('theme-rouge') || tierLower.includes('rouge') || tierLower.includes('maroon') || tierLower.includes('imp')) {
                             activeTheme = 'theme-rouge';
                             tierLabel = 'ROUGE';
-                        } else if (card3DActual?.classList.contains('theme-bleu') || tierPillText.toLowerCase().includes('bleu') || tierPillText.toLowerCase().includes('saph')) {
+                            standardSub = 'EXCLUSIVELY APPOINTED • Honoured';
+                        } else if (card3DActual?.classList.contains('theme-bleu') || tierLower.includes('bleu') || tierLower.includes('saph') || tierLower.includes('blue')) {
                             activeTheme = 'theme-bleu';
                             tierLabel = 'BLEU';
+                            standardSub = 'Venture CAPITAL • Investments';
                         }
 
                         // Staging
@@ -2325,7 +2346,7 @@
                         const wrapper = document.createElement('div');
                         wrapper.id = 'card3D';
                         wrapper.className = 'card-3d-wrapper ' + activeTheme;
-                        wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;';
+                        wrapper.style.cssText = 'width:530px;height:334px;position:relative;background:transparent;transform:none;margin:0;padding:0;box-sizing:border-box;';
 
                         const clone = cardFrontEl.cloneNode(true);
                         clone.className = cardFrontEl.className + ' ' + activeTheme;
@@ -2336,20 +2357,37 @@
 
                         const brandName = clone.querySelector('.card-brand-name');
                         if (brandName) {
-                            brandName.style.setProperty('background', 'none', 'important');
-                            brandName.style.setProperty('-webkit-background-clip', 'border-box', 'important');
-                            brandName.style.setProperty('background-clip', 'border-box', 'important');
+                            const brandNameText = brandName.textContent.trim() || 'Gray Hansen Limantoro';
                             const goldColor = activeTheme === 'theme-rouge' ? '#ffebaa' : (activeTheme === 'theme-bleu' ? '#bfdbfe' : '#ebd08d');
-                            brandName.style.setProperty('-webkit-text-fill-color', goldColor, 'important');
-                            brandName.style.setProperty('color', goldColor, 'important');
-                            brandName.style.setProperty('text-shadow', '0 1px 2px rgba(0,0,0,0.85)', 'important');
+                            const flatSpan = document.createElement('span');
+                            flatSpan.textContent = brandNameText;
+                            flatSpan.style.cssText = 'font-family: var(--font-display), "Cinzel", Georgia, serif !important; font-size: 0.86rem !important; font-weight: 700 !important; letter-spacing: 0.24em !important; text-transform: uppercase !important; color: ' + goldColor + ' !important; background: transparent !important; background-image: none !important; -webkit-background-clip: border-box !important; background-clip: border-box !important; -webkit-text-fill-color: ' + goldColor + ' !important; line-height: 1.2 !important; white-space: nowrap !important; text-shadow: 0 1px 2px rgba(0,0,0,0.85) !important; display: inline-block !important;';
+                            brandName.replaceWith(flatSpan);
                         }
 
                         const cloneBrandSub = clone.querySelector('.card-brand-sub');
-                        if (cloneBrandSub) cloneBrandSub.textContent = brandSubText;
+                        if (cloneBrandSub) cloneBrandSub.textContent = standardSub;
 
                         const cloneTierPill = clone.querySelector('.card-tier-pill');
-                        if (cloneTierPill) cloneTierPill.textContent = tierPillText;
+                        if (cloneTierPill) {
+                            cloneTierPill.textContent = tierPillText;
+                            cloneTierPill.style.cssText += 'display: inline-flex !important; align-items: center !important; margin: 0 !important; vertical-align: middle !important;';
+                        }
+
+                        const cloneBotRow = clone.querySelector('.card-bottom-row');
+                        if (cloneBotRow) {
+                            cloneBotRow.style.cssText += 'display: flex !important; align-items: center !important; justify-content: space-between !important; margin-top: auto !important; padding-bottom: 2px !important;';
+                        }
+
+                        const cloneValGroup = clone.querySelector('.card-validity-group');
+                        if (cloneValGroup) {
+                            cloneValGroup.style.cssText += 'display: flex !important; align-items: center !important; gap: 16px !important;';
+                        }
+
+                        const cloneName = clone.querySelector('.card-holder-name');
+                        if (cloneName) {
+                            cloneName.style.cssText += 'overflow: visible !important; line-height: 1.2 !important; margin: 0 !important; padding: 0 !important; white-space: nowrap !important;';
+                        }
 
                         wrapper.appendChild(clone);
                         offscreen.appendChild(wrapper);
