@@ -241,105 +241,139 @@
       width: 46px;
     }
 
-    /* Mobile Responsive Adaptation for Hero Slider (Exact Desktop Feel) */
+    /* Mobile Landscape Slider Adaptation (Full Landscape Image, No Cut-Off, Same as Desktop) */
     @media (max-width: 768px) {
       .lvmh-hero-slider-section {
-        height: calc(100svh - 105px);
-        min-height: 480px;
-        max-height: 640px;
+        position: relative;
+        width: 100%;
+        /* Force Landscape Aspect Ratio on mobile */
+        aspect-ratio: 16 / 10;
+        height: auto;
+        min-height: 250px;
+        max-height: 380px;
+        overflow: hidden;
+        background: #000;
       }
 
       .hero-slide-bg {
-        background-position: center 30%;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
 
+      /* Floating Announcement Card scaled for landscape mobile */
       .hero-floating-card {
-        bottom: 32px;
-        width: 90%;
+        bottom: 24px;
+        width: 88%;
         max-width: 480px;
-        padding: 22px 24px 24px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+        padding: 12px 18px 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        border-radius: 2px;
       }
 
       .card-eyebrow {
-        font-size: 9px;
-        letter-spacing: 2.5px;
-        margin-bottom: 8px;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
       }
 
       .card-headline {
-        font-size: clamp(13px, 3.6vw, 17px);
+        font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
+        font-size: clamp(10.5px, 2.9vw, 13.5px);
+        font-weight: 500;
         line-height: 1.35;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
       }
 
       .card-readmore-btn {
-        font-size: 10px;
-        letter-spacing: 2px;
-        padding-bottom: 2px;
+        font-size: 8.5px;
+        letter-spacing: 1.5px;
+        padding-bottom: 1px;
       }
 
       .slide-nav-btn {
-        width: 38px;
-        height: 38px;
-        top: 42%;
+        width: 30px;
+        height: 30px;
+        top: 40%;
       }
 
       .slide-nav-btn.prev-btn {
-        left: 12px;
+        left: 8px;
       }
 
       .slide-nav-btn.next-btn {
-        right: 12px;
+        right: 8px;
+      }
+
+      .slide-nav-btn svg {
+        width: 14px;
+        height: 14px;
       }
 
       .hero-slide-dots {
-        bottom: 10px;
-        gap: 8px;
+        bottom: 8px;
+        gap: 6px;
       }
 
       .slide-dot {
-        width: 20px;
+        width: 16px;
         height: 2px;
       }
 
       .slide-dot.active {
-        width: 36px;
+        width: 26px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .lvmh-hero-slider-section {
+        min-height: 220px;
+      }
+
+      .hero-floating-card {
+        bottom: 18px;
+        padding: 10px 14px 12px;
+        width: 90%;
+      }
+
+      .card-eyebrow {
+        font-size: 7px;
+        letter-spacing: 1.5px;
+        margin-bottom: 3px;
+      }
+
+      .card-headline {
+        font-size: 9.5px;
+        line-height: 1.3;
+        margin-bottom: 4px;
+      }
+
+      .card-readmore-btn {
+        font-size: 7.5px;
+        letter-spacing: 1px;
       }
     }
 
     @media (max-width: 900px) and (orientation: landscape) {
       .lvmh-hero-slider-section {
-        height: calc(100vh - 65px);
-        min-height: 320px;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        min-height: 260px;
+        max-height: 380px;
       }
 
       .hero-floating-card {
-        bottom: 16px;
-        padding: 14px 20px;
-        max-width: 580px;
-      }
-
-      .card-eyebrow {
-        font-size: 8px;
-        margin-bottom: 4px;
+        bottom: 20px;
+        max-width: 520px;
+        padding: 12px 18px 14px;
       }
 
       .card-headline {
-        font-size: 13px;
-        line-height: 1.25;
-        margin-bottom: 8px;
-      }
-
-      .slide-nav-btn {
-        top: 45%;
-        width: 34px;
-        height: 34px;
-      }
-
-      .hero-slide-dots {
-        bottom: 5px;
+        font-size: 12px;
       }
     }
 
@@ -3297,7 +3331,9 @@
         <div class="la-header-row">
           <div class="la-title-wrap">
             <span class="la-eyebrow">Book Collection &amp; Module</span>
-            <h2>The Literary Collection &amp; <em>Curated Module Editions</em></h2>
+            <h2>The Literary Collection<br> &amp; <span class="gold-gradient-text"> <em>Curated Module Editions</em>
+            </h2>
+            </span>
             <p class="la-section-desc">
               A distinguished collection of published works, scholarly monographs, and literary compositions,
               thoughtfully
