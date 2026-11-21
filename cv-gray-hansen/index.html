@@ -44,6 +44,650 @@
   <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+
+
+  <style id="la-marquee-styles">
+    /* ==========================================================================
+   1. TOP HERO IMAGE SLIDER (EXACT LVMH & UNYLENS LUXURY SPEC)
+   ========================================================================== */
+    .lvmh-hero-slider-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero-slider-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-slides-track {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: scale(1.04);
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .hero-slide-bg {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: brightness(0.9) contrast(1.05);
+    }
+
+    /* Floating Luxury Announcement Card (LVMH Style) */
+    .hero-floating-card {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 820px;
+      background: #ffffff;
+      color: #111114;
+      padding: 36px 48px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      z-index: 10;
+      border-radius: 2px;
+    }
+
+    .hero-slide.active .hero-floating-card {
+      animation: floatingCardIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes floatingCardIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .card-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #707078;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .card-headline {
+      font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
+      font-size: clamp(16px, 1.8vw, 24px);
+      font-weight: 500;
+      line-height: 1.45;
+      letter-spacing: 1.5px;
+      color: #111114;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    .card-headline em {
+      font-style: italic;
+      font-weight: 600;
+      color: #997825;
+    }
+
+    .card-readmore-btn {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: #111114;
+      border-bottom: 1.5px solid #111114;
+      padding-bottom: 3px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .card-readmore-btn:hover {
+      color: #997825;
+      border-color: #997825;
+      letter-spacing: 3.5px;
+    }
+
+    /* Nav Buttons (< and > arrows) */
+    .slide-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 52px;
+      height: 52px;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .slide-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.95);
+      color: #0E0E12;
+      border-color: #FFFFFF;
+      transform: translateY(-50%) scale(1.06);
+    }
+
+    .slide-nav-btn.prev-btn {
+      left: 36px;
+    }
+
+    .slide-nav-btn.next-btn {
+      right: 36px;
+    }
+
+    /* Progress Dots */
+    .hero-slide-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 20;
+    }
+
+    .slide-dot {
+      width: 28px;
+      height: 2.5px;
+      background: rgba(255, 255, 255, 0.35);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .slide-dot.active {
+      background: #FFFFFF;
+      width: 46px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-floating-card {
+        padding: 24px 20px;
+        bottom: 50px;
+        width: 92%;
+      }
+
+      .card-headline {
+        font-size: 15px;
+      }
+
+      .slide-nav-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .slide-nav-btn.prev-btn {
+        left: 14px;
+      }
+
+      .slide-nav-btn.next-btn {
+        right: 14px;
+      }
+    }
+
+    /* ==========================================================================
+   2. THE LIVING ARCHIVE MARQUEE GALLERY — DUAL THEME (LIGHT & DARK MODE)
+   ========================================================================== */
+    .la-gallery-section {
+      padding: 80px 0 110px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .la-container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .la-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .la-title-wrap .la-eyebrow {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      transition: color 0.4s ease;
+    }
+
+    .la-title-wrap h2 {
+      font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 1.15;
+      margin: 0;
+      transition: color 0.4s ease;
+    }
+
+    .la-title-wrap h2 em {
+      font-style: italic;
+    }
+
+    .la-section-desc {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      max-width: 680px;
+      margin-top: 14px;
+      margin-bottom: 0;
+      transition: color 0.4s ease;
+    }
+
+    /* Filter Pills */
+    .la-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .la-filter-pill {
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    /* Viewport & Track */
+    .la-viewport {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 20px 0 40px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .la-viewport:active {
+      cursor: grabbing;
+    }
+
+    .la-viewport::before,
+    .la-viewport::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 140px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .la-track {
+      display: flex;
+      gap: 36px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    /* Showcase Card (Enhanced Height: 580px for full text visibility) */
+    .la-showcase-card {
+      position: relative;
+      width: 380px;
+      height: 580px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s ease;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .la-showcase-card:hover {
+      transform: translateY(-12px) scale(1.02);
+    }
+
+    .la-card-media-wrap {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .la-card-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s ease;
+    }
+
+    .la-showcase-card:hover .la-card-media {
+      transform: scale(1.08);
+    }
+
+    .la-card-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      transition: background 0.4s ease, opacity 0.4s ease;
+    }
+
+    .la-card-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 26px 28px 30px 28px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .la-card-top-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .la-card-number {
+      font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .la-card-category {
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .la-card-title {
+      font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+      margin-bottom: 0;
+      line-height: 1.2;
+    }
+
+    /* Text Summary: Hidden by default, reveals in FULL on hover/click */
+    .la-card-summary {
+      font-size: 13px;
+      line-height: 1.55;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin: 0;
+      transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      word-break: normal;
+    }
+
+    .la-showcase-card:hover .la-card-summary,
+    .la-showcase-card.active .la-card-summary,
+    .la-showcase-card:focus-within .la-card-summary {
+      max-height: 240px;
+      opacity: 1;
+      margin-top: 8px;
+      margin-bottom: 6px;
+      overflow: visible;
+    }
+
+    /* Clickable CTA Link */
+    .la-card-cta {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-top: 8px;
+      text-transform: uppercase;
+      transition: gap 0.3s ease, letter-spacing 0.3s ease;
+      text-decoration: none;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      position: relative !important;
+      z-index: 10 !important;
+      width: fit-content;
+      padding: 4px 0;
+    }
+
+    .la-card-cta:hover {
+      gap: 14px;
+      letter-spacing: 2.5px;
+    }
+
+    .la-card-cta-arrow {
+      font-size: 16px;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .la-card-cta:hover .la-card-cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================================
+   THEME STYLES: 1. LIGHT MODE (MAISON BLANCHE / DEFAULT)
+   ========================================================================== */
+    :root,
+    html[data-theme="blanche"] {
+      --la-bg: linear-gradient(180deg, #f7f6f2 0%, #ffffff 50%, #f7f6f2 100%);
+      --la-text: #0e0f12;
+      --la-desc: #585c67;
+      --la-gold: #997825;
+      --la-pill-bg: rgba(0, 0, 0, 0.04);
+      --la-pill-text: #585c67;
+      --la-pill-border: rgba(0, 0, 0, 0.12);
+      --la-pill-active-bg: #0e0f12;
+      --la-pill-active-text: #ffffff;
+      --la-edge-fade: #f7f6f2;
+      --la-card-bg: #ffffff;
+      --la-card-border: rgba(0, 0, 0, 0.09);
+      --la-card-shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.12), 0 0 30px rgba(166, 129, 46, 0.18);
+      --la-card-border-hover: #997825;
+      --la-card-gradient: linear-gradient(180deg, rgba(251, 251, 249, 0) 0%, rgba(251, 251, 249, 0.72) 20%, rgba(251, 251, 249, 0.96) 50%, #fbfbf9 100%);
+      --la-card-title: #0e0f12;
+      --la-card-summary: #444752;
+      --la-card-category: #707078;
+      --la-card-number: #997825;
+      --la-card-cta: #997825;
+    }
+
+    /* ==========================================================================
+   THEME STYLES: 2. DARK MODE (ATELIER NOIR)
+   ========================================================================== */
+    html[data-theme="noir"] {
+      --la-bg: linear-gradient(180deg, #07080a 0%, #12141c 50%, #07080a 100%);
+      --la-text: #f7f7f9;
+      --la-desc: rgba(255, 255, 255, 0.72);
+      --la-gold: #d4af37;
+      --la-pill-bg: rgba(255, 255, 255, 0.03);
+      --la-pill-text: #9e9ea8;
+      --la-pill-border: rgba(255, 255, 255, 0.12);
+      --la-pill-active-bg: #ffffff;
+      --la-pill-active-text: #07080a;
+      --la-edge-fade: #07080a;
+      --la-card-bg: #12141c;
+      --la-card-border: rgba(255, 255, 255, 0.08);
+      --la-card-shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.25);
+      --la-card-border-hover: rgba(212, 175, 55, 0.5);
+      --la-card-gradient: linear-gradient(180deg, rgba(10, 10, 12, 0) 0%, rgba(10, 10, 12, 0.72) 20%, rgba(10, 10, 12, 0.96) 50%, #0a0a0c 100%);
+      --la-card-title: #ffffff;
+      --la-card-summary: rgba(255, 255, 255, 0.82);
+      --la-card-category: #9e9ea8;
+      --la-card-number: #d4af37;
+      --la-card-cta: #d4af37;
+    }
+
+    /* Apply CSS Variables */
+    .la-gallery-section {
+      background: var(--la-bg);
+      color: var(--la-text);
+    }
+
+    .la-title-wrap .la-eyebrow {
+      color: var(--la-gold);
+    }
+
+    .la-title-wrap h2 {
+      color: var(--la-text);
+    }
+
+    .la-section-desc {
+      color: var(--la-desc);
+    }
+
+    .la-filter-pill {
+      background: var(--la-pill-bg);
+      color: var(--la-pill-text);
+      border: 1px solid var(--la-pill-border);
+    }
+
+    .la-filter-pill:hover {
+      color: var(--la-text);
+      border-color: var(--la-gold);
+    }
+
+    .la-filter-pill.active {
+      background: var(--la-pill-active-bg);
+      color: var(--la-pill-active-text);
+      border-color: var(--la-pill-active-bg);
+    }
+
+    .la-viewport::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--la-edge-fade) 0%, transparent 100%);
+    }
+
+    .la-viewport::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--la-edge-fade) 0%, transparent 100%);
+    }
+
+    .la-showcase-card {
+      background: var(--la-card-bg);
+      border: 1px solid var(--la-card-border);
+    }
+
+    .la-showcase-card:hover {
+      border-color: var(--la-card-border-hover);
+      box-shadow: var(--la-card-shadow-hover);
+    }
+
+    .la-card-gradient-overlay {
+      background: var(--la-card-gradient);
+      transition: background 0.4s ease, opacity 0.4s ease;
+    }
+
+    .la-card-title {
+      color: var(--la-card-title);
+    }
+
+    .la-card-summary {
+      color: var(--la-card-summary);
+    }
+
+    .la-card-number {
+      color: var(--la-card-number);
+    }
+
+    .la-card-category {
+      color: var(--la-card-category);
+    }
+
+    .la-card-cta {
+      color: var(--la-card-cta);
+    }
+
+    /* Cloud Archive Banner Theme Adaptation */
+    html[data-theme="blanche"] .cloud-archive-banner h4,
+    :root .cloud-archive-banner h4 {
+      color: #0e0f12 !important;
+    }
+
+    html[data-theme="blanche"] .cloud-archive-banner p,
+    :root .cloud-archive-banner p {
+      color: #585c67 !important;
+    }
+
+    html[data-theme="noir"] .cloud-archive-banner h4 {
+      color: #ffffff !important;
+    }
+
+    html[data-theme="noir"] .cloud-archive-banner p {
+      color: rgba(255, 255, 255, 0.72) !important;
+    }
+
+    @media (max-width: 768px) {
+      .la-showcase-card {
+        width: 300px;
+        height: 500px;
+      }
+
+      .la-card-title {
+        font-size: 20px;
+      }
+
+      .la-card-caption {
+        padding: 20px;
+      }
+
+      .la-container {
+        padding: 0 20px;
+      }
+
+      .la-gallery-section {
+        padding: 60px 0 80px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
 </head>
 
 <body>
@@ -258,10 +902,109 @@
       </div>
     </header>
 
+    <!-- ===== 1. TOP HERO IMAGE SLIDER (EXACT LVMH STYLE) ===== -->
+    <!-- =======================================================
+         1. TOP HERO IMAGE SLIDER (EXACT LVMH & UNYLENS LUXURY SPEC)
+         ======================================================= -->
+    <section class="lvmh-hero-slider-section" id="hero-slider-section">
+      <div class="hero-slider-container" id="hero-slider-container">
+        <div class="hero-slides-track" id="hero-slides-track">
+
+          <!-- Slide 01 -->
+          <div class="hero-slide active" data-slide="0">
+            <div class="hero-slide-bg" style="background-image: url('assets/hero/Image01.jpg');"></div>
+            <div class="hero-floating-card">
+              <p class="card-eyebrow">UNYLENS HAUTE PRODUCTION • 2026 COHORT</p>
+              <h2 class="card-headline">
+                APPLICATIONS ARE NOW OPEN FOR THE OCTOBER 2026 COHORT OF THE <br>
+                <em>INSIDE UNYLENS CERTIFICATE</em>
+              </h2>
+              <a href="#portfolio" class="card-readmore-btn">READ MORE</a>
+            </div>
+          </div>
+
+          <!-- Slide 02 -->
+          <div class="hero-slide" data-slide="1">
+            <div class="hero-slide-bg" style="background-image: url('assets/hero/img3.jpg');"></div>
+            <div class="hero-floating-card">
+              <p class="card-eyebrow">SPECIAL ATELIER EVENT</p>
+              <h2 class="card-headline">
+                GET READY! RESERVATIONS FOR <em>LES JOURNÉES PARTICULIÈRES</em> OPEN TODAY <br>
+                AT 2:00 PM (PARIS TIME)
+              </h2>
+              <a href="#portfolio" class="card-readmore-btn">READ MORE</a>
+            </div>
+          </div>
+
+          <!-- Slide 03 -->
+          <div class="hero-slide" data-slide="2">
+            <div class="hero-slide-bg" style="background-image: url('assets/hero/img2.jpg');"></div>
+            <div class="hero-floating-card">
+              <p class="card-eyebrow">PERPETUAL EDITORIAL CAPSULE</p>
+              <h2 class="card-headline">
+                DISCOVER THE NEW <em>ARCHITECTURAL SILHOUETTE</em> EXHIBITION <br>
+                CURATED BY UNYLENS STUDIO MASTERS
+              </h2>
+              <a href="#portfolio" class="card-readmore-btn">READ MORE</a>
+            </div>
+          </div>
+
+          <!-- Slide 04 (Exact match with user screenshot) -->
+          <div class="hero-slide" data-slide="3">
+            <div class="hero-slide-bg" style="background-image: url('assets/hero/img.jpg');"></div>
+            <div class="hero-floating-card">
+              <p class="card-eyebrow">ANAMORPHIC OPTICAL INNOVATION</p>
+              <h2 class="card-headline">
+                MASTERING THE HARMONY OF <em>CHROMA &amp; LIGHT</em> ACROSS <br>
+                INTERNATIONAL CINEMATIC RELEASES
+              </h2>
+              <a href="#portfolio" class="card-readmore-btn">READ MORE</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Slide Navigation Arrows (< and >) -->
+        <button class="slide-nav-btn prev-btn" id="hero-slide-prev" aria-label="Previous Slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="slide-nav-btn next-btn" id="hero-slide-next" aria-label="Next Slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Slide Progress Indicators (Dots) -->
+        <div class="hero-slide-dots" id="hero-slide-dots">
+          <span class="slide-dot active" data-index="0"></span>
+          <span class="slide-dot" data-index="1"></span>
+          <span class="slide-dot" data-index="2"></span>
+          <span class="slide-dot" data-index="3"></span>
+        </div>
+      </div>
+    </section>
+
     <!-- =======================================================
          HERO SECTION: THE MAISON COVER (Haute Editorial)
          ======================================================= -->
     <section class="wrap hero-editorial" id="home">
+
+
+
+
+      <!-- ===== 1. TOP HERO IMAGE SLIDER (EXACT LVMH STYLE) ===== -->
+
+
+
+
+
+
+
+
       <div class="hero-grid">
 
         <!-- LEFT: EDITORIAL STATEMENT -->
@@ -902,234 +1645,390 @@
     <!-- =======================================================
          PORTFOLIO & CURATED WORKS (Design, Books, Archives)
          ======================================================= -->
-    <section class="wrap section section-alt" id="portfolio">
-      <div class="section-head reveal">
-        <div class="section-head-title">
-          <div class="eyebrow">Collection &amp; Portofolio</div>
-          <h2>Graphic Design, <br>Monograph &amp; Repository</h2>
+
+    <!-- =======================================================
+         PORTFOLIO & GRAPHIC DESIGN (THE LIVING ARCHIVE MARQUEE)
+         ======================================================= -->
+    <section class="la-gallery-section" id="portfolio">
+      <div class="la-container">
+        <div class="la-header-row">
+          <div class="la-title-wrap">
+            <span class="la-eyebrow">Collection &amp; Portofolio</span>
+            <h2>Graphic Design, <br>Monograph &amp; Repository</h2>
+            <p class="la-section-desc">
+              A thoughtfully curated portfolio of creative and technical endeavors, encompassing distinctive brand
+              identities, refined environmental signage, the publication of an ISBN-assigned typography monograph,
+              precision-driven algorithm engineering, and the development of a dedicated digital archival center. Each
+              endeavor reflects a commitment to thoughtful design, meticulous execution, and enduring professional
+              excellence.
+            </p>
+          </div>
+          <div class="la-filters" id="la-port-filters">
+            <button class="la-filter-pill la-port-filter-pill active" data-filter="all">ALL WORKS</button>
+            <button class="la-filter-pill la-port-filter-pill" data-filter="design">IDENTITY &amp; BRANDING</button>
+            <button class="la-filter-pill la-port-filter-pill" data-filter="research">OUVRAGES &amp; RISET</button>
+            <button class="la-filter-pill la-port-filter-pill" data-filter="software">PROGRAM &amp; ALGORITMA</button>
+            <button class="la-filter-pill la-port-filter-pill" data-filter="hub">THE GRAND ARCHIVE</button>
+          </div>
         </div>
-        <p class="section-head-desc">
-          A thoughtfully curated portfolio of creative and technical endeavors, encompassing distinctive brand
-          identities, refined environmental signage, the publication of an ISBN-assigned typography monograph,
-          precision-driven algorithm engineering, and the development of a dedicated digital archival center. Each
-          endeavor reflects a commitment to thoughtful design, meticulous execution, and enduring professional
-          excellence.
-        </p>
       </div>
 
-      <!-- FILTER BUTTONS -->
-      <div class="gallery-filters-bar reveal" id="portfolioFilters">
-        <button class="filter-btn active" data-filter="all">The Entire Collection</button>
-        <button class="filter-btn" data-filter="design">Identity &amp; Branding</button>
-        <button class="filter-btn" data-filter="research">Ouvrages &amp; Riset</button>
-        <button class="filter-btn" data-filter="software">Program &amp; Algoritma</button>
-        <button class="filter-btn" data-filter="hub">The Grand Archive</button>
+      <!-- Moving Marquee Track -->
+      <div class="la-viewport" id="la-port-viewport">
+        <div class="la-track" id="la-port-track">
+          <div class="la-showcase-card" data-id="gd-1" data-category="design" data-category-label="Identity & Branding"
+            data-title="Mantau Bucin Balikpapan Sign Design" data-role="Graphic Designer" data-year="2024–2025"
+            data-desc="The creation of exceptional visual identities, outdoor signage, and refined promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+            data-link="https://bit.ly/3T5mTmv" data-link-label="An Invitation to Explore">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+                alt="Mantau Bucin Balikpapan Sign Design" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 01</span>
+                <span class="la-card-category">IDENTITY & BRANDING</span>
+              </div>
+              <h3 class="la-card-title">Mantau Bucin Balikpapan Sign Design</h3>
+              <p class="la-card-summary">The creation of exceptional visual identities, outdoor signage, and refined
+                promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan.</p>
+              <a href="https://bit.ly/3T5mTmv" target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-2" data-category="research"
+            data-category-label="Book & Scientific Research" data-title="Japanese Typography: 日本タイポグラフィ"
+            data-role="Writer & Lead Researcher" data-year="2023"
+            data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+            data-link-label="Read the Kaltim Post / Jawa Pos Coverage">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Japanese Typography: 日本タイポグラフィ" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 02</span>
+                <span class="la-card-category">BOOK & SCIENTIFIC RESEARCH</span>
+              </div>
+              <h3 class="la-card-title">Japanese Typography: 日本タイポグラフィ</h3>
+              <p class="la-card-summary">A scholarly monograph published by CV. Hosting Media Rakyat under ISBN
+                978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical
+                origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary
+                integration with the Latin alphabet.</p>
+              <a href="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-3" data-category="design"
+            data-category-label="Hospitality & Visual Identity" data-title="Qubika Boutique Hotel Nusantara"
+            data-role="Graphic Designer" data-year="2025"
+            data-desc="Design of exclusive promotional materials, the hotel’s prestigious visual identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+            data-link="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
+            data-link-label="View the EKRAF Portfolio Profile">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+                alt="Qubika Boutique Hotel Nusantara" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 03</span>
+                <span class="la-card-category">HOSPITALITY & VISUAL IDENTITY</span>
+              </div>
+              <h3 class="la-card-title">Qubika Boutique Hotel Nusantara</h3>
+              <p class="la-card-summary">Design of exclusive promotional materials, the hotel’s prestigious visual
+                identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area.
+              </p>
+              <a href="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-4" data-category="software"
+            data-category-label="Software & Utility Algorithm" data-title="Land Gradient Elevation Calculator"
+            data-role="Software Designer & Developer" data-year="2022"
+            data-desc="Designing and Developing a Utility Application for Calculating Land Contour Gradients for Surveying and Engineering Applications."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Land Gradient Elevation Calculator" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 04</span>
+                <span class="la-card-category">SOFTWARE & UTILITY ALGORITHM</span>
+              </div>
+              <h3 class="la-card-title">Land Gradient Elevation Calculator</h3>
+              <p class="la-card-summary">Designing and Developing a Utility Application for Calculating Land Contour
+                Gradients for Surveying and Engineering Applications.</p>
+              <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank" rel="noopener noreferrer"
+                class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-5" data-category="software"
+            data-category-label="Data Analytics & Psychology" data-title="Python Graphology Scoring"
+            data-role="Python Developer" data-year="2023"
+            data-desc="Developing data processing software for scoring graphological characteristics (psychological analysis of handwriting) using the Python programming language."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Python Graphology Scoring" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 05</span>
+                <span class="la-card-category">DATA ANALYTICS & PSYCHOLOGY</span>
+              </div>
+              <h3 class="la-card-title">Python Graphology Scoring</h3>
+              <p class="la-card-summary">Developing data processing software for scoring graphological characteristics
+                (psychological analysis of handwriting) using the Python programming language.</p>
+              <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank" rel="noopener noreferrer"
+                class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-6" data-category="hub"
+            data-category-label="Digital Repository Center" data-title="Repository Center & EKRAF"
+            data-role="Curator & Creator" data-year="2018–2026"
+            data-desc="The primary digital repository featuring graphic design works, photography archives, and verified profiles in the EKRAF directory of the EKRAF RI by KEMENPAREKRAF."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+            data-link="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
+            data-link-label="Visit the Official EKRAF RI Directory">
+            <div class="la-card-media-wrap">
+              <img
+                src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+                alt="Repository Center & EKRAF" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 06</span>
+                <span class="la-card-category">DIGITAL REPOSITORY CENTER</span>
+              </div>
+              <h3 class="la-card-title">Repository Center & EKRAF</h3>
+              <p class="la-card-summary">The primary digital repository featuring graphic design works, photography
+                archives, and verified profiles in the EKRAF directory of the EKRAF RI by KEMENPAREKRAF.</p>
+              <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-1" data-category="design" data-category-label="Identity & Branding"
+            data-title="Mantau Bucin Balikpapan Sign Design" data-role="Graphic Designer" data-year="2024–2025"
+            data-desc="The creation of exceptional visual identities, outdoor signage, and refined promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+            data-link="https://bit.ly/3T5mTmv" data-link-label="An Invitation to Explore">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
+                alt="Mantau Bucin Balikpapan Sign Design" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 01</span>
+                <span class="la-card-category">IDENTITY & BRANDING</span>
+              </div>
+              <h3 class="la-card-title">Mantau Bucin Balikpapan Sign Design</h3>
+              <p class="la-card-summary">The creation of exceptional visual identities, outdoor signage, and refined
+                promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan.</p>
+              <a href="https://bit.ly/3T5mTmv" target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-2" data-category="research"
+            data-category-label="Book & Scientific Research" data-title="Japanese Typography: 日本タイポグラフィ"
+            data-role="Writer & Lead Researcher" data-year="2023"
+            data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+            data-link-label="Read the Kaltim Post / Jawa Pos Coverage">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Japanese Typography: 日本タイポグラフィ" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 02</span>
+                <span class="la-card-category">BOOK & SCIENTIFIC RESEARCH</span>
+              </div>
+              <h3 class="la-card-title">Japanese Typography: 日本タイポグラフィ</h3>
+              <p class="la-card-summary">A scholarly monograph published by CV. Hosting Media Rakyat under ISBN
+                978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical
+                origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary
+                integration with the Latin alphabet.</p>
+              <a href="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-3" data-category="design"
+            data-category-label="Hospitality & Visual Identity" data-title="Qubika Boutique Hotel Nusantara"
+            data-role="Graphic Designer" data-year="2025"
+            data-desc="Design of exclusive promotional materials, the hotel’s prestigious visual identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+            data-link="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
+            data-link-label="View the EKRAF Portfolio Profile">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
+                alt="Qubika Boutique Hotel Nusantara" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 03</span>
+                <span class="la-card-category">HOSPITALITY & VISUAL IDENTITY</span>
+              </div>
+              <h3 class="la-card-title">Qubika Boutique Hotel Nusantara</h3>
+              <p class="la-card-summary">Design of exclusive promotional materials, the hotel’s prestigious visual
+                identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area.
+              </p>
+              <a href="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-4" data-category="software"
+            data-category-label="Software & Utility Algorithm" data-title="Land Gradient Elevation Calculator"
+            data-role="Software Designer & Developer" data-year="2022"
+            data-desc="Designing and Developing a Utility Application for Calculating Land Contour Gradients for Surveying and Engineering Applications."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Land Gradient Elevation Calculator" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 04</span>
+                <span class="la-card-category">SOFTWARE & UTILITY ALGORITHM</span>
+              </div>
+              <h3 class="la-card-title">Land Gradient Elevation Calculator</h3>
+              <p class="la-card-summary">Designing and Developing a Utility Application for Calculating Land Contour
+                Gradients for Surveying and Engineering Applications.</p>
+              <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank" rel="noopener noreferrer"
+                class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-5" data-category="software"
+            data-category-label="Data Analytics & Psychology" data-title="Python Graphology Scoring"
+            data-role="Python Developer" data-year="2023"
+            data-desc="Developing data processing software for scoring graphological characteristics (psychological analysis of handwriting) using the Python programming language."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+            data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
+            <div class="la-card-media-wrap">
+              <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
+                alt="Python Graphology Scoring" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 05</span>
+                <span class="la-card-category">DATA ANALYTICS & PSYCHOLOGY</span>
+              </div>
+              <h3 class="la-card-title">Python Graphology Scoring</h3>
+              <p class="la-card-summary">Developing data processing software for scoring graphological characteristics
+                (psychological analysis of handwriting) using the Python programming language.</p>
+              <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank" rel="noopener noreferrer"
+                class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="gd-6" data-category="hub"
+            data-category-label="Digital Repository Center" data-title="Repository Center & EKRAF"
+            data-role="Curator & Creator" data-year="2018–2026"
+            data-desc="The primary digital repository featuring graphic design works, photography archives, and verified profiles in the EKRAF directory of the EKRAF RI by KEMENPAREKRAF."
+            data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+            data-link="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
+            data-link-label="Visit the Official EKRAF RI Directory">
+            <div class="la-card-media-wrap">
+              <img
+                src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
+                alt="Repository Center & EKRAF" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 06</span>
+                <span class="la-card-category">DIGITAL REPOSITORY CENTER</span>
+              </div>
+              <h3 class="la-card-title">Repository Center & EKRAF</h3>
+              <p class="la-card-summary">The primary digital repository featuring graphic design works, photography
+                archives, and verified profiles in the EKRAF directory of the EKRAF RI by KEMENPAREKRAF.</p>
+              <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- EDITORIAL WORKS GRID (NON-PHOTOSESSION) -->
-      <div class="editorial-works-grid" id="portfolioGrid">
+      <!-- Controls Bar & Progress -->
+      <div class="la-container">
 
-        <!-- ITEM 1: Mantau Bucin Balikpapan -->
-        <article class="work-card reveal" data-category="design"
-          data-title="Mantau Bucin Balikpapan: Sign &amp; Branding Design"
-          data-category-label="Graphic Design &amp; Signage" data-role="Graphic Designer" data-year="2024–2025"
-          data-desc="The creation of exceptional visual identities, outdoor signage, and refined promotional materials for Mantau Bucin, a renowned culinary brand in Balikpapan."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
-          data-link="https://bit.ly/3T5mTmv" data-link-label="An Invitation to Explore">
-          <div class="work-card-media">
-            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/mantau-bucin-03.jpg?w=768"
-              alt="Mantau Bucin Sign Design" loading="lazy">
-            <span class="card-category-badge">Identity &amp; Branding</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>Culinary Brand Experience</span>
-              <span>2024–2025</span>
-            </div>
-            <h3>Mantau Bucin Balikpapan Sign Design</h3>
-            <p>Design of outdoor signage and visual branding architecture for Balikpapan’s signature culinary offerings.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Branding Identity</span>
-              <span class="pill-tag">Branding</span>
-              <span class="pill-tag">Graphic Design</span>
-            </div>
-          </div>
-        </article>
 
-        <!-- ITEM 2: Buku Japanese Typography -->
-        <article class="work-card reveal" data-category="research"
-          data-title="Book: Japanese Typography (日本タイポグラフィ、過去と現在)" data-category-label="Book &amp; Scientific Research"
-          data-role="Writer &amp; Lead Researcher" data-year="2023"
-          data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet. This work reflects a commitment to intellectual depth, meticulous scholarship, and the thoughtful preservation of linguistic and typographic heritage."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-          data-link="https://kaltimpost.jawapos.com/balikpapan/2385052687/mahasiswa-fik-universitas-mulia-terbitkan-buku-tipografi-jepang"
-          data-link-label="Read the Kaltim Post / Jawa Pos Coverage">
-          <div class="work-card-media">
-            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-              alt="Japanese Typography Book" loading="lazy">
-            <span class="card-category-badge">Research</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>RESEARCH BOOK</span>
-              <span>2023</span>
-            </div>
-            <h3>Japanese Typography: 日本タイポグラフィ</h3>
-            <p>A Scientific Study of Japanese Typography and Its Comparison with the Latin Alphabet (ISBN:
-              978-623-09-5379-8).
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Research</span>
-              <span class="pill-tag">Typography</span>
-              <span class="pill-tag">Graphic Design</span>
-            </div>
-          </div>
-        </article>
 
-        <!-- ITEM 3: Qubika Boutique Hotel IKN -->
-        <article class="work-card reveal" data-category="design"
-          data-title="Qubika Boutique Hotel Nusantara: Hospitality Visual Identity"
-          data-category-label="Visual Identity &amp; Hospitality" data-role="Graphic Designer" data-year="2025"
-          data-desc="Design of exclusive promotional materials, the hotel’s prestigious visual identity, interior signage, guest guidebooks, and marketing materials for the Ibu Kota Nusantara area."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
-          data-link="https://iamabuabu.wordpress.com/2026/10/18/qubika-boutique-hotel-kota-nusantara-promo-design/"
-          data-link-label="View the EKRAF Portfolio Profile">
-          <div class="work-card-media">
-            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2026/10/dsc09166.jpg?w=768"
-              alt="Qubika Boutique Hotel Nusantara" loading="lazy">
-            <span class="card-category-badge">Hospitality</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>Hotelier</span>
-              <span>2025</span>
-            </div>
-            <h3>Qubika Boutique Hotel Nusantara</h3>
-            <p>Designing the visual identity for the first prestigious boutique hotel in the Capital City of Nusantara
-              (IKN).</p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Nusantara</span>
-              <span class="pill-tag">Hospitality</span>
-              <span class="pill-tag">Branding Identity</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- ITEM 4: Land Gradient Elevation Calculator -->
-        <article class="work-card reveal" data-category="software" data-title="Land Gradient Elevation Calculator"
-          data-category-label="Software &amp; Utility Algorithm" data-role="Software Designer &amp; Developer"
-          data-year="2022"
-          data-desc="Designing and Developing a Utility Application for Calculating Land Contour Gradients for Surveying and Engineering Applications."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-          data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
-          <div class="work-card-media">
-            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-              alt="Land Gradient Calculator" loading="lazy">
-            <span class="card-category-badge">Algorithm Engineering</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>Engineering Utilities Program</span>
-              <span>2022</span>
-            </div>
-            <h3>Land Gradient Elevation Calculator</h3>
-            <p>A computational utility program for calculating the elevation gradient of terrain contour lines.</p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Software</span>
-              <span class="pill-tag">Algorithm</span>
-              <span class="pill-tag">Information System</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- ITEM 5: Python Graphology Scoring -->
-        <article class="work-card reveal" data-category="software" data-title="Python Graphology Characteristic Scoring"
-          data-category-label="Data Analytics &amp; Psychology" data-role="Python Developer" data-year="2023"
-          data-desc="Developing data processing software for scoring graphological characteristics (psychological analysis of handwriting) using the Python programming language."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-          data-link="https://iamabuabu.wordpress.com/aboutme/" data-link-label="An Invitation to Access">
-          <div class="work-card-media">
-            <img src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/freelance-poster-ii-06.jpg?w=813"
-              alt="Python Graphology Scoring" loading="lazy">
-            <span class="card-category-badge">Python Analytics</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>Psychoanalytic Graphology</span>
-              <span>2023</span>
-            </div>
-            <h3>Python Graphology Scoring</h3>
-            <p>Handwriting psychological analysis software with structured data modeling using Python.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Python</span>
-              <span class="pill-tag">Grafologi</span>
-              <span class="pill-tag">Data Science</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- ITEM 6: Full Portfolio Drive Hub -->
-        <article class="work-card reveal" data-category="hub" data-title="Drive Portfolio &amp; Directory"
-          data-category-label="Digital Repository Center" data-role="Curator &amp; Creator" data-year="2018–2026"
-          data-desc="The primary digital repository featuring graphic design works, photography archives, and verified profiles in the EKRAF directory of the EKRAF RI by KEMENPAREKRAF."
-          data-image="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
-          data-link="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d"
-          data-link-label="Visit the Official EKRAF RI Directory">
-          <div class="work-card-media">
-            <img
-              src="https://iamabuabu.wordpress.com/wp-content/uploads/2025/02/da81710c-1981-4090-9ac1-32ba8fa75402.jpg?w=1024"
-              alt="Google Drive Portfolio Hub" loading="lazy">
-            <span class="card-category-badge">Archives Complètes</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>Master Archives Center</span>
-              <span>2018&ndash;2026</span>
-            </div>
-            <h3>Repository Center &amp; EKRAF</h3>
-            <p>Folder containing graphic design files, a photography gallery, &amp; EKRAF Profile by KEMENPAREKRAF.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Design Archive</span>
-              <span class="pill-tag pill-tag-gold">Photo Archive</span>
-              <span class="pill-tag">hunt.ekraf.go.id</span>
-            </div>
-          </div>
-        </article>
-
-      </div>
-
-      <!-- REPOSITORY QUICK ACCESS BANNER -->
-      <div class="cloud-archive-banner reveal">
-        <div class="cloud-archive-info">
-          <h4>Access to Cloud Archives &amp; Directories Official</h4>
-          <p>Explore the complete portfolio of works and photography within our official archive.
-          </p>
-        </div>
-        <div class="cloud-archive-links">
-          <a href="https://drive.google.com/drive/folders/1Xux9IjtQkqeydXA8bTJLEuED0FxyTMrs?usp=sharing" target="_blank"
-            rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <span>Graphic Design Gallery &nearr;</span>
-          </a>
-          <a href="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
-            rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <span>Photography Gallery &nearr;</span>
-          </a>
-          <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
-            rel="noopener noreferrer" class="btn btn-primary btn-sm">
-            <span>EKRAF RI Official &nearr;</span>
-          </a>
-        </div>
       </div>
     </section>
+
+    <!-- REPOSITORY QUICK ACCESS BANNER -->
+    <div class="cloud-archive-banner reveal" style="margin-top: 48px;">
+      <div class="cloud-archive-info">
+        <h4 style="color:#1d1b1b;">Access to Cloud Archives &amp; Directories Official</h4>
+      </div>
+      <div class="cloud-archive-links">
+        <a href="https://drive.google.com/drive/folders/1Xux9IjtQkqeydXA8bTJLEuED0FxyTMrs?usp=sharing" target="_blank"
+          rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+          <span>Graphic Design Gallery &nearr;</span>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+          rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+          <span>Photography Archive &nearr;</span>
+        </a>
+        <a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+          rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <span>EKRAF RI Directory &nearr;</span>
+        </a>
+      </div>
+    </div>
 
     <!-- =======================================================
          DISTINCTIONS & AWARDS (Palmarès & Honneurs)
@@ -2274,337 +3173,673 @@
     <!-- =======================================================
          BOOK WORKS (Design, Books, Archives)
          ======================================================= -->
-    <section class="wrap section section-alt" id="portfolio">
-      <div class="section-head reveal">
-        <div class="section-head-title">
-          <div class="eyebrow">Book Collection &amp; Module</div>
-          <h2>The Literary Collection &amp; <em><span class="gold-gradient-text">Curated Module Editions</span></em>
-          </h2>
-        </div>
-        <p class="section-head-desc">
-          A distinguished collection of published works, scholarly monographs, and literary compositions, thoughtfully
-          curated to reflect intellectual depth, editorial refinement, and a lasting commitment to knowledge. Each
-          volume embodies a considered balance of academic rigour, aesthetic sensibility, and enduring literary value.
-        </p>
-      </div>
 
-      <!-- FILTER BUTTONS -->
-      <div class="gallery-filters-bar reveal" id="portfolioFilters">
-        <button class="filter-btn active" data-filter="allco">The Entire Collection</button>
-        <button class="filter-btn" data-filter="designar">Architecture</button>
-        <button class="filter-btn" data-filter="designde">Graphic Design &amp; Photography</button>
-        <button class="filter-btn" data-filter="pyuni">Physics &amp; Universe</button>
-        <button class="filter-btn" data-filter="phil">Philosophy</button>
-        <button class="filter-btn" data-filter="litera">Literature</button>
-        <button class="filter-btn" data-filter="magos">The Magnum Opus</button>
-      </div>
-
-      <!-- EDITORIAL WORKS GRID (NON-PHOTOSESSION) -->
-      <div class="editorial-works-grid" id="portfolioGrid">
-
-        <!-- BOOK I -->
-        <article class="work-card reveal" data-category="designde" data-title="Pasar Terapung Kampung Baru"
-          data-category-label="Visual &amp; Art" data-role="Photographer" data-year="2025"
-          data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery. Each photograph reflects a considered approach to aesthetics, detail, and visual expression."
-          data-image="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
-          data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
-          data-link-label="Access Now">
-          <div class="work-card-media">
-            <img src="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
-              alt="EKONOMI KREATIF Book" loading="lazy">
-            <span class="card-category-badge">Photography</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>PHOTOGRAPHY</span>
-              <span>2025</span>
-            </div>
-            <h3>Pasar Terapung Kampung Baru</h3>
-            <p>A curated collection of photographic works exploring visual composition, light, perspective, and the art
-              of storytelling through imagery.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Portfolio</span>
-              <span class="pill-tag">Visual Art</span>
-              <span class="pill-tag">Photography</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- BOOK I -->
-        <article class="work-card reveal" data-category="designde"
-          data-title="EKONOMI KREATIF | EKRAF - Solemn Conversation" data-category-label="Visual &amp; Art"
-          data-role="Photographer" data-year="2025"
-          data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery. Each photograph reflects a considered approach to aesthetics, detail, and visual expression."
-          data-image="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
-          data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
-          data-link-label="Access Now">
-          <div class="work-card-media">
-            <img src="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
-              alt="EKONOMI KREATIF Book" loading="lazy">
-            <span class="card-category-badge">Photography</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>PHOTOGRAPHY</span>
-              <span>2025</span>
-            </div>
-            <h3>EKONOMI KREATIF | EKRAF <br> Solemn Conversation</h3>
-            <p>A curated collection of photographic works exploring visual composition, light, perspective, and the art
-              of storytelling through imagery.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Portfolio</span>
-              <span class="pill-tag">Visual Art</span>
-              <span class="pill-tag">Photography</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- BOOK I -->
-        <article class="work-card reveal" data-category="designde"
-          data-title="Photography Zone, Nature &amp; Metropolis" data-category-label="Visual &amp; Art"
-          data-role="Photographer" data-year="2024"
-          data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery. Each photograph reflects a considered approach to aesthetics, detail, and visual expression."
-          data-image="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
-          data-link="https://drive.google.com/file/d/1QtF5sxZ4hdzrphRZzfM7DooXV97B97JI/view"
-          data-link-label="Access Now">
-          <div class="work-card-media">
-            <img src="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
-              alt="Japanese Typography Book" loading="lazy">
-            <span class="card-category-badge">Photography</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>PHOTOGRAPHY</span>
-              <span>2024</span>
-            </div>
-            <h3>Photography Zone, Nature &amp; Metropolis</h3>
-            <p>A curated collection of photographic works exploring visual composition, light, perspective, and the art
-              of storytelling through imagery.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Portfolio</span>
-              <span class="pill-tag">Visual Art</span>
-              <span class="pill-tag">Photography</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- BOOK II -->
-        <article class="work-card reveal" data-category="designde" data-title="Japanese Typography (日本タイポグラフィ、過去と現在)"
-          data-category-label="Book &amp; Scientific Research" data-role="Writer &amp; Lead Researcher" data-year="2023"
-          data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet. This work reflects a commitment to intellectual depth, meticulous scholarship, and the thoughtful preservation of linguistic and typographic heritage."
-          data-image="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
-          data-link="https://play.google.com/store/books/details/Gray_Hansen_Limantoro_Japanese_Typography_%E6%97%A5%E6%9C%AC%E3%82%BF%E3%82%A4%E3%83%9D%E3%82%B0%E3%83%A9%E3%83%95?id=FnPXEAAAQBAJ"
-          data-link-label="Access Now">
-          <div class="work-card-media">
-            <img src="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
-              alt="Japanese Typography Book" loading="lazy">
-            <span class="card-category-badge">Graphic Design</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>RESEARCH BOOK</span>
-              <span>2023</span>
-            </div>
-            <h3>Japanese Typography: 日本タイポグラフィ</h3>
-            <p>A Scientific Study of Japanese Typography and Its Comparison with the Latin Alphabet (ISBN:
-              978-623-09-5379-8).
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Research</span>
-              <span class="pill-tag">Typography</span>
-              <span class="pill-tag">Graphic Design</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- BOOK III -->
-        <article class="work-card reveal" data-category="designde" data-title="Trip to Nusantara"
-          data-category-label="Visual &amp; Art" data-role="Photographer" data-year="2025"
-          data-desc="The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a modern yet sustainable architectural approach that integrates traditional Indonesian elements."
-          data-image="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
-          data-link="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
-          data-link-label="Access Now">
-          <div class="work-card-media">
-            <img src="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
-              alt="Japanese Typography Book" loading="lazy">
-            <span class="card-category-badge">Photography</span>
-            <div class="card-action-cue">&nearr;</div>
-          </div>
-          <div class="work-card-body">
-            <div class="work-meta-row">
-              <span>PHOTOGRAPHY</span>
-              <span>2025</span>
-            </div>
-            <h3>Trip to Nusantara</h3>
-            <p>The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a modern yet sustainable
-              architectural approach that integrates traditional Indonesian elements.
-            </p>
-            <div class="work-card-pills">
-              <span class="pill-tag pill-tag-gold">Portfolio</span>
-              <span class="pill-tag">Visual Art</span>
-              <span class="pill-tag">Photography</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- =======================================================
-         PRINT-ONLY LUXURY DOSSIER COLOPHON (Visible exclusively in PDF Dossier)
+    <!-- =======================================================
+         THE LITERARY COLLECTION (THE LIVING ARCHIVE MARQUEE)
          ======================================================= -->
-        <div class="print-dossier-colophon wrap" aria-hidden="true">
-          <div class="print-colophon-divider"></div>
-          <div class="print-colophon-content">
-            <div class="print-colophon-jp">以卓越为本，以精致为志 &bull; &ldquo;Grounded in Excellence, Guided by Exquisite
-              Craftsmanship.&rdquo;</div>
+    <section class="la-gallery-section" id="literary-collection">
+      <div class="la-container">
+        <div class="la-header-row">
+          <div class="la-title-wrap">
+            <span class="la-eyebrow">Book Collection &amp; Module</span>
+            <h2>The Literary Collection &amp; <em>Curated Module Editions</em></h2>
+            <p class="la-section-desc">
+              A distinguished collection of published works, scholarly monographs, and literary compositions,
+              thoughtfully
+              curated to reflect intellectual depth, editorial refinement, and a lasting commitment to knowledge. Each
+              volume embodies a considered balance of academic rigour, aesthetic sensibility, and enduring literary
+              value.
+            </p>
+          </div>
+          <div class="la-filters" id="la-lit-filters">
+            <button class="la-filter-pill la-lit-filter-pill active" data-filter="all">ALL WORKS</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="designar">ARCHITECTURE</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="designde">GRAPHIC DESIGN &amp;
+              PHOTOGRAPHY</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="pyuni">PHYSICS &amp; UNIVERSE</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="phil">PHILOSOPHY</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="litera">LITERATURE</button>
+            <button class="la-filter-pill la-lit-filter-pill" data-filter="magos">THE MAGNUM OPUS</button>
+          </div>
+        </div>
+      </div>
 
-            <div class="print-colophon-meta">
-              <strong>Gray Hansen Limantoro, S.Kom. (林福勝)</strong> &mdash; Maison de Création &amp; Haute Recherche.
-              Balikpapan &bull; Nusantara Capital City (IKN). Resume &amp; The official portfolio has been validated
-              through
-              the EKRAF by KEMENPAREKRAF RI &amp; iamabuabu.wordpress.com.
+      <!-- Moving Marquee Track -->
+      <div class="la-viewport" id="la-lit-viewport">
+        <div class="la-track" id="la-lit-track">
+          <div class="la-showcase-card" data-id="lit-1" data-category="designde" data-category-label="Photography"
+            data-title="Pasar Terapung Kampung Baru" data-role="Photographer" data-year="2025"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
+            data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
+                alt="Pasar Terapung Kampung Baru" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 01</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Pasar Terapung Kampung Baru</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-2" data-category="designde" data-category-label="Photography"
+            data-title="EKONOMI KREATIF | EKRAF — Solemn Conversation" data-role="Photographer" data-year="2025"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
+            data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
+                alt="EKONOMI KREATIF | EKRAF — Solemn Conversation" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 02</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">EKONOMI KREATIF | EKRAF — Solemn Conversation</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-3" data-category="designde" data-category-label="Photography"
+            data-title="Photography Zone: Nature & Metropolis" data-role="Photographer" data-year="2024"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
+            data-link="https://drive.google.com/file/d/1QtF5sxZ4hdzrphRZzfM7DooXV97B97JI/view"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
+                alt="Photography Zone: Nature & Metropolis" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 03</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Photography Zone: Nature & Metropolis</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/file/d/1QtF5sxZ4hdzrphRZzfM7DooXV97B97JI/view" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-4" data-category="designde" data-category-label="Graphic Design"
+            data-title="Japanese Typography: 日本タイポグラフィ" data-role="Writer & Lead Researcher" data-year="2023"
+            data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet."
+            data-image="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
+            data-link="https://play.google.com/store/books/details/Gray_Hansen_Limantoro_Japanese_Typography_%E6%97%A5%E6%9C%AC%E3%82%BF%E3%82%A4%E3%83%9D%E3%82%B0%E3%83%A9%E3%83%95?id=FnPXEAAAQBAJ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
+                alt="Japanese Typography: 日本タイポグラフィ" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 04</span>
+                <span class="la-card-category">GRAPHIC DESIGN</span>
+              </div>
+              <h3 class="la-card-title">Japanese Typography: 日本タイポグラフィ</h3>
+              <p class="la-card-summary">A scholarly monograph published by CV. Hosting Media Rakyat under ISBN
+                978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical
+                origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary
+                integration with the Latin alphabet.</p>
+              <a href="https://play.google.com/store/books/details/Gray_Hansen_Limantoro_Japanese_Typography_%E6%97%A5%E6%9C%AC%E3%82%BF%E3%82%A4%E3%83%9D%E3%82%B0%E3%83%A9%E3%83%95?id=FnPXEAAAQBAJ"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-5" data-category="designde" data-category-label="Photography"
+            data-title="Trip to Nusantara" data-role="Photographer" data-year="2025"
+            data-desc="The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a modern yet sustainable architectural approach that integrates traditional Indonesian elements."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
+            data-link="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
+                alt="Trip to Nusantara" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 05</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Trip to Nusantara</h3>
+              <p class="la-card-summary">The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a
+                modern yet sustainable architectural approach that integrates traditional Indonesian elements.</p>
+              <a href="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-1" data-category="designde" data-category-label="Photography"
+            data-title="Pasar Terapung Kampung Baru" data-role="Photographer" data-year="2025"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
+            data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-925e5fd1-2c19-457e-9e43-a61d0098c4dc.png"
+                alt="Pasar Terapung Kampung Baru" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 01</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Pasar Terapung Kampung Baru</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-2" data-category="designde" data-category-label="Photography"
+            data-title="EKONOMI KREATIF | EKRAF — Solemn Conversation" data-role="Photographer" data-year="2025"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
+            data-link="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-93ba6878-819a-4279-9a60-0b4928577005.png"
+                alt="EKONOMI KREATIF | EKRAF — Solemn Conversation" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 02</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">EKONOMI KREATIF | EKRAF — Solemn Conversation</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/drive/u/0/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-3" data-category="designde" data-category-label="Photography"
+            data-title="Photography Zone: Nature & Metropolis" data-role="Photographer" data-year="2024"
+            data-desc="A curated collection of photographic works exploring visual composition, light, perspective, and the art of storytelling through imagery."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
+            data-link="https://drive.google.com/file/d/1QtF5sxZ4hdzrphRZzfM7DooXV97B97JI/view"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-eec1341b-9366-445e-9fd5-a79392a56825.png"
+                alt="Photography Zone: Nature & Metropolis" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 03</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Photography Zone: Nature & Metropolis</h3>
+              <p class="la-card-summary">A curated collection of photographic works exploring visual composition, light,
+                perspective, and the art of storytelling through imagery.</p>
+              <a href="https://drive.google.com/file/d/1QtF5sxZ4hdzrphRZzfM7DooXV97B97JI/view" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-4" data-category="designde" data-category-label="Graphic Design"
+            data-title="Japanese Typography: 日本タイポグラフィ" data-role="Writer & Lead Researcher" data-year="2023"
+            data-desc="A scholarly monograph published by CV. Hosting Media Rakyat under ISBN 978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary integration with the Latin alphabet."
+            data-image="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
+            data-link="https://play.google.com/store/books/details/Gray_Hansen_Limantoro_Japanese_Typography_%E6%97%A5%E6%9C%AC%E3%82%BF%E3%82%A4%E3%83%9D%E3%82%B0%E3%83%A9%E3%83%95?id=FnPXEAAAQBAJ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://play.google.com/books/publisher/content/images/frontcover/FnPXEAAAQBAJ?fife=w240-h345"
+                alt="Japanese Typography: 日本タイポグラフィ" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 04</span>
+                <span class="la-card-category">GRAPHIC DESIGN</span>
+              </div>
+              <h3 class="la-card-title">Japanese Typography: 日本タイポグラフィ</h3>
+              <p class="la-card-summary">A scholarly monograph published by CV. Hosting Media Rakyat under ISBN
+                978-623-09-5379-8, presenting a rigorous and thoughtfully structured examination of the historical
+                origins, structural principles, and evolution of Kanji and Hiragana, together with their contemporary
+                integration with the Latin alphabet.</p>
+              <a href="https://play.google.com/store/books/details/Gray_Hansen_Limantoro_Japanese_Typography_%E6%97%A5%E6%9C%AC%E3%82%BF%E3%82%A4%E3%83%9D%E3%82%B0%E3%83%A9%E3%83%95?id=FnPXEAAAQBAJ"
+                target="_blank" rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <div class="la-showcase-card" data-id="lit-5" data-category="designde" data-category-label="Photography"
+            data-title="Trip to Nusantara" data-role="Photographer" data-year="2025"
+            data-desc="The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a modern yet sustainable architectural approach that integrates traditional Indonesian elements."
+            data-image="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
+            data-link="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ"
+            data-link-label="Access Now">
+            <div class="la-card-media-wrap">
+              <img src="https://cdn.phototourl.com/member/2026-10-22-b11b3464-744a-4d6e-b605-99c960458472.png"
+                alt="Trip to Nusantara" class="la-card-media" loading="lazy">
+              <div class="la-card-gradient-overlay"></div>
+            </div>
+            <div class="la-card-caption">
+              <div class="la-card-top-info">
+                <span class="la-card-number">NO. 05</span>
+                <span class="la-card-category">PHOTOGRAPHY</span>
+              </div>
+              <h3 class="la-card-title">Trip to Nusantara</h3>
+              <p class="la-card-summary">The new capital city of Indonesia, Ibu Kota Nusantara (IKN), is designed with a
+                modern yet sustainable architectural approach that integrates traditional Indonesian elements.</p>
+              <a href="https://drive.google.com/drive/folders/1mZXKyOwn2GFuh3oFrBAJ7Fax0M04fAKQ" target="_blank"
+                rel="noopener noreferrer" class="la-card-cta">
+                <span>BUKA HALAMAN POS</span>
+                <span class="la-card-cta-arrow">&rarr;</span>
+              </a>
             </div>
           </div>
         </div>
-
-  </main>
-
-  <!-- =======================================================
-       GRAND MAISON FOOTER (LVMH Style)
-       ======================================================= -->
-  <footer class="maison-footer">
-    <div class="wrap">
-
-      <div class="footer-greeting-center reveal">
-        <div class="footer-greeting-hz">以卓越为本，以精致为志</div>
-        <div class="footer-greeting-sub">
-          &ldquo;Grounded in Excellence, Guided by Exquisite Craftsmanship.&rdquo; &mdash; Gray Hansen Limantoro, S.Kom.
-          (<span class="jp-kanji">林福勝</span>)
-        </div>
       </div>
 
-      <div class="footer-columns-grid">
-        <div class="footer-col">
-          <div class="font-display"
-            style="font-size: 1.15rem; font-weight: 600; letter-spacing: 0.22em; margin-bottom: 12px; color: var(--ink-pure);">
-            GRAY HANSEN LIMANTORO
+
+    </section>
+
+    <footer class="maison-footer">
+      <div class="wrap">
+
+        <div class="footer-greeting-center reveal">
+          <div class="footer-greeting-hz">以卓越为本，以精致为志</div>
+          <div class="footer-greeting-sub">
+            &ldquo;Grounded in Excellence, Guided by Exquisite Craftsmanship.&rdquo; &mdash; Gray Hansen Limantoro,
+            S.Kom.
+            (<span class="jp-kanji">林福勝</span>)
           </div>
-          <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.6; max-width: 320px;">
-            Maison de Création &amp; Haute Recherche. Graphic Designer, Photographer, Researcher, Blogger &amp; Educator
-            Based in Indonesia and with a network extending to Tokyo, Japan.
-          </p>
         </div>
 
-        <div class="footer-col">
-          <h5>Les Maisons</h5>
-          <ul class="footer-links-list">
-            <li><a href="#maisons">Haute Photographie</a></li>
-            <li><a href="#maisons">Design &amp; Identité</a></li>
-            <li><a href="#maisons">Recherche Scientifique</a></li>
-            <li><a href="#maisons">Pédagogie &amp; Conférences</a></li>
-            <li><a href="#maisons">Chroniques iamabuabu</a></li>
-          </ul>
+        <div class="footer-columns-grid">
+          <div class="footer-col">
+            <div class="font-display"
+              style="font-size: 1.15rem; font-weight: 600; letter-spacing: 0.22em; margin-bottom: 12px; color: var(--ink-pure);">
+              GRAY HANSEN LIMANTORO
+            </div>
+            <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.6; max-width: 320px;">
+              Maison de Création &amp; Haute Recherche. Graphic Designer, Photographer, Researcher, Blogger &amp;
+              Educator
+              Based in Indonesia and with a network extending to Tokyo, Japan.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Les Maisons</h5>
+            <ul class="footer-links-list">
+              <li><a href="#maisons">Haute Photographie</a></li>
+              <li><a href="#maisons">Design &amp; Identité</a></li>
+              <li><a href="#maisons">Recherche Scientifique</a></li>
+              <li><a href="#maisons">Pédagogie &amp; Conférences</a></li>
+              <li><a href="#maisons">Chroniques iamabuabu</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul class="footer-links-list">
+              <li><a href="#photosessions">PhotoSessions Officiels</a></li>
+              <li><a href="#portfolio">Portofolio &amp; Design</a></li>
+              <li><a href="#achievements">Achievements &amp; Recognition</a></li>
+              <li><a href="#experience">Career Parcours</a></li>
+              <li><a href="#research">Book &amp; Research Article</a></li>
+              <li><a href="#media">Press Coverage</a></li>
+              <li><a href="indexdua.html" style="color: var(--gold-500); font-weight: 600;">Society Card (Privileges)
+                  &nearr;</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Archives &amp; Liens</h5>
+            <ul class="footer-links-list">
+              <li><a href="https://iamabuabu.wordpress.com" target="_blank"
+                  rel="noopener noreferrer">iamabuabu.wordpress.com &nearr;</a></li>
+              <li><a href="https://graystyle.wixsite.com/home" target="_blank" rel="noopener noreferrer">Portfolio
+                  Wixsite
+                  &nearr;</a></li>
+              <li><a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
+                  rel="noopener noreferrer">Google Scholar &nearr;</a></li>
+              <li><a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
+                  rel="noopener noreferrer">EKRAF HUNT Respitory &nearr;</a></li>
+              <li><a href="#home">Retour en Haut &uarr;</a></li>
+            </ul>
+            <button class="btn btn-secondary btn-sm" id="printCvBtn" title="Simpan sebagai berkas PDF resmi">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <path d="M6 14h12v8H6z" />
+              </svg>
+              <span>PDF Dossier</span>
+            </button>
+
+          </div>
         </div>
 
-        <div class="footer-col">
-          <h5>Navigation</h5>
-          <ul class="footer-links-list">
-            <li><a href="#photosessions">PhotoSessions Officiels</a></li>
-            <li><a href="#portfolio">Portofolio &amp; Design</a></li>
-            <li><a href="#achievements">Achievements &amp; Recognition</a></li>
-            <li><a href="#experience">Career Parcours</a></li>
-            <li><a href="#research">Book &amp; Research Article</a></li>
-            <li><a href="#media">Press Coverage</a></li>
-            <li><a href="indexdua.html" style="color: var(--gold-500); font-weight: 600;">Society Card (Privileges)
-                &nearr;</a></li>
-          </ul>
+        <div class="footer-bottom-row">
+          <div>
+            &copy; <span id="currentYear"></span> Gray Hansen Limantoro, S.Kom. (林福勝). All Rights Reserved.
+            Data officially processed from <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank"
+              rel="noopener noreferrer"
+              style="color: var(--gold-500); text-decoration: underline;">iamabuabu.wordpress.com</a>.
+          </div>
+
+          <div style="display: flex; gap: 18px; align-items: center;">
+            <button class="utility-link" id="footerShareLinkBtn"
+              style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;">
+              <span>Share the Profile</span> &nearr;
+            </button>
+          </div>
         </div>
 
-        <div class="footer-col">
-          <h5>Archives &amp; Liens</h5>
-          <ul class="footer-links-list">
-            <li><a href="https://iamabuabu.wordpress.com" target="_blank"
-                rel="noopener noreferrer">iamabuabu.wordpress.com &nearr;</a></li>
-            <li><a href="https://graystyle.wixsite.com/home" target="_blank" rel="noopener noreferrer">Portfolio Wixsite
-                &nearr;</a></li>
-            <li><a href="https://scholar.google.com/citations?user=GA9AMfkAAAAJ&hl=id" target="_blank"
-                rel="noopener noreferrer">Google Scholar &nearr;</a></li>
-            <li><a href="https://hunt.ekraf.go.id/directory/62b1b808-5a81-41a2-85a8-1e57e515cc9d" target="_blank"
-                rel="noopener noreferrer">EKRAF HUNT Respitory &nearr;</a></li>
-            <li><a href="#home">Retour en Haut &uarr;</a></li>
-          </ul>
-          <button class="btn btn-secondary btn-sm" id="printCvBtn" title="Simpan sebagai berkas PDF resmi">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-              <path d="M6 14h12v8H6z" />
-            </svg>
-            <span>PDF Dossier</span>
-          </button>
-
-        </div>
       </div>
+    </footer>
 
-      <div class="footer-bottom-row">
-        <div>
-          &copy; <span id="currentYear"></span> Gray Hansen Limantoro, S.Kom. (林福勝). All Rights Reserved.
-          Data officially processed from <a href="https://iamabuabu.wordpress.com/aboutme/" target="_blank"
-            rel="noopener noreferrer"
-            style="color: var(--gold-500); text-decoration: underline;">iamabuabu.wordpress.com</a>.
-        </div>
-
-        <div style="display: flex; gap: 18px; align-items: center;">
-          <button class="utility-link" id="footerShareLinkBtn"
-            style="font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;">
-            <span>Share the Profile</span> &nearr;
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- =======================================================
+    <!-- =======================================================
        INTERACTIVE DETAIL MODAL
        ======================================================= -->
-  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="luxury-modal">
-      <button class="modal-close-btn" id="modalClose" aria-label="Tutup Detail">&times;</button>
-      <div class="eyebrow" id="modalCategory">Kategori Portofolio</div>
-      <h3 id="modalTitle" style="font-size: 1.8rem; margin-bottom: 8px;">Judul Proyek</h3>
-      <div class="pill-tag pill-tag-gold" id="modalRoleBadge" style="display: inline-block; margin-bottom: 16px;">Peran
-        &bull; Tahun</div>
+    <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="luxury-modal">
+        <button class="modal-close-btn" id="modalClose" aria-label="Tutup Detail">&times;</button>
+        <div class="eyebrow" id="modalCategory">Kategori Portofolio</div>
+        <h3 id="modalTitle" style="font-size: 1.8rem; margin-bottom: 8px;">Judul Proyek</h3>
+        <div class="pill-tag pill-tag-gold" id="modalRoleBadge" style="display: inline-block; margin-bottom: 16px;">
+          Peran
+          &bull; Tahun</div>
 
-      <div class="modal-image-wrap" id="modalImageWrap">
-        <img id="modalImage" src="" alt="Detail Proyek">
-      </div>
+        <div class="modal-image-wrap" id="modalImageWrap">
+          <img id="modalImage" src="" alt="Detail Proyek">
+        </div>
 
-      <div id="modalBody"
-        style="font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 24px;">
-        Deskripsi mendalam mengenai proyek ini...
-      </div>
+        <div id="modalBody"
+          style="font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.7; margin-bottom: 24px;">
+          Deskripsi mendalam mengenai proyek ini...
+        </div>
 
-      <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-end;">
-        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="modalActionBtn">
-          <span>Open the Official Link &nearr;</span>
-        </a>
+        <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-end;">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="modalActionBtn">
+            <span>Open the Official Link &nearr;</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- =======================================================
+    <!-- =======================================================
        TOAST NOTIFICATION
        ======================================================= -->
-  <div class="luxury-toast" id="toastNotification">
-    <span id="toastMessage">The link is ready to be shared.</span>
-  </div>
+    <div class="luxury-toast" id="toastNotification">
+      <span id="toastMessage">The link is ready to be shared.</span>
+    </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
+
+
+
+    <script id="la-marquee-engine">
+      // ==========================================================================
+      // 1. TOP HERO IMAGE SLIDER ENGINE (LVMH & UNYLENS LUXURY SPEC)
+      // ==========================================================================
+      function initHeroSlider() {
+        const container = document.getElementById('hero-slider-container');
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slide-dot');
+        const btnPrev = document.getElementById('hero-slide-prev');
+        const btnNext = document.getElementById('hero-slide-next');
+
+        if (!container || slides.length === 0) return;
+
+        let currentSlide = 0;
+        let slideInterval = null;
+
+        function goToSlide(index) {
+          slides.forEach(s => s.classList.remove('active'));
+          dots.forEach(d => d.classList.remove('active'));
+
+          currentSlide = (index + slides.length) % slides.length;
+          slides[currentSlide].classList.add('active');
+          if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        if (btnNext) btnNext.addEventListener('click', (e) => { e.preventDefault(); nextSlide(); resetAutoplay(); });
+        if (btnPrev) btnPrev.addEventListener('click', (e) => { e.preventDefault(); prevSlide(); resetAutoplay(); });
+
+        dots.forEach((dot, idx) => {
+          dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            goToSlide(idx);
+            resetAutoplay();
+          });
+        });
+
+        function startAutoplay() {
+          if (slideInterval) clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, 7000);
+        }
+
+        function resetAutoplay() {
+          clearInterval(slideInterval);
+          startAutoplay();
+        }
+
+        container.addEventListener('mouseenter', () => { if (slideInterval) clearInterval(slideInterval); });
+        container.addEventListener('mouseleave', startAutoplay);
+
+        startAutoplay();
+      }
+
+      // ==========================================================================
+      // 2. THE LIVING ARCHIVE MARQUEE ENGINE (Unylens Style Marquee)
+      // ==========================================================================
+      function setupLivingArchive(config) {
+        const viewport = document.getElementById(config.viewportId);
+        const track = document.getElementById(config.trackId);
+        const filterPills = document.querySelectorAll('.' + config.pillClass);
+
+        if (!viewport || !track) return;
+
+        const STATE = {
+          pos: 0,
+          targetPos: 0,
+          speed: 1.0,
+          targetSpeed: 1.0,
+          isPaused: false,
+          isDragging: false,
+          dragStartX: 0,
+          dragDistance: 0,
+          animationId: null
+        };
+
+        function getHalfWidth() {
+          return track.scrollWidth / 2;
+        }
+
+        function animate() {
+          const halfWidth = getHalfWidth();
+
+          if (!STATE.isDragging) {
+            STATE.speed += (STATE.targetSpeed - STATE.speed) * 0.08;
+            if (!STATE.isPaused) {
+              STATE.targetPos -= STATE.speed;
+            }
+            STATE.pos += (STATE.targetPos - STATE.pos) * 0.1;
+          } else {
+            STATE.pos = STATE.targetPos;
+          }
+
+          if (halfWidth > 0) {
+            while (STATE.pos <= -halfWidth) {
+              STATE.pos += halfWidth;
+              STATE.targetPos += halfWidth;
+            }
+            while (STATE.pos > 0) {
+              STATE.pos -= halfWidth;
+              STATE.targetPos -= halfWidth;
+            }
+          }
+
+          track.style.transform = 'translate3d(' + STATE.pos + 'px, 0, 0)';
+          STATE.animationId = requestAnimationFrame(animate);
+        }
+
+        STATE.animationId = requestAnimationFrame(animate);
+
+        // Hover modulation (slow down gracefully on hover)
+        track.addEventListener('mouseenter', () => {
+          if (!STATE.isPaused) STATE.targetSpeed = 0.2;
+        });
+        track.addEventListener('mouseleave', () => {
+          if (!STATE.isPaused) STATE.targetSpeed = 1.0;
+        });
+
+        // Pointer Drag (Only initiate drag if NOT interacting with CTA link)
+        viewport.addEventListener('pointerdown', (e) => {
+          if (e.target.closest('.la-card-cta')) {
+            return; // Do not capture pointer if user is clicking the CTA button!
+          }
+          STATE.isDragging = true;
+          STATE.dragStartX = e.clientX;
+          STATE.dragDistance = 0;
+          try { viewport.setPointerCapture(e.pointerId); } catch (err) { }
+        });
+
+        viewport.addEventListener('pointermove', (e) => {
+          if (!STATE.isDragging) return;
+          const deltaX = e.clientX - STATE.dragStartX;
+          STATE.dragDistance += Math.abs(deltaX);
+          STATE.targetPos += deltaX * 1.2;
+          STATE.dragStartX = e.clientX;
+        });
+
+        viewport.addEventListener('pointerup', (e) => {
+          STATE.isDragging = false;
+          try { viewport.releasePointerCapture(e.pointerId); } catch (err) { }
+        });
+
+        viewport.addEventListener('pointercancel', () => {
+          STATE.isDragging = false;
+        });
+
+        // Dedicated, guaranteed click handler for "BUKA HALAMAN POS"
+        track.querySelectorAll('.la-card-cta').forEach(cta => {
+          cta.addEventListener('pointerdown', (e) => {
+            e.stopPropagation(); // Stop pointerdown from triggering viewport drag
+          });
+          cta.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+          });
+          cta.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const targetUrl = cta.getAttribute('href');
+            if (targetUrl && targetUrl !== '#') {
+              window.open(targetUrl, '_blank', 'noopener,noreferrer');
+            }
+          });
+        });
+
+        // Clicking anywhere on the showcase card also directly opens the project website
+        track.querySelectorAll('.la-showcase-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            // If user was dragging/swiping the track, ignore
+            if (STATE.dragDistance > 10) return;
+            // If clicked on CTA, it is already handled
+            if (e.target.closest('.la-card-cta')) return;
+
+            const directLink = card.getAttribute('data-link');
+            if (directLink && directLink !== '#') {
+              window.open(directLink, '_blank', 'noopener,noreferrer');
+            }
+          });
+        });
+
+        // Filter pills
+        filterPills.forEach(pill => {
+          pill.addEventListener('click', () => {
+            filterPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+
+            const filter = pill.dataset.filter || 'all';
+            const allCards = track.querySelectorAll('.la-showcase-card');
+
+            allCards.forEach(card => {
+              const cat = card.dataset.category || '';
+              if (filter === 'all' || cat.toLowerCase() === filter.toLowerCase()) {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+                card.style.pointerEvents = 'auto';
+              } else {
+                card.style.opacity = '0.15';
+                card.style.transform = 'scale(0.95)';
+                card.style.pointerEvents = 'none';
+              }
+            });
+          });
+        });
+      }
+
+      function initAllEngines() {
+        initHeroSlider();
+
+        setupLivingArchive({
+          viewportId: 'la-port-viewport',
+          trackId: 'la-port-track',
+          pillClass: 'la-port-filter-pill'
+        });
+
+        setupLivingArchive({
+          viewportId: 'la-lit-viewport',
+          trackId: 'la-lit-track',
+          pillClass: 'la-lit-filter-pill'
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAllEngines);
+      } else {
+        initAllEngines();
+      }
+    </script>
 </body>
 
 </html>
