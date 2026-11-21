@@ -532,6 +532,8 @@
       --la-card-shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.12), 0 0 30px rgba(166, 129, 46, 0.18);
       --la-card-border-hover: #997825;
       --la-card-gradient: linear-gradient(180deg, rgba(251, 251, 249, 0) 0%, rgba(251, 251, 249, 0.72) 20%, rgba(251, 251, 249, 0.96) 50%, #fbfbf9 100%);
+      --la-card-gradient: linear-gradient(180deg, rgba(251, 251, 249, 0) 0%, rgba(251, 251, 249, 0) 42%, rgba(251, 251, 249, 0.25) 48%, rgba(251, 251, 249, 0.6) 54%, rgba(251, 251, 249, 0.9) 60%, #fbfbf9 65%, #fbfbf9 100%);
+      --la-card-gradient-hover: linear-gradient(180deg, rgba(251, 251, 249, 0) 0%, rgba(251, 251, 249, 0) 25%, rgba(251, 251, 249, 0.35) 34%, rgba(251, 251, 249, 0.75) 44%, #fbfbf9 54%, #fbfbf9 100%);
       --la-card-title: #0e0f12;
       --la-card-summary: #444752;
       --la-card-category: #707078;
@@ -558,6 +560,8 @@
       --la-card-shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.25);
       --la-card-border-hover: rgba(212, 175, 55, 0.5);
       --la-card-gradient: linear-gradient(180deg, rgba(10, 10, 12, 0) 0%, rgba(10, 10, 12, 0.72) 20%, rgba(10, 10, 12, 0.96) 50%, #0a0a0c 100%);
+      --la-card-gradient: linear-gradient(180deg, rgba(10, 10, 12, 0) 0%, rgba(10, 10, 12, 0) 42%, rgba(10, 10, 12, 0.25) 48%, rgba(10, 10, 12, 0.6) 54%, rgba(10, 10, 12, 0.9) 60%, #0a0a0c 65%, #0a0a0c 100%);
+      --la-card-gradient-hover: linear-gradient(180deg, rgba(10, 10, 12, 0) 0%, rgba(10, 10, 12, 0) 25%, rgba(10, 10, 12, 0.35) 34%, rgba(10, 10, 12, 0.75) 44%, #0a0a0c 54%, #0a0a0c 100%);
       --la-card-title: #ffffff;
       --la-card-summary: rgba(255, 255, 255, 0.82);
       --la-card-category: #9e9ea8;
@@ -623,6 +627,12 @@
     .la-card-gradient-overlay {
       background: var(--la-card-gradient);
       transition: background 0.4s ease, opacity 0.4s ease;
+    }
+
+    .la-showcase-card:hover .la-card-gradient-overlay,
+    .la-showcase-card.active .la-card-gradient-overlay,
+    .la-showcase-card:focus-within .la-card-gradient-overlay {
+      background: var(--la-card-gradient-hover, var(--la-card-gradient));
     }
 
     .la-card-title {
@@ -912,7 +922,9 @@
 
           <!-- Slide 01 -->
           <div class="hero-slide active" data-slide="0">
-            <div class="hero-slide-bg" style="background-image: url('assets/hero/Image01.jpg');"></div>
+            <div class="hero-slide-bg"
+              style="background-image: url(https://cdn.phototourl.com/anon/2026-11-21-17e5d63f-3fae-4a4d-87e2-a50c6781abe7.jpg);">
+            </div>
             <div class="hero-floating-card">
               <p class="card-eyebrow">UNYLENS HAUTE PRODUCTION • 2026 COHORT</p>
               <h2 class="card-headline">
@@ -925,7 +937,9 @@
 
           <!-- Slide 02 -->
           <div class="hero-slide" data-slide="1">
-            <div class="hero-slide-bg" style="background-image: url('assets/hero/img3.jpg');"></div>
+            <div class="hero-slide-bg"
+              style="background-image: url('https://cdn.phototourl.com/anon/2026-11-21-3ee6fa63-0a5d-4f72-af4c-39a6c515d521.jpg');">
+            </div>
             <div class="hero-floating-card">
               <p class="card-eyebrow">SPECIAL ATELIER EVENT</p>
               <h2 class="card-headline">
