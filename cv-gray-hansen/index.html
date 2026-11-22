@@ -244,15 +244,15 @@
     /* Mobile Landscape Slider Adaptation (Full Landscape Image, No Cut-Off, Same as Desktop) */
     @media (max-width: 768px) {
       .lvmh-hero-slider-section {
-        position: relative;
-        width: 100%;
-        /* Force Landscape Aspect Ratio on mobile */
-        aspect-ratio: 16 / 10;
-        height: auto;
-        min-height: 250px;
-        max-height: 380px;
-        overflow: hidden;
-        background: #000;
+        position: relative !important;
+        width: 100% !important;
+        /* Padding-bottom trick: creates 16:9 landscape box that works with position:absolute children */
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding-bottom: 56.25% !important; /* 9/16 = 56.25% → landscape 16:9 */
+        overflow: hidden !important;
+        background: #000 !important;
       }
 
       .hero-slide-bg {
@@ -331,7 +331,7 @@
 
     @media (max-width: 380px) {
       .lvmh-hero-slider-section {
-        min-height: 220px;
+        padding-bottom: 56.25% !important; /* keep 16:9 ratio */
       }
 
       .hero-floating-card {
@@ -360,10 +360,10 @@
 
     @media (max-width: 900px) and (orientation: landscape) {
       .lvmh-hero-slider-section {
-        aspect-ratio: 16 / 9;
-        height: auto;
-        min-height: 260px;
-        max-height: 380px;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding-bottom: 56.25% !important;
       }
 
       .hero-floating-card {
