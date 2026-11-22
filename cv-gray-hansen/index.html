@@ -3,20 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1280, initial-scale=0.35, user-scalable=yes">
+  <meta name="viewport" content="width=1280, initial-scale=1, user-scalable=yes">
   <script>
     (function () {
       function adjustDesktopViewport() {
         var targetWidth = 1280;
-        var screenW = window.screen.width || window.innerWidth;
-        var scale = screenW < targetWidth ? (screenW / targetWidth) : 1.0;
+        var screenW = window.screen.width > window.screen.height ? window.screen.width : window.screen.height;
+        // Always use portrait physical width for scale base
+        var physW = Math.min(window.screen.width, window.screen.height) || window.innerWidth;
+        var scale = physW < targetWidth ? (physW / targetWidth) : 1.0;
         var meta = document.querySelector('meta[name="viewport"]');
         if (!meta) {
           meta = document.createElement('meta');
           meta.name = 'viewport';
           document.head.appendChild(meta);
         }
-        meta.content = 'width=' + targetWidth + ', initial-scale=' + scale.toFixed(4) + ', minimum-scale=' + (scale * 0.4).toFixed(4) + ', maximum-scale=4.0, user-scalable=yes';
+        meta.content = 'width=' + targetWidth + ', initial-scale=' + scale.toFixed(4) + ', minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes';
       }
       adjustDesktopViewport();
       window.addEventListener('resize', adjustDesktopViewport);
@@ -239,142 +241,6 @@
     .slide-dot.active {
       background: #FFFFFF;
       width: 46px;
-    }
-
-    /* Mobile Landscape Slider Adaptation (Full Landscape Image, No Cut-Off, Same as Desktop) */
-    @media (max-width: 768px) {
-      .lvmh-hero-slider-section {
-        position: relative !important;
-        width: 100% !important;
-        /* Padding-bottom trick: creates 16:9 landscape box that works with position:absolute children */
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        padding-bottom: 56.25% !important; /* 9/16 = 56.25% → landscape 16:9 */
-        overflow: hidden !important;
-        background: #000 !important;
-      }
-
-      .hero-slide-bg {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
-
-      /* Floating Announcement Card scaled for landscape mobile */
-      .hero-floating-card {
-        bottom: 24px;
-        width: 88%;
-        max-width: 480px;
-        padding: 12px 18px 14px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-        border-radius: 2px;
-      }
-
-      .card-eyebrow {
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 4px;
-      }
-
-      .card-headline {
-        font-family: var(--font-display, 'Cinzel', 'Cormorant Garamond', Georgia, serif);
-        font-size: clamp(10.5px, 2.9vw, 13.5px);
-        font-weight: 500;
-        line-height: 1.35;
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
-      }
-
-      .card-readmore-btn {
-        font-size: 8.5px;
-        letter-spacing: 1.5px;
-        padding-bottom: 1px;
-      }
-
-      .slide-nav-btn {
-        width: 30px;
-        height: 30px;
-        top: 40%;
-      }
-
-      .slide-nav-btn.prev-btn {
-        left: 8px;
-      }
-
-      .slide-nav-btn.next-btn {
-        right: 8px;
-      }
-
-      .slide-nav-btn svg {
-        width: 14px;
-        height: 14px;
-      }
-
-      .hero-slide-dots {
-        bottom: 8px;
-        gap: 6px;
-      }
-
-      .slide-dot {
-        width: 16px;
-        height: 2px;
-      }
-
-      .slide-dot.active {
-        width: 26px;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .lvmh-hero-slider-section {
-        padding-bottom: 56.25% !important; /* keep 16:9 ratio */
-      }
-
-      .hero-floating-card {
-        bottom: 18px;
-        padding: 10px 14px 12px;
-        width: 90%;
-      }
-
-      .card-eyebrow {
-        font-size: 7px;
-        letter-spacing: 1.5px;
-        margin-bottom: 3px;
-      }
-
-      .card-headline {
-        font-size: 9.5px;
-        line-height: 1.3;
-        margin-bottom: 4px;
-      }
-
-      .card-readmore-btn {
-        font-size: 7.5px;
-        letter-spacing: 1px;
-      }
-    }
-
-    @media (max-width: 900px) and (orientation: landscape) {
-      .lvmh-hero-slider-section {
-        height: 0 !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        padding-bottom: 56.25% !important;
-      }
-
-      .hero-floating-card {
-        bottom: 20px;
-        max-width: 520px;
-        padding: 12px 18px 14px;
-      }
-
-      .card-headline {
-        font-size: 12px;
-      }
     }
 
     /* ==========================================================================
