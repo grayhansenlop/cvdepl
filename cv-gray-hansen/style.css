@@ -1708,6 +1708,9 @@ h5 {
   border-radius: var(--radius-xs);
   position: relative;
   box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .live-gallery-header {
@@ -3700,6 +3703,9 @@ h5 {
   padding-top: 40px;
   border-top: 1px solid var(--border-gold);
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* HEADER BAR */
@@ -3825,6 +3831,9 @@ h5 {
   align-items: flex-start;
   gap: 16px;
   width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
   margin-top: 8px;
 }
 
@@ -4250,6 +4259,66 @@ h5 {
   .drive-folder-link {
     padding: 7px 12px;
     font-size: 0.7rem;
+  }
+}
+
+
+/* ==========================================================================
+   MOBILE HERO SLIDER FIX — Landscape proportions, no portrait crop
+   Override height:100vh/min-height:700px with padding-bottom aspect-ratio trick
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  .lvmh-hero-slider-section {
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding-bottom: 56.25% !important;
+    /* 16:9 landscape = 9/16 × 100 */
+    overflow: hidden !important;
+  }
+
+  .hero-slider-container,
+  .hero-slides-track {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .hero-floating-card {
+    bottom: 16px !important;
+    width: 86% !important;
+    max-width: 460px !important;
+    padding: 10px 16px 12px !important;
+  }
+
+  .slide-nav-btn {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .slide-nav-btn.prev-btn {
+    left: 6px !important;
+  }
+
+  .slide-nav-btn.next-btn {
+    right: 6px !important;
+  }
+
+  .hero-slide-dots {
+    bottom: 6px !important;
+  }
+
+  .slide-dot {
+    width: 14px !important;
+    height: 2px !important;
+  }
+
+  .slide-dot.active {
+    width: 22px !important;
   }
 }
 
