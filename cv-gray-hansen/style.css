@@ -129,11 +129,9 @@ html {
   scroll-padding-top: 110px;
   background-color: var(--bg-body);
   color-scheme: light dark;
-  min-width: 1280px;
 }
 
 body {
-  min-width: 1280px;
   background-color: var(--bg-body);
   color: var(--ink-primary);
   font-family: var(--font-sans);
@@ -141,7 +139,7 @@ body {
   line-height: 1.68;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: auto;
+  overflow-x: hidden;
   position: relative;
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
@@ -4263,9 +4261,19 @@ h5 {
 }
 
 
+@media screen and (max-width: 768px) {
+  .live-gallery-container {
+    padding: 16px !important;
+  }
+
+  .split-gallery-block {
+    gap: 8px !important;
+  }
+}
+
 /* ==========================================================================
-   MOBILE HERO SLIDER FIX — Landscape proportions, no portrait crop
-   Override height:100vh/min-height:700px with padding-bottom aspect-ratio trick
+   MOBILE HERO SLIDER FIX — Override height:100vh/min-height:700px
+   with padding-bottom aspect-ratio trick for landscape proportions
    ========================================================================== */
 @media screen and (max-width: 768px) {
   .lvmh-hero-slider-section {
@@ -4323,9 +4331,19 @@ h5 {
 }
 
 
+@media screen and (max-width: 768px) {
+  .live-gallery-container {
+    padding: 16px !important;
+  }
+
+  .split-gallery-block {
+    gap: 8px !important;
+  }
+}
+
 /* ==========================================================================
-   MOBILE HERO SLIDER FIX — Landscape proportions, no portrait crop
-   Override height:100vh/min-height:700px with padding-bottom aspect-ratio trick
+   MOBILE HERO SLIDER FIX — Override height:100vh/min-height:700px
+   with padding-bottom aspect-ratio trick for landscape proportions
    ========================================================================== */
 @media screen and (max-width: 768px) {
   .lvmh-hero-slider-section {
